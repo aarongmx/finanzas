@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Direccion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class SucursalFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nombre' => fake()->company(),
+            'direccion_id' => Direccion::factory()->create()->id
         ];
     }
 }

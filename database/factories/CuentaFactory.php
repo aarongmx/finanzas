@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Sucursal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class CuentaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'efectivo' => fake()->randomNumber(10),
+            'a_cuenta' => fake()->randomNumber(10),
+            'sucursal_id' => Sucursal::factory()->create()->id,
         ];
     }
 }

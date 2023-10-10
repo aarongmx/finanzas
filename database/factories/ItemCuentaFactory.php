@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Cuenta;
+use App\Models\Producto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,14 @@ class ItemCuentaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'pecio' => fake()->randomFloat(2, 1),
+            'cantidad_existencia' => fake()->randomFloat(2, 1),
+            'importe_existencia' => fake()->randomFloat(2, 1), 'cantidad_entrada' => fake()->randomFloat(2, 1),
+            'importe_entrada' => fake()->randomFloat(2, 1), 'cantidad_salida' => fake()->randomFloat(2, 1),
+            'importe_salida' => fake()->randomFloat(2, 1), 'cantidad_sobrante' => fake()->randomFloat(2, 1),
+            'importe_sobrante' => fake()->randomFloat(2, 1),
+            'producto_id' => Producto::factory()->create()->id,
+            'cuenta' => Cuenta::factory()->create()->id,
         ];
     }
 }
