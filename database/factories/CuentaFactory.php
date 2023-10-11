@@ -18,8 +18,8 @@ class CuentaFactory extends Factory
     public function definition(): array
     {
         return [
-            'efectivo' => fake()->randomNumber(10),
-            'a_cuenta' => fake()->randomNumber(10),
+            'efectivo' => fake()->randomFloat(2, 1),
+            'a_cuenta' => fake()->randomFloat(2, 1),
             'sucursal_id' => Sucursal::factory()->create()->id,
         ];
     }
