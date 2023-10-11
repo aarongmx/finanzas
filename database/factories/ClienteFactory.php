@@ -25,7 +25,7 @@ class ClienteFactory extends Factory
             'razon_social' => $name,
             'nombre_comercial' => $name,
             'direccion_id' => Direccion::factory()->create()->id,
-            'sucursal' => Sucursal::factory()->create()->id,
+            'sucursal_id' => Sucursal::factory()->create()->id,
         ];
     }
 }
