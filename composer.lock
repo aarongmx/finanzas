@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95556a4f391576d1a0c5a3f25ed2a534",
+    "content-hash": "b97570ad5dca6d1540486d6bec92921c",
     "packages": [
         {
             "name": "brick/math",
@@ -6145,6 +6145,96 @@
             "time": "2023-10-10T15:11:25+00:00"
         },
         {
+            "name": "defstudio/pest-plugin-laravel-expectations",
+            "version": "v2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/defstudio/pest-plugin-laravel-expectations.git",
+                "reference": "8ed257b9e07a35c6221f61ce1bbbefd084d6e3ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/defstudio/pest-plugin-laravel-expectations/zipball/8ed257b9e07a35c6221f61ce1bbbefd084d6e3ed",
+                "reference": "8ed257b9e07a35c6221f61ce1bbbefd084d6e3ed",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^10.0",
+                "illuminate/database": "^10.0",
+                "illuminate/http": "^10.0",
+                "illuminate/support": "^10.0",
+                "illuminate/testing": "^10.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "php": "^8.1.0"
+            },
+            "require-dev": {
+                "nesbot/carbon": "^2.62.1",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest-dev-tools": "^v2.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Autoload.php"
+                ],
+                "psr-4": {
+                    "DefStudio\\PestLaravelExpectations\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabio Ivona",
+                    "email": "fabio.ivona@defstudio.it",
+                    "homepage": "https://defstudio.it",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Daniele Romeo",
+                    "email": "danieleromeo@defstudio.it",
+                    "homepage": "https://defstudio.it",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A plugin to add laravel tailored expectations to Pest",
+            "keywords": [
+                "expectations",
+                "framework",
+                "laravel",
+                "pest",
+                "php",
+                "plugin",
+                "test",
+                "testing",
+                "unit"
+            ],
+            "support": {
+                "issues": "https://github.com/defstudio/pest-plugin-laravel-expectations/issues",
+                "source": "https://github.com/defstudio/pest-plugin-laravel-expectations/tree/v2.1.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/defstudio",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/fabio-ivona",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-04-15T09:07:28+00:00"
+        },
+        {
             "name": "fakerphp/faker",
             "version": "v1.23.0",
             "source": {
@@ -7058,6 +7148,75 @@
                 }
             ],
             "time": "2023-10-10T14:44:21+00:00"
+        },
+        {
+            "name": "pestphp/pest-plugin-laravel",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pestphp/pest-plugin-laravel.git",
+                "reference": "77a2838c1d3b09d147211e76a48987ba9a758279"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-laravel/zipball/77a2838c1d3b09d147211e76a48987ba9a758279",
+                "reference": "77a2838c1d3b09d147211e76a48987ba9a758279",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^10.18.0|^11.0",
+                "pestphp/pest": "^2.13.0",
+                "php": "^8.1.0"
+            },
+            "require-dev": {
+                "laravel/dusk": "^7.9.3",
+                "orchestra/testbench": "^8.6.3",
+                "pestphp/pest-dev-tools": "^2.14.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Pest\\Laravel\\PestServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Autoload.php"
+                ],
+                "psr-4": {
+                    "Pest\\Laravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The Pest Laravel Plugin",
+            "keywords": [
+                "framework",
+                "laravel",
+                "pest",
+                "php",
+                "test",
+                "testing",
+                "unit"
+            ],
+            "support": {
+                "source": "https://github.com/pestphp/pest-plugin-laravel/tree/v2.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/paypalme/enunomaduro",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/nunomaduro",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-08-10T15:37:09+00:00"
         },
         {
             "name": "phar-io/manifest",
