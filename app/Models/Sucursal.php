@@ -26,4 +26,9 @@ class Sucursal extends Model
     {
         return $this->hasMany(Cliente::class);
     }
+
+    public function cuentas(): HasMany
+    {
+        return $this->hasMany(Cuenta::class);
+    }
 }
