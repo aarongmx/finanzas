@@ -16,5 +16,7 @@ test('Se muestran los clientes', function () {
 
     livewire(Index::class)
         ->assertCount('clientes', 10)
-        ->assertSeeHtml("<td>{$cliente->razon_social}</td>");
+        ->assertSee($cliente->rfc)
+        ->assertSee($cliente->razon_social)
+        ->assertSee($cliente->sucursal->nombre);
 });

@@ -60,7 +60,8 @@ final class ClienteTable extends PowerGridComponent
             ->with([
                 'direccion:id,calle',
                 'sucursal:id,nombre'
-            ]);
+            ])
+            ->when(false, fn($q) => $q->where('sucursal_id', 1));
     }
 
     public function relationSearch(): array

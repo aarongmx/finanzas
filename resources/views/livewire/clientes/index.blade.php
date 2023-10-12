@@ -7,7 +7,8 @@
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -18,7 +19,8 @@
                             <form>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                    <input type="email" class="form-control" id="exampleFormControlInput1"
+                                           placeholder="name@example.com">
                                 </div>
                             </form>
                         </div>
@@ -33,21 +35,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>Nombre</th>
-                </tr>
-                </thead>
-                <tbody>
-                @forelse($this->clientes as $cliente)
-                    <tr>
-                        <td>{{$cliente->razon_social}}</td>
-                    </tr>
-                @empty
-                @endforelse
-                </tbody>
-            </table>
+            <livewire:cliente-table/>
         </div>
     </div>
 </div>
