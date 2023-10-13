@@ -12,7 +12,7 @@ class ClienteData extends Data
     public function __construct(
         public readonly string $rfc,
         public readonly string $razonSocial,
-        public readonly string $nombreComercial,
+        public readonly ?string $nombreComercial,
         public readonly int $direccionId,
         public readonly int $sucursalId
     )
