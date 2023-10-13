@@ -5,10 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>x | ML Grupo Comercial</title>
+    <title>{{$title ?? 'Sistema Finanzas'}} | ML Grupo Comercial</title>
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 </head>
 <body>
+<x-nav />
 {{ $slot }}
 </body>
 </html>
