@@ -10,6 +10,7 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 class ClienteData extends Data
 {
     public function __construct(
+        public readonly ?int $id,
         public readonly string $rfc,
         public readonly string $razonSocial,
         public readonly ?string $nombreComercial,
