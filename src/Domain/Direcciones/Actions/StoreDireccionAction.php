@@ -3,7 +3,7 @@
 namespace Domain\Direcciones\Actions;
 
 use App\Models\Direccion;
-use Tests\Feature\src\Domain\Direcciones\Actions\DireccionData;
+use Domain\Direcciones\Data\DireccionData;
 
 class StoreDireccionAction
 {

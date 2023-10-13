@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\src\Domain\Direcciones\Actions;
+namespace Domain\Direcciones\Data;
 
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;

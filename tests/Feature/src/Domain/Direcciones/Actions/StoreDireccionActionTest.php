@@ -1,7 +1,7 @@
 <?php
 
 use Domain\Direcciones\Actions\StoreDireccionAction;
-use Tests\Feature\src\Domain\Direcciones\Actions\DireccionData;
+use Domain\Direcciones\Data\DireccionData;
 
 test('Se puede registrar una nueva direccion', function (){
    $direccionData = DireccionData::from(['codigoPostal' => '09660']);
