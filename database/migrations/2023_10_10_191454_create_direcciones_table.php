@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('direcciones', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo_postal');
+            $table->string('codigo_postal', 5);
             $table->string('colonia')->nullable();
             $table->string('estado')->nullable();
             $table->string('numero_interior')->nullable();
