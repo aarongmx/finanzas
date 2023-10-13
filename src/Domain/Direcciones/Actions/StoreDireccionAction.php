@@ -7,7 +7,7 @@ use Tests\Feature\src\Domain\Direcciones\Actions\DireccionData;
 
 class StoreDireccionAction
 {
-    public function __invoke(DireccionData $direccionData)
+    public function __invoke(DireccionData $direccionData): Direccion
     {
         return Direccion::updateOrCreate([
             'id' => $direccionData->id ?? null,
