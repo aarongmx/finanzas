@@ -17,4 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/clientes', \App\Livewire\Clientes\Index::class)->name('clientes.index');
+Route::name('clientes.')->prefix('clientes')->group(function(){
+    Route::get('/', \App\Livewire\Clientes\Index::class)->name('index');
+});
+
+Route::name('sucursales.')->prefix('sucursales')->group(function () {
+    Route::get('/', \App\Livewire\Sucursales\Index::class)->name('index');
+});
+
+
