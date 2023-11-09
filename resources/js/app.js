@@ -7,6 +7,11 @@ import Swal from "sweetalert2";
 window.bootstrap = bootstrap
 
 document.addEventListener('livewire:initialized', () => {
+    Livewire.on('openModal', (event) => {
+        const {modal} = event
+        bootstrap.Modal.getInstance(`#${modal}`).show()
+    });
+
     Livewire.on('closeModal', (event) => {
         const {modal} = event
         bootstrap.Modal.getInstance(`#${modal}`).hide()
