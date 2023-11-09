@@ -13,7 +13,7 @@ class ClienteForm extends Form
 {
     public DireccionForm $direccionForm;
 
-    #[Rule(['required', 'min:12', 'max:13'])]
+    #[Rule(['required', 'min:12', 'max:13', 'unique:clientes,rfc'])]
     public $rfc;
 
     #[Rule(['required'])]
