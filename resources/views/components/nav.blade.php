@@ -12,6 +12,9 @@
                 <li class="nav-item">
                     <a class="nav-link @if(request()->routeIs('cuentas.index')) active @endif" href="{{route('cuentas.index')}}">Cuentas</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->routeIs('productos.index')) active @endif" href="{{route('productos.index')}}">Productos</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle @if(request()->routeIs('clientes.*')) active @endif" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Clientes

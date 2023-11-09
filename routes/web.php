@@ -32,4 +32,8 @@ Route::name('cuentas.')->prefix('cuentas')->group(function () {
     Route::get('/', \App\Livewire\Cuentas\Index::class)->name('index');
 });
 
+Route::name('productos.')->prefix('productos')->group(function (){
+    Route::get('/', \App\Livewire\Productos\Index::class)->name('index');
+    Route::get('/nuevo', \App\Livewire\Productos\Form::class)->name('form');
+});
 
