@@ -9,12 +9,16 @@
                 <li class="nav-item">
                     <a class="nav-link @if(request()->routeIs('sucursales.index')) active @endif" href="{{route('sucursales.index')}}">Sucursales</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->routeIs('cuentas.index')) active @endif" href="{{route('cuentas.index')}}">Cuentas</a>
+                </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle @if(request()->routeIs('clientes.index')) active @endif" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle @if(request()->routeIs('clientes.*')) active @endif" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Clientes
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{route('clientes.index')}}">Todos</a></li>
+                        <li><a class="dropdown-item" href="{{route('clientes.form')}}">Todos</a></li>
                     </ul>
                 </li>
             </ul>
