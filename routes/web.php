@@ -13,11 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/login', \App\Livewire\Login::class);
+Route::get('/', \App\Livewire\Login::class);
 
 Route::name('clientes.')->prefix('clientes')->group(function () {
     Route::get('/', \App\Livewire\Clientes\Index::class)->name('index');
