@@ -20,7 +20,7 @@
         "spatie/laravel-data": "^3.9.2"
     },
     "require-dev": {
-        "defstudio/pest-plugin-laravel-expectations": "^2.1",
+        "defstudio/pest-plugin-laravel-expectations": "^2.1.2",
         "fakerphp/faker": "^v1.23.0",
         "laravel/pint": "^v1.13.5",
         "laravel/sail": "^v1.26.0",
