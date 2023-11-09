@@ -17,51 +17,42 @@
         wire:model="form.nombreComercial"
     />
 
+    <x-form.input
+        id="direccion-calle"
+        label="Calle"
+        wire:model="form.calle"
+    />
     <div class="row">
-        <div class="col-md-3">
-            <x-form.input
-                id="direccion-calle"
-                label="Calle"
-                wire:model="form.calle"
-            />
-        </div>
-        <div class="col-md-1">
+        <div class="col-md-6">
             <x-form.input
                 id="direccion-numero-exterior"
                 label="Número exterior"
                 wire:model="form.numeroExterior"
             />
         </div>
-        <div class="col-md-2">
+        <div class="col-md-6">
             <x-form.input
                 id="direccion-numero-interior"
                 label="Número interior"
                 wire:model="form.numeroInterior"
             />
         </div>
-        <div class="col-md-3">
-            <x-form.input
-                id="direccion-colonia"
-                label="Colonia"
-                wire:model="form.colonia"
-            />
-        </div>
-        <div class="col-md-2">
-            <x-form.input
-                id="direccion-estado"
-                label="Estado"
-                wire:model="form.estado"
-            />
-        </div>
-        <div class="col-md-1">
-            <x-form.input
-                id="direccion-codigo-postal"
-                label="Código postal"
-                wire:model="form.codigoPostal"
-            />
-        </div>
     </div>
-
+    <x-form.input
+        id="direccion-colonia"
+        label="Colonia"
+        wire:model="form.colonia"
+    />
+    <x-form.input
+        id="direccion-estado"
+        label="Estado"
+        wire:model="form.estado"
+    />
+    <x-form.input
+        id="direccion-codigo-postal"
+        label="Código postal"
+        wire:model="form.codigoPostal"
+    />
 
     <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
