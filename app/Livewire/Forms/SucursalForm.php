@@ -13,7 +13,7 @@ class SucursalForm extends Form
     #[Rule(['required'])]
     public string $nombre;
 
-    #[Rule(['required'])]
+    #[Rule(['required', 'string', 'max:5'])]
     public string $codigo_postal;
 
     #[Rule(['nullable'])]
