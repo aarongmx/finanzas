@@ -21,10 +21,16 @@ class Form extends Component
     public function store()
     {
         $this->validate();
-        $this->form->store();
-        $this->dispatch('refresh')->to(Index::class);
-        $this->closeModal('exampleModal');
-        $this->notify('Producto guardaro!', 'El producto quedo registrado correctamente!');
+        try {
+            $this->form->store();
+            $this->dispatch('refresh')->to(Index::class);
+            $this->closeModal('exampleModal');
+            $this->notify('Producto guardaro!', 'El producto quedo registrado correctamente!');
+        } catch (\Exception $exception) {
+            logger($exception);
+            $this->notify('Hubo un error al intentar crear el producto!', 'Intente crear el producto en otro momento', 'error')
+        }
+        
     }
 
     public function render()

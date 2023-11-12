@@ -12,7 +12,15 @@ class Form extends Component
     public function save()
     {
         $this->validate();
-        $this->form->store();
+        try {
+            $this->form->store();
+            $this->dispatch('refresh')->to(Index::class);
+            $this->closeModal('exampleModal');
+            $this->notify('Cliente guardaro!', 'El cliente se registro correctamente!');
+        } catch (\Exception $exception) {
+            logger($exception);
+            $this->notify('Hubo un error al intentar crear el cliente!', 'Intente crear el cliente en otro momento', 'error')
+        }
     }
 
     public function render()
