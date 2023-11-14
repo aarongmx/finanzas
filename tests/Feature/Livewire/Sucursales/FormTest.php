@@ -21,6 +21,23 @@ test('Se muestran los campos para sucursal', function () {
         ->assertPropertyWired('form.calle');
 });
 
+test('Se puede registrar una sucursal correctamente', function () {
+    livewire(Form::class)
+        ->set('form.nombre', 'AZTECAS')
+        ->set('form.codigo_postal', '09550')
+        ->call('store')
+        ->assertHasNoErrors()
+        ->assertDispatched('closeModal')
+        ->assertDispatched('notify');
+
+    expect([
+        'nombre' => 'AZTECAS',
+    ])->toBeInDatabase('sucursales')
+    ->and([
+        'codigo_postal' => '09550'
+    ])->toBeInDatabase('direcciones');
+});
+
 test('Se puede capturar una nueva sucursal', function () {
     livewire(Form::class)
         ->set('form.nombre', 'Aztecas')
@@ -31,7 +48,9 @@ test('Se puede capturar una nueva sucursal', function () {
         ->set('form.numero_exterior', '12')
         ->set('form.calle', 'Av. de las torres')
         ->call('store')
-        ->assertHasNoErrors();
+        ->assertHasNoErrors()
+        ->assertDispatched('closeModal')
+        ->assertDispatched('notify');
 
     expect([
         'nombre' => 'Aztecas'

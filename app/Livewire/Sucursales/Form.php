@@ -19,7 +19,7 @@ class Form extends Component
             $this->notify('Sucursal guardada!', 'La sucursal se agrego correctamente!');
         } catch (\Exception $exception) {
             logger($exception);
-            $this->notify('Hubo un error al intentar crear la sucursal!', 'Intente crear la sucursal en otro momento', 'error')
+            $this->notify('Hubo un error al intentar crear la sucursal!', 'Intente crear la sucursal en otro momento', 'error');
         }
     }
 
