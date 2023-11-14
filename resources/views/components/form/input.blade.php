@@ -1,4 +1,4 @@
-'@props([
+@props([
     'id' => Str::random(),
     'type' => 'text',
     'label' => 'Label'
