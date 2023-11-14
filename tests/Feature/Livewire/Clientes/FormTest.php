@@ -4,7 +4,7 @@ use App\Livewire\Clientes\Form;
 use App\Models\Sucursal;
 use function Pest\Livewire\livewire;
 
-beforeEach(function (){
+beforeEach(function () {
     Sucursal::factory()->create();
 });
 
@@ -16,7 +16,9 @@ test('Se puede registrar un cliente', function () {
         ->set('form.razonSocial', 'Aaron Gómez')
         ->set('form.codigoPostal', '09660')
         ->call('save')
-        ->assertHasNoErrors();
+        ->assertHasNoErrors()
+        ->assertDispatched('closeModal', modal: 'exampleModal')
+        ->assertDispatched('notify');
 
     expect([
         'rfc' => 'GOMA971007BD8',

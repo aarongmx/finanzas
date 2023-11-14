@@ -28,9 +28,9 @@ class Form extends Component
             $this->notify('Producto guardaro!', 'El producto quedo registrado correctamente!');
         } catch (\Exception $exception) {
             logger($exception);
-            $this->notify('Hubo un error al intentar crear el producto!', 'Intente crear el producto en otro momento', 'error')
+            $this->notify('Hubo un error al intentar crear el producto!', 'Intente crear el producto en otro momento', 'error');
         }
-        
+
     }
 
     public function render()

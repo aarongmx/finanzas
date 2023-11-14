@@ -19,7 +19,7 @@ class Form extends Component
             $this->notify('Cliente guardaro!', 'El cliente se registro correctamente!');
         } catch (\Exception $exception) {
             logger($exception);
-            $this->notify('Hubo un error al intentar crear el cliente!', 'Intente crear el cliente en otro momento', 'error')
+            $this->notify('Hubo un error al intentar crear el cliente!', 'Intente crear el cliente en otro momento', 'error');
         }
     }
 
