@@ -16,6 +16,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedDouble('efectivo', 16, 2);
             $table->unsignedDouble('a_cuenta', 16, 2);
+            $table->date('fecha_captura')->default(now()->format('Y-m-d'));
+            $table->date('fecha_venta')->default(now()->format('Y-m-d'));
             $table->foreignIdFor(Sucursal::class)->constrained('sucursales');
             $table->timestamps();
         });
