@@ -5,7 +5,9 @@
         wire:model="form.nombre"
     />
     <div class="mb-3">
-        <select class="form-select" wire:model="form.categoria_id">
+        <label for="categoria-select">Categoría</label>
+        <select id="categoria-select" class="form-select" wire:model="form.categoria_id">
+            <option value="" selected>-- Seleccione una categoria --</option>
             @forelse($this->categorias as $categoria)
                 <option value="{{$categoria->id}}" wire:key="{{$categoria->id}}">{{$categoria->nombre}}</option>
             @empty
