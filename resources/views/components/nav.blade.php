@@ -6,7 +6,7 @@
         <a class="navbar-brand" href="#">Navbar</a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+               {{-- <li class="nav-item">
                     <a class="nav-link @if(request()->routeIs('sucursales.index')) active @endif" href="{{route('sucursales.index')}}">Sucursales</a>
                 </li>
                 <li class="nav-item">
@@ -26,8 +26,12 @@
                         <li><a class="dropdown-item" href="{{route('clientes.index')}}">Todos</a></li>
                         <li><a class="dropdown-item" href="{{route('clientes.form')}}">Todos</a></li>
                     </ul>
-                </li>
+                </li>--}}
             </ul>
+            <form action='/logout' method='POST'>
+                @csrf
+                <button type="submit" class="dropdown-item">Cerrar sesión</button>
+            </form>
         </div>
     </div>
 </nav>
