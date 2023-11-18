@@ -38,10 +38,12 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware(['web', 'auth', Authorize::using(Role::CAPTURISTA)])
+            Route::middleware(['web', 'auth', "role:".Role::CAPTURISTA])
+                ->name('capturista.')
                 ->group(base_path('routes/capturistas.php'));
 
-            Route::middleware(['web', 'auth', Authorize::using(Role::ADMINISTRACION)])
+            Route::middleware(['web', 'auth', "role:".Role::ADMINISTRACION])
+                ->name('administradcion.')
                 ->group(base_path('routes/administradores.php'));
         });
     }
