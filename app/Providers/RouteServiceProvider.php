@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Enums\Role;
-use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
