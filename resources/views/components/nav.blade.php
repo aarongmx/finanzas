@@ -4,7 +4,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="#">
-            <img src="{{asset('img/logo.svg')}}" alt="Logotipo ML Grupo Comercial" width="82">
+            <img src="{{asset('img/logo-white.svg')}}" alt="Logotipo ML Grupo Comercial" width="86">
         </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -30,6 +30,10 @@
                     </ul>
                 </li>--}}
             </ul>
+            <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+                <li class="nav-item">{{auth()->user()->name}}</li>
+            </ul>
+
             <form action='/logout' method='POST'>
                 @csrf
                 <button type="submit" class="dropdown-item">Cerrar sesión</button>
