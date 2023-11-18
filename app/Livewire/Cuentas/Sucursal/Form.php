@@ -4,6 +4,8 @@ namespace App\Livewire\Cuentas\Sucursal;
 
 use App\Models\Cuenta;
 use App\Models\Producto;
+use Illuminate\Support\Carbon;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Form extends Component
@@ -12,7 +14,10 @@ class Form extends Component
 
     public $items = [];
 
-    public function mount()
+    public $fecha;
+    public $fechaRegistro;
+
+    public function updatedFecha($value)
     {
         $cuenta = Cuenta::query()->with([
             'itemsCuenta' => [
@@ -20,10 +25,10 @@ class Form extends Component
                     'categoria:id,nombre'
                 ],
             ],
-        ])->find(2);
-
-
-        $this->items = $cuenta->itemsCuenta->map(fn($item) => [
+        ])
+            ->when($value, fn($q) => $q->where('fecha_venta', Carbon::parse($value)->subDay()))
+            ->first();
+        $this->items = $cuenta?->itemsCuenta?->map(fn($item) => [
             'producto' => $item->producto->nombre,
             'precio' => $item->precio,
             'cantidad_existencia' => $item->cantidad_existencia,
@@ -34,8 +39,9 @@ class Form extends Component
             'importe_salida' => 0,
             'cantidad_sobrante' => 0,
             'importe_sobrante' => 0,
-        ])->toArray();
+        ])->toArray() ?? [];
     }
+
 
     public function render()
     {
