@@ -1,3 +1,5 @@
 $primary: #712cf9;
 $enable-cssgrid: true;
 @import "bootstrap/scss/bootstrap";
+@import "flatpickr/dist/flatpickr.min.css";
+@import "tom-select/dist/scss/tom-select.bootstrap5";
