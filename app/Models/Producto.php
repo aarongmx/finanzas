@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,13 @@ class Producto extends Model
     protected $fillable = [
         'nombre', 'categoria_id',
     ];
+
+    public function nombre(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value) => strtoupper(trim($value))
+        );
+    }
 
     public function itemsCuenta(): HasMany
     {
