@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->float('total', 14);
             $table->foreignIdFor(Producto::class);
             $table->foreignIdFor(Cuenta::class);
+            $table->foreignIdFor(Sucursal::class, 'sucursal_destino_id');
             $table->timestamps();
         });
     }

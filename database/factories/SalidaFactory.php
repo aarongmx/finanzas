@@ -28,6 +28,7 @@ class SalidaFactory extends Factory
             'total' => $total,
             'producto_id' => Producto::factory()->create(),
             'cuenta_id' => Cuenta::factory()->create(),
+            'sucursal_destino_id' => Sucursal::factory()->create(),
         ];
     }
 }

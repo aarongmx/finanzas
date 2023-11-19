@@ -31,4 +31,9 @@ class Sucursal extends Model
     {
         return $this->hasMany(Cuenta::class);
     }
+
+    public function salidas(): HasMany
+    {
+        return $this->hasMany(Salida::class, 'sucursal_destino_id');
+    }
 }
