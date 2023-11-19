@@ -1,5 +1,7 @@
 <?php
 
+Route::get('/home', \App\Livewire\Administrador\Home\Index::class)->name('home');
+
 Route::name('clientes.')->prefix('clientes')->group(function () {
     Route::get('/', \App\Livewire\Administrador\Clientes\Index::class)->name('index');
     Route::get('/nuevo', \App\Livewire\Administrador\Clientes\Form::class)->name('form');
