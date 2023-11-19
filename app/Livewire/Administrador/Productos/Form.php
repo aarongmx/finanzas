@@ -3,6 +3,7 @@
 namespace App\Livewire\Administrador\Productos;
 
 use App\Livewire\Forms\ProductoForm;
+use App\Livewire\ProductosTable;
 use App\Models\Categoria;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
@@ -23,7 +24,7 @@ class Form extends Component
         $this->validate();
         try {
             $this->form->store();
-            $this->dispatch('refresh')->to(Index::class);
+            $this->dispatch('refresh');
             $this->closeModal('exampleModal');
             $this->notify('Producto guardaro!', 'El producto quedo registrado correctamente!');
         } catch (\Exception $exception) {

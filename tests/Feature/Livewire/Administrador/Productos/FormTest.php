@@ -1,7 +1,8 @@
 <?php
 
-use App\Livewire\Productos\Form;
-use App\Livewire\Productos\Index;
+use App\Livewire\Administrador\Productos\Form;
+use App\Livewire\Administrador\Productos\Index;
+use App\Livewire\ProductosTable;
 use App\Models\Categoria;
 use function Pest\Livewire\livewire;
 
@@ -34,7 +35,7 @@ test('Se guarda correctamente el producto', function () {
         ->set('form.categoria_id', $categoria->id)
         ->call('store')
         ->assertHasNoErrors()
-        ->assertDispatchedTo(Index::class, 'refresh')
+        ->assertDispatched('refresh')
         ->assertDispatched('closeModal')
         ->assertDispatched('notify');
 });
