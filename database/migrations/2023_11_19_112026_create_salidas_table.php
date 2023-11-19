@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->float('monto', 14);
             $table->float('cantidad', 14);
             $table->float('total', 14);
-            $table->foreignIdFor(Sucursal::class);
             $table->foreignIdFor(Producto::class);
             $table->foreignIdFor(Cuenta::class);
             $table->timestamps();

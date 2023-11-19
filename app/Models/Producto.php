@@ -26,4 +26,9 @@ class Producto extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
+
+    public function salidas(): HasMany
+    {
+        return $this->hasMany(Salida::class);
+    }
 }

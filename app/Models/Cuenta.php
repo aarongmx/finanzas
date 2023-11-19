@@ -26,4 +26,9 @@ class Cuenta extends Model
     {
         return $this->hasMany(ItemCuenta::class);
     }
+
+    public function salidas(): HasMany
+    {
+        return $this->hasMany(Salida::class);
+    }
 }
