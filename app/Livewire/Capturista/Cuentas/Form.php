@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Cuentas\Sucursal;
+namespace App\Livewire\Capturista\Cuentas;
 
 use App\Models\Cuenta;
 use App\Models\Producto;
@@ -51,6 +51,6 @@ class Form extends Component
 
     public function render()
     {
-        return view('livewire.cuentas.sucursal.form');
+        return view('livewire.capturista.cuentas.form');
     }
 }
