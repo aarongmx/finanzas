@@ -1,6 +1,6 @@
 <div class="container">
     <x-modal id="exampleModal" wire:ignore.self>
-        <livewire:productos.form/>
+        <livewire:administrador.productos.form/>
     </x-modal>
     <div class="row">
         <div class="col-12">

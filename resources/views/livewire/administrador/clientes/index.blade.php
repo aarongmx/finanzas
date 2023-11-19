@@ -1,6 +1,6 @@
 <div class="container py-4">
     <x-modal id="exampleModal">
-        <livewire:clientes.form/>
+        <livewire:administrador.clientes.form/>
     </x-modal>
     <div class="row mb-3">
         <div class="col-12">
