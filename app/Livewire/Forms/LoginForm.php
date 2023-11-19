@@ -28,7 +28,7 @@ class LoginForm extends Form
             }
 
             if ($user->hasRole(Role::ADMINISTRACION)){
-                return redirect()->intended()->route('administradcion.clientes.index');
+                return redirect()->intended()->route('administracion.clientes.index');
             }
         }
     }
