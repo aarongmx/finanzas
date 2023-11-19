@@ -1,5 +1,10 @@
 <form wire:submit.prevent="store" class="p-4">
     <div class="row">
+        <div class="col-12">
+            <h1 class="h3">Cuentas</h1>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-3">
             <x-form.input
                 type="date"
@@ -17,7 +22,7 @@
     </div>
 
     <table class="table">
-        <thead class="table-dark">
+        <thead class="table-primary">
         <tr>
             <th>Producto</th>
             <th>Precio</th>
