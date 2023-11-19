@@ -1,4 +1,4 @@
-<div class="grid min-vh-100" style="--bs-gap: 1rem;">
+<div class="grid min-vh-100" style="--bs-gap: 1rem; background: url({{asset('img/background.jpg')}}) no-repeat center / cover;">
     <div class="g-col-12 g-col-md-4 g-start-md-5">
         <div class="card">
             <div class="card-body">
