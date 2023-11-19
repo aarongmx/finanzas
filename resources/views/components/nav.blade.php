@@ -11,6 +11,10 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 @if(auth()->user()->hasRole(\App\Enums\Role::ADMINISTRACION))
                     <li class="nav-item">
+                        <a class="nav-link @if(request()->routeIs('administracion.home')) active @endif"
+                           href="{{route('administracion.home')}}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('administracion.sucursales.index')) active @endif"
                            href="{{route('administracion.sucursales.index')}}">Sucursales</a>
                     </li>

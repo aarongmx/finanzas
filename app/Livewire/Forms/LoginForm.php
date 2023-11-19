@@ -24,11 +24,11 @@ class LoginForm extends Form
             $user = Auth::user();
 
             if ($user->hasRole(Role::CAPTURISTA)){
-                return redirect()->intended()->route('capturista.cuenta.sucursal');
+                return redirect()->intended()->route('capturista.home');
             }
 
             if ($user->hasRole(Role::ADMINISTRACION)){
-                return redirect()->intended()->route('administracion.clientes.index');
+                return redirect()->intended()->route('administracion.home');
             }
         }
     }
