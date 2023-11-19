@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Productos;
+namespace App\Livewire\Administrador\Productos;
 
 use App\Livewire\Forms\ProductoForm;
 use App\Models\Categoria;
@@ -35,6 +35,6 @@ class Form extends Component
 
     public function render()
     {
-        return view('livewire.productos.form');
+        return view('livewire.administrador.productos.form');
     }
 }

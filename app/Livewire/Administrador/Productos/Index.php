@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Productos;
+namespace App\Livewire\Administrador\Productos;
 
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -14,6 +14,6 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.productos.index');
+        return view('livewire.administrador.productos.index');
     }
 }

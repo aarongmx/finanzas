@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Clientes;
+namespace App\Livewire\Administrador\Clientes;
 
 use App\Livewire\Forms\ClienteForm;
 use Livewire\Component;
@@ -25,6 +25,6 @@ class Form extends Component
 
     public function render()
     {
-        return view('livewire.clientes.form');
+        return view('livewire.administrador.clientes.form');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Cuentas;
+namespace App\Livewire\Administrador\Cuentas;
 
 use App\Livewire\Forms\CuentaForm;
 use App\Models\Categoria;
@@ -39,6 +39,6 @@ class Form extends Component
 
     public function render()
     {
-        return view('livewire.cuentas.form');
+        return view('livewire.administrador.cuentas.form');
     }
 }
