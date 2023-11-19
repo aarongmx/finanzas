@@ -14,6 +14,11 @@ class Salida extends Model
         'monto', 'cantidad', 'total', 'sucursal_destino_id', 'producto_id', 'cuenta_id',
     ];
 
+    public function sucursalDestino(): BelongsTo
+    {
+        return $this->belongsTo(Sucursal::class, 'sucursal_destino_id');
+    }
+
     public function producto(): BelongsTo
     {
         return $this->belongsTo(Producto::class);
