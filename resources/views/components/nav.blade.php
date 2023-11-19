@@ -26,20 +26,16 @@
                         <a class="nav-link @if(request()->routeIs('administracion.productos.index')) active @endif"
                            href="{{route('administracion.productos.index')}}">Productos</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle @if(request()->routeIs('administracion.clientes.*')) active @endif"
-                           href="#"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Clientes
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{route('administracion.clientes.index')}}">Todos</a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{route('administracion.clientes.form')}}">Todos</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->routeIs('administracion.clientes.index')) active @endif"
+                           href="{{route('administracion.clientes.index')}}">Clientes</a>
                     </li>
                 @endif
                 @if(auth()->user()->hasRole(\App\Enums\Role::CAPTURISTA))
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->routeIs('capturista.home')) active @endif"
+                           href="{{route('capturista.home')}}">Inicio</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('capturista.cuenta.sucursal')) active @endif"
                            href="{{route('capturista.cuenta.sucursal')}}">Cuenta</a>
@@ -47,7 +43,7 @@
                 @endif
             </ul>
             <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
-                <li class="nav-item col-6 col-lg-auto">{{auth()->user()->name}}</li>
+                <li class="nav-item col-6 col-lg-auto text-white">{{auth()->user()->name}}</li>
                 <li class="nav-item col-6 col-lg-auto">
                     <form action='/logout' method='POST'>
                         @csrf
