@@ -1,7 +1,7 @@
-<div class="grid min-vh-100" style="--bs-gap: 1rem; background: url({{asset('img/background.jpg')}}) no-repeat center / cover;">
+<div class="grid min-vh-100 align-items-center" style="--bs-gap: 1rem; background: url({{asset('img/background.jpg')}}) no-repeat center / cover;">
     <div class="g-col-12 g-col-md-4 g-start-md-5">
-        <div class="card">
-            <div class="card-header border-0 text-center">
+        <div class="card border-0">
+            <div class="card-header border-0 text-center py-4">
                 <img src="{{asset('img/logo.svg')}}" alt="Logo Oficial ML Grupo Comercial" width="186">
             </div>
             <div class="card-body">
