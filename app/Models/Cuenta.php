@@ -14,7 +14,12 @@ class Cuenta extends Model
     protected $table = 'cuentas';
 
     protected $fillable = [
-        'efectivo', 'a_cuenta', 'sucursal_id',
+        'efectivo', 'a_cuenta', 'fecha_captura', 'fecha_venta', 'sucursal_id',
+    ];
+
+    protected $attributes = [
+        'efectivo' => 0.0,
+        'a_cuenta' => 0.0
     ];
 
     public function sucursal(): BelongsTo
