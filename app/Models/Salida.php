@@ -11,7 +11,7 @@ class Salida extends Model
     use HasFactory;
 
     protected $fillable = [
-        'monto', 'cantidad', 'total', 'sucursal_destino_id', 'producto_id', 'cuenta_id',
+        'precio', 'cantidad', 'total', 'producto_id', 'cuenta_id', 'sucursal_destino_id',
     ];
 
     public function sucursalDestino(): BelongsTo

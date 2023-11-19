@@ -19,12 +19,12 @@ class SalidaFactory extends Factory
      */
     public function definition(): array
     {
-        $monto = fake()->randomFloat(2, 1);
+        $precio = fake()->randomFloat(2, 1);
         $cantidad = fake()->randomFloat(2, 1);
         $total = $monto * $cantidad;
         return [
             'cantidad' => $cantidad,
-            'monto' => $monto,
+            'precio' => $precio,
             'total' => $total,
             'producto_id' => Producto::factory()->create(),
             'cuenta_id' => Cuenta::factory()->create(),

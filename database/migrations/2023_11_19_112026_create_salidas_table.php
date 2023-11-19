@@ -15,7 +15,7 @@ return new class extends Migration {
     {
         Schema::create('salidas', function (Blueprint $table) {
             $table->id();
-            $table->float('monto', 14);
+            $table->float('precio', 14);
             $table->float('cantidad', 14);
             $table->float('total', 14);
             $table->foreignIdFor(Producto::class);
