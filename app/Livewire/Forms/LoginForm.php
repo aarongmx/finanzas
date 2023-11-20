@@ -6,6 +6,7 @@ use App\Enums\Role;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class LoginForm extends Form
 {
@@ -15,10 +16,13 @@ class LoginForm extends Form
     #[Rule(['required', 'min:8'])]
     public string $password = '';
 
+    #[Rule(['required'])]
+    public bool $remember = true;
+
     public function login()
     {
         $this->validate();
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password, ], $this->remember)) {
             session()->regenerate();
 
             $user = Auth::user();
