@@ -44,10 +44,14 @@
                         <a class="nav-link @if(request()->routeIs('capturista.cuenta.sucursal')) active @endif"
                            href="{{route('capturista.cuenta.sucursal')}}">Cuenta</a>
                     </li>
-                        <li class="nav-item">
-                            <a class="nav-link @if(request()->routeIs('capturista.clientes.index')) active @endif"
-                               href="{{route('capturista.clientes.index')}}">Clientes</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->routeIs('capturista.salidas.index')) active @endif"
+                           href="{{route('capturista.salidas.index')}}">Salidas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->routeIs('capturista.clientes.index')) active @endif"
+                           href="{{route('capturista.clientes.index')}}">Clientes</a>
+                    </li>
                 @endif
             </ul>
             <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
