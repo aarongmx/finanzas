@@ -43,7 +43,9 @@ final class ProductosTable extends PowerGridComponent
 
     public function relationSearch(): array
     {
-        return [];
+        return [
+            'categoria:id,nombre',
+        ];
     }
 
     public function addColumns(): PowerGridColumns
@@ -55,7 +57,7 @@ final class ProductosTable extends PowerGridComponent
            /** Example of custom column using a closure **/
             ->addColumn('nombre_lower', fn (Producto $model) => strtolower(e($model->nombre)))
 
-            ->addColumn('categoria_id')
+            ->addColumn('categoria', fn(Producto $model) => $model->categoria->nombre)
             ->addColumn('created_at_formatted', fn (Producto $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -67,7 +69,7 @@ final class ProductosTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Categoria id', 'categoria_id'),
+            Column::make('Categoria', 'categoria'),
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
