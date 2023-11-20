@@ -56,6 +56,10 @@
                         <a class="nav-link @if(request()->routeIs('capturista.clientes.index')) active @endif"
                            href="{{route('capturista.clientes.index')}}">Clientes</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->routeIs('capturista.gastos.index')) active @endif"
+                           href="{{route('capturista.gastos.index')}}">Gastos</a>
+                    </li>
                 @endif
             </ul>
             <ul class="navbar-nav flex-row flex-wrap ms-md-auto">

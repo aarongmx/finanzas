@@ -13,3 +13,7 @@ Route::name('clientes.')->prefix('clientes')->group(function () {
 Route::name('salidas.')->prefix('salidas')->group(function () {
     Route::get('/', \App\Livewire\Capturista\Salidas\Index::class)->name('index');
 });
+
+Route::name('gastos.')->prefix('gastos')->group(function () {
+    Route::get('/', \App\Livewire\Capturista\GastoFijos\Index::class)->name('index');
+});
