@@ -21,3 +21,7 @@ Route::name('productos.')->prefix('productos')->group(function () {
     Route::get('/', \App\Livewire\Administrador\Productos\Index::class)->name('index');
     Route::get('/nuevo', \App\Livewire\Administrador\Productos\Form::class)->name('form');
 });
+
+Route::name('usuarios.')->prefix('usuarios')->group(function () {
+    Route::get('/', \App\Livewire\Administrador\Usuarios\Index::class)->name('index');
+});

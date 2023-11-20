@@ -34,6 +34,10 @@
                         <a class="nav-link @if(request()->routeIs('administracion.clientes.index')) active @endif"
                            href="{{route('administracion.clientes.index')}}">Clientes</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->routeIs('administracion.usuarios.index')) active @endif"
+                           href="{{route('administracion.usuarios.index')}}">Usuarios</a>
+                    </li>
                 @endif
                 @if(auth()->user()->hasRole(\App\Enums\Role::CAPTURISTA))
                     <li class="nav-item">
