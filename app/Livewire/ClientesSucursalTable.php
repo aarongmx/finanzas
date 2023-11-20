@@ -42,7 +42,9 @@ final class ClientesSucursalTable extends PowerGridComponent
 
     public function relationSearch(): array
     {
-        return [];
+        return [
+            'direccion:id,codigo_postal,colonia,estado,numero_interior,numero_exterior,calle',
+        ];
     }
 
     public function addColumns(): PowerGridColumns
@@ -56,8 +58,7 @@ final class ClientesSucursalTable extends PowerGridComponent
 
             ->addColumn('razon_social')
             ->addColumn('nombre_comercial')
-            ->addColumn('direccion_id')
-            ->addColumn('sucursal_id')
+            ->addColumn('direccion', fn(Cliente $model) => $model->direccion?->direccion_completa)
             ->addColumn('created_at_formatted', fn (Cliente $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -77,8 +78,7 @@ final class ClientesSucursalTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Direccion id', 'direccion_id'),
-            Column::make('Sucursal id', 'sucursal_id'),
+            Column::make('Dirección', 'direccion'),
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
