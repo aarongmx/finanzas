@@ -1,4 +1,14 @@
 <form wire:submit="save">
+
+    @if(auth()->user()->hasRole(\App\Enums\Role::ADMINISTRACION))
+        <x-form.select wire:model="form.sucursalId" label="Sucursal">
+            @forelse($this->sucursales as $sucursal)
+                <option value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
+            @empty
+            @endforelse
+        </x-form.select>
+    @endif
+
     <x-form.input
         id="cliente-rfc"
         label="RFC"
@@ -48,11 +58,14 @@
         label="Estado"
         wire:model="form.estado"
     />
+
     <x-form.input
         id="direccion-codigo-postal"
         label="Código postal"
         wire:model="form.codigoPostal"
     />
+
+
 
     <button type="submit" class="btn btn-primary">Guardar</button>
 </form>

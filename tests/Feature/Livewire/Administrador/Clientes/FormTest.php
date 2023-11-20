@@ -1,11 +1,34 @@
 <?php
 
-use App\Livewire\Clientes\Form;
+use App\Enums\Role;
+use App\Livewire\Administrador\Clientes\Form;
 use App\Models\Sucursal;
+use App\Models\User;
+use Database\Seeders\PermissionsSeeder;
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\seed;
 use function Pest\Livewire\livewire;
 
 beforeEach(function () {
     Sucursal::factory()->create();
+});
+
+test('Se muestran las sucursales disponibles', function () {
+    Sucursal::factory()->count(4)->create();
+    $sucursales = Sucursal::query()->select(['id', 'nombre'])->get();
+
+    livewire(Form::class)->assertSet('sucursales', $sucursales);
+});
+
+test('Se muestra select de sucursales si el usuario es administrador', function () {
+    seed(PermissionsSeeder::class);
+
+    $user = User::factory()->create();
+    $user->assignRole(Role::ADMINISTRACION);
+
+    actingAs($user);
+
+    livewire(Form::class)->assertPropertyWired('form.sucursalId');
 });
 
 test('Se puede registrar un cliente', function () {
@@ -17,7 +40,7 @@ test('Se puede registrar un cliente', function () {
         ->set('form.codigoPostal', '09660')
         ->call('save')
         ->assertHasNoErrors()
-        ->assertDispatched('closeModal', modal: 'exampleModal')
+        ->assertDispatched('closeModal', modal: 'nuevo-cliente-modal')
         ->assertDispatched('notify');
 
     expect([

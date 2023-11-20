@@ -8,6 +8,7 @@ use Domain\Direcciones\Actions\StoreDireccionAction;
 use Domain\Direcciones\Data\DireccionData;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
+use Illuminate\Support\Facades\DB;
 
 class ClienteForm extends Form
 {
@@ -40,9 +41,12 @@ class ClienteForm extends Form
     #[Rule(['nullable'])]
     public $calle;
 
+    #[Rule(['nullable', 'integer'])]
+    public ?int $sucursalId = null;
+
     public function store()
     {
-        \DB::transaction(function () {
+        DB::transaction(function () {
             $direccionData = DireccionData::from($this->only([
                 'codigoPostal',
                 'colonia',
@@ -56,7 +60,7 @@ class ClienteForm extends Form
 
             $clienteData = ClienteData::from([
                 ...$this->only(['rfc', 'razonSocial', 'nombreComercial']),
-                'sucursalId' => 1,
+                'sucursalId' => auth()->user()->sucursal_id ?? $this->sucursalId,
                 'direccionId' => $direccion->id,
             ]);
             (new RegistrarClienteAction())($clienteData);
