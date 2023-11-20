@@ -2,8 +2,8 @@
     <x-modal id="gasto-modal">
 
     </x-modal>
-    <div class="row">
-        <div class="col-12 d-flex align-items-center justify-between">
+    <div class="row mb-3">
+        <div class="col-12 d-flex align-items-center justify-content-between">
             <h1 class="h3">Gastos fijos</h1>
             <x-button data-bs-toggle="modal" data-bs-target="#gasto-modal">Registrar gasto</x-button>
         </div>
