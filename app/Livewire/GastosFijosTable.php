@@ -37,7 +37,8 @@ final class GastosFijosTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return GastoFijo::query();
+        return GastoFijo::query()
+            ->where('sucursal_id', auth()->user()->sucursal_id);
     }
 
     public function relationSearch(): array
@@ -55,7 +56,6 @@ final class GastosFijosTable extends PowerGridComponent
            /** Example of custom column using a closure **/
             ->addColumn('concepto_lower', fn (GastoFijo $model) => strtolower(e($model->concepto)))
 
-            ->addColumn('cuenta_id')
             ->addColumn('created_at_formatted', fn (GastoFijo $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -63,15 +63,15 @@ final class GastosFijosTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id'),
-            Column::make('Precio', 'precio')
-                ->sortable()
-                ->searchable(),
 
             Column::make('Concepto', 'concepto')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Cuenta id', 'cuenta_id'),
+            Column::make('Precio', 'precio')
+                ->sortable()
+                ->searchable(),
+
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 

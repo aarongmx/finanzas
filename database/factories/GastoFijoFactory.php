@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Cuenta;
+use App\Models\Sucursal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class GastoFijoFactory extends Factory
         return [
             'precio' => fake()->randomFloat(2, 1),
             'concepto' => fake()->word(),
+            'sucursal_id' => Sucursal::factory()->create()->id,
         ];
     }
 }

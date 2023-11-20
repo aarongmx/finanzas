@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Cuenta;
+use App\Models\Sucursal;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->float('precio', 14);
             $table->string('concepto');
+            $table->foreignIdFor(Sucursal::class);
             $table->timestamps();
         });
     }
