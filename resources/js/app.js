@@ -13,7 +13,7 @@ window.flatpickr = flatpickr
 document.addEventListener('livewire:initialized', () => {
     Livewire.on('openModal', (event) => {
         const {modal} = event
-        bootstrap.Modal.getInstance(`#${modal}`).show()
+        bootstrap.Modal.getOrCreateInstance(`#${modal}`).show()
     });
 
     Livewire.on('closeModal', (event) => {

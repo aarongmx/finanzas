@@ -17,3 +17,7 @@ Route::name('salidas.')->prefix('salidas')->group(function () {
 Route::name('gastos.')->prefix('gastos')->group(function () {
     Route::get('/', \App\Livewire\Capturista\GastosFijos\Index::class)->name('index');
 });
+
+Route::name('creditos.')->prefix('creditos')->group(function () {
+    Route::get('/', \App\Livewire\Capturista\Creditos\Index::class)->name('índex');
+});
