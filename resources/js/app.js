@@ -5,10 +5,12 @@ import '../../vendor/power-components/livewire-powergrid/dist/bootstrap5.css'
 import Swal from "sweetalert2";
 import flatpickr from "flatpickr";
 import TomSelect from "tom-select";
+import bootstrapTable from "bootstrap-table/dist/bootstrap-table.js"
 
 window.TomSelect = TomSelect
 window.bootstrap = bootstrap
 window.flatpickr = flatpickr
+window.bootstrapTable = bootstrapTable
 
 document.addEventListener('livewire:initialized', () => {
     Livewire.on('openModal', (event) => {

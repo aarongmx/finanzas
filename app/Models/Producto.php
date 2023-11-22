@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Producto extends Model
 {
@@ -28,6 +29,11 @@ class Producto extends Model
     public function itemsCuenta(): HasMany
     {
         return $this->hasMany(ItemCuenta::class);
+    }
+
+    public function itemCuenta(): HasOne
+    {
+        return $this->hasOne(ItemCuenta::class)->latestOfMany();
     }
 
     public function categoria(): BelongsTo

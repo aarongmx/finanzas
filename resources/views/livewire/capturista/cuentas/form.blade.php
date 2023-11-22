@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 table-responsive">
+        <div class="col-12 table-responsive overflow-x-scroll" style="max-height: 70vh;">
             <table class="table">
                 <thead class="table-primary">
                 <tr>
