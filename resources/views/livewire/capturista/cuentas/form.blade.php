@@ -4,129 +4,155 @@
             <h1 class="h3">Cuentas</h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-md-3">
-            <x-form.input
-                type="date"
-                wire:model.live="fecha"
-                label="Fecha de venta"
-            />
-        </div>
-        <div class="col-12 col-md-3">
-            <x-form.input
-                type="date"
-                wire:model.live="fechaRegistro"
-                label="Fecha de registro"
-            />
-        </div>
+    <div class="grid">
+        @forelse($this->steps as $i => $step)
+            <p class="badge text-center mb-0"
+                  :class="$wire.step === {{$i}} ? 'text-bg-primary' : 'text-bg-light'">{{$step}}</p>
+            @if(!$loop->last)
+                <hr>
+            @endif
+        @empty
+        @endforelse
     </div>
-    <div class="row">
-        <div class="col-12 table-responsive overflow-x-scroll" style="max-height: 70vh;">
-            <table class="table">
-                <thead class="table-primary">
-                <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Existencia</th>
-                    <th>Importe Existencia</th>
-                    <th>Entrada</th>
-                    <th>Importe Entrada</th>
-                    <th>Salida</th>
-                    <th>Importe Salida</th>
-                    <th>Sobrante</th>
-                    <th>Importe Sobrante</th>
-                </tr>
-                </thead>
-                <tbody>
-                @forelse($this->items as $i => $item)
+    <div x-show="$wire.step === 1">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <x-form.input
+                    type="date"
+                    wire:model.live="fechaVenta"
+                    label="Fecha de venta"
+                />
+            </div>
+            <div class="col-12 col-md-3">
+                <x-form.input
+                    type="date"
+                    wire:model.live="fechaCaptura"
+                    label="Fecha de captura"
+                />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 table-responsive overflow-x-scroll" style="max-height: 70vh;">
+                <table class="table">
+                    <thead class="table-primary">
                     <tr>
-                        <td>{{$item['producto']}}</td>
-                        <td>
-                            <x-form.input-table
-                                wire:model="items.{{$i}}.precio"
-                                type="number"
-                                label=""
-                                step="0.01"
-                            />
-                        </td>
-                        <td>
-                            <x-form.input-table
-                                wire:model="items.{{$i}}.cantidad_existencia"
-                                type="number"
-                                label=""
-                                step="0.01"
-                                disabled
-                            />
-                        </td>
-                        <td>
-                            <x-form.input-table
-                                wire:model="items.{{$i}}.importe_existencia"
-                                type="number"
-                                label=""
-                                step="0.01"
-                                disabled
-                                x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_existencia')"
-                            />
-                        </td>
-                        <td>
-                            <x-form.input-table
-                                wire:model="items.{{$i}}.cantidad_entrada"
-                                type="number"
-                                label=""
-                                step="0.01"
-                            />
-                        </td>
-                        <td>
-                            <x-form.input-table
-                                wire:model="items.{{$i}}.importe_entrada"
-                                type="number"
-                                label=""
-                                step="0.01"
-                                disabled
-                                x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_entrada')"
-                            />
-                        </td>
-                        <td>
-                            <x-form.input-table
-                                wire:model="items.{{$i}}.cantidad_salida"
-                                type="number"
-                                label=""
-                                step="0.01"
-                            />
-                        </td>
-                        <td>
-                            <x-form.input-table
-                                wire:model="items.{{$i}}.importe_salida"
-                                type="number"
-                                label=""
-                                step="0.01"
-                                disabled
-                                x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_salida')"
-                            />
-                        </td>
-                        <td>
-                            <x-form.input-table
-                                wire:model="items.{{$i}}.cantidad_sobrante"
-                                type="number"
-                                label=""
-                                step="0.01"
-                            />
-                        </td>
-                        <td>
-                            <x-form.input-table
-                                wire:model="items.{{$i}}.importe_sobrante"
-                                type="number"
-                                label=""
-                                step="0.01"
-                                disabled
-                                x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_sobrante')"
-                            />
-                        </td>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Existencia</th>
+                        <th>Importe Existencia</th>
+                        <th>Entrada</th>
+                        <th>Importe Entrada</th>
+                        <th>Salida</th>
+                        <th>Importe Salida</th>
+                        <th>Sobrante</th>
+                        <th>Importe Sobrante</th>
                     </tr>
-                @empty
-                @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    @forelse($this->items as $i => $item)
+                        <tr>
+                            <td>{{$item['producto']}}</td>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="items.{{$i}}.precio"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                />
+                            </td>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="items.{{$i}}.cantidad_existencia"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
+                                />
+                            </td>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="items.{{$i}}.importe_existencia"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
+                                    x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_existencia')"
+                                />
+                            </td>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="items.{{$i}}.cantidad_entrada"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                />
+                            </td>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="items.{{$i}}.importe_entrada"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
+                                    x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_entrada')"
+                                />
+                            </td>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="items.{{$i}}.cantidad_salida"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                />
+                            </td>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="items.{{$i}}.importe_salida"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
+                                    x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_salida')"
+                                />
+                            </td>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="items.{{$i}}.cantidad_sobrante"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                />
+                            </td>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="items.{{$i}}.importe_sobrante"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
+                                    x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_sobrante')"
+                                />
+                            </td>
+                        </tr>
+                    @empty
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+    <div x-show="$wire.step === 2">
+        <div class="row">
+            <div class="col-12">
+                <h1>jsakdj</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <x-button x-show="$wire.step > 1" x-on:click="$wire.step = $wire.step-1" theme="outline-primary">Atrás</x-button>
+            <x-button wire:click.prevent="step1">Siguiente</x-button>
+        </div>
+    </div>
+    <x-button type="submit">Registrar</x-button>
 </form>
