@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Cuenta;
+use App\Models\ItemCuenta;
 use App\Models\Salida;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
@@ -38,6 +39,13 @@ class SalidaForm extends Form
                 'total' => round($this->cantidad * $this->precio, 2),
                 'sucursal_destino_id' => $this->sucursalDestinoId,
                 'cuenta_id' => $cuenta->id
+            ]);
+
+            ItemCuenta::firstOrCreate([
+                'producto_id' => $this->productoId,
+                'cantidad_salida' => $this->cantidad,
+                'importe_salida' => round($this->precio * $this->cantidad, 2),
+                'cuenta_id' => $cuenta->id,
             ]);
         });
     }
