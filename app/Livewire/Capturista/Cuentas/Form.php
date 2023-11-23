@@ -7,6 +7,7 @@ use App\Models\Cuenta;
 use App\Models\ItemCuenta;
 use App\Models\Producto;
 use Domain\Cuentas\Actions\ProcesarItemAction;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
@@ -47,7 +48,7 @@ class Form extends Component
 
         $this->items = Producto::query()
             ->with([
-                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('fecha_venta', $fechaVentaAnterior))
+                'itemsCuenta' => fn ($q) => $q->whereHas('cuenta', fn ($q) => $q->where('fecha_venta', $fechaVentaAnterior))
             ])
             ->get()
             ->map(function ($producto) {
@@ -67,7 +68,6 @@ class Form extends Component
                     'importe_sobrante' => 0,
                 ];
             });
-
     }
 
     public function step1()
@@ -81,21 +81,27 @@ class Form extends Component
 
     public function store()
     {
-        DB::transaction(function () {
-            $cuenta = Cuenta::firstOrCreate([
-                'fecha_venta' => $this->fechaVenta,
-                'fecha_captura' => $this->fechaCaptura,
-                'sucursal_id' => auth()->user()->sucursal_id,
-            ]);
-
-            collect($this->items)->each(function ($item) use (&$cuenta) {
-                $attributes = (new ProcesarItemAction())($item);
-                ItemCuenta::updateOrCreate([
-                    ...$attributes,
-                    'cuenta_id' => $cuenta->id
+        try {
+            DB::transaction(function () {
+                $cuenta = Cuenta::query()->firstOrCreate([
+                    'fecha_venta' => $this->fechaVenta,
+                    'fecha_captura' => $this->fechaCaptura,
+                    'sucursal_id' => auth()->user()->sucursal_id,
                 ]);
+
+                collect($this->items)->each(function ($item) use (&$cuenta) {
+                    $attributes = (new ProcesarItemAction())($item);
+                    ItemCuenta::query()->updateOrCreate([
+                        ...$attributes,
+                        'cuenta_id' => $cuenta->id
+                    ]);
+                });
             });
-        });
+
+            $this->notify('Cuenta registrada correctamente!', 'Se registro correctamente la cuenta!');
+        } catch (\Exception $exception) {
+            logger($exception);
+        }
     }
 
     public function render()
