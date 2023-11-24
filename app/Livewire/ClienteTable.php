@@ -61,7 +61,7 @@ final class ClienteTable extends PowerGridComponent
                 'direccion:id,calle',
                 'sucursal:id,nombre'
             ])
-            ->when(false, fn($q) => $q->where('sucursal_id', 1));
+            ->when(false, fn ($q) => $q->where('sucursal_id', 1));
     }
 
     public function relationSearch(): array
@@ -75,12 +75,12 @@ final class ClienteTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('rfc')
             /** Example of custom column using a closure **/
-            ->addColumn('rfc_lower', fn(Cliente $model) => strtolower(e($model->rfc)))
+            ->addColumn('rfc_lower', fn (Cliente $model) => strtolower(e($model->rfc)))
             ->addColumn('razon_social')
             ->addColumn('nombre_comercial')
-            ->addColumn('direccion_id', fn(Cliente $model) => $model->direccion->calle)
-            ->addColumn('sucursal_id', fn(Cliente $model) => $model->sucursal->nombre)
-            ->addColumn('created_at_formatted', fn(Cliente $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('direccion_id', fn (Cliente $model) => $model->direccion->calle)
+            ->addColumn('sucursal_id', fn (Cliente $model) => $model->sucursal->nombre)
+            ->addColumn('created_at_formatted', fn (Cliente $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     public function columns(): array

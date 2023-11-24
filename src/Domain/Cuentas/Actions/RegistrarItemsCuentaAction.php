@@ -11,10 +11,9 @@ class RegistrarItemsCuentaAction
     public function __invoke(
         DataCollection $dataCollection,
         int            $cuentaId,
-    ): void
-    {
+    ): void {
         $dataCollection->each(function (ItemCuentaData $item) use (&$cuentaId) {
-            ItemCuenta::create([
+            ItemCuenta::query()->create([
                 ...$item->toArray(),
                 'cuenta_id' => $cuentaId,
             ]);
