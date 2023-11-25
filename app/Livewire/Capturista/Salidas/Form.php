@@ -33,7 +33,7 @@ class Form extends Component
             $this->closeModal('salida-modal');
             $this->dispatch('refresh');
         } catch (\Exception $e) {
-            ray($e);
+            logger($e);
         }
     }
 

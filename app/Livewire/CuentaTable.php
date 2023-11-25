@@ -44,9 +44,11 @@ final class CuentaTable extends PowerGridComponent
     {
         return Cuenta::query()
             ->with([
-                'sucursal:id,nombre',
+                'sucursal',
                 'itemsCuenta' => [
-                    'producto:id,nombre,categoria_id'
+                    'producto' => [
+                        'categoria',
+                    ],
                 ],
             ]);
     }
@@ -63,6 +65,7 @@ final class CuentaTable extends PowerGridComponent
             ->addColumn('efectivo_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo, 2)))
             ->addColumn('a_cuenta_formated', fn(Cuenta $model) => "$" . e(number_format($model->a_cuenta, 2)))
             ->addColumn('sucursal_id', fn(Cuenta $model) => e($model->sucursal?->nombre))
+            ->addColumn('fecha_venta_formatted', fn(Cuenta $model) => Carbon::parse($model->fecha_venta)->format('d/m/Y'))
             ->addColumn('created_at_formatted', fn(Cuenta $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -73,6 +76,7 @@ final class CuentaTable extends PowerGridComponent
             Column::make('Efectivo', 'efectivo_formated', 'efectivo'),
             Column::make('A cuenta', 'a_cuenta_formated', 'a_cuenta'),
             Column::make('Sucursal', 'sucursal_id'),
+            Column::make('Fecha Venta', 'fecha_venta_formatted'),
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
@@ -84,6 +88,10 @@ final class CuentaTable extends PowerGridComponent
     {
         return [
             Filter::datetimepicker('created_at'),
+            Filter::select('Sucursal', 'sucursal_id')
+                ->dataSource(Sucursal::get())
+                ->optionValue('id')
+                ->optionLabel('nombre')
         ];
     }
 

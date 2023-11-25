@@ -7,7 +7,7 @@
     <div class="grid">
         @forelse($this->steps as $i => $step)
             <p class="badge text-center mb-0"
-                  :class="$wire.step === {{$i}} ? 'text-bg-primary' : 'text-bg-light'">{{$step}}</p>
+               :class="$wire.step === {{$i}} ? 'text-bg-primary' : 'text-bg-light'">{{$step}}</p>
             @if(!$loop->last)
                 <hr>
             @endif
@@ -33,7 +33,8 @@
         </div>
         <div class="row">
             <div class="col-12 table-responsive overflow-x-scroll" style="max-height: 70vh;">
-                <table class="table">
+                <table class="table table-hover" x-data="{totalExistencia:0, totalEntrada: 0, totalSalida:0, totalSobrante:0}"
+                >
                     <thead class="table-primary">
                     <tr>
                         <th>Producto</th>
@@ -85,10 +86,15 @@
                                     type="number"
                                     label=""
                                     step="0.01"
+                                    @input="(e) => {
+                                        const inputs = Array.from(document.querySelectorAll('[id^=importe-entrada-]'));
+                                        totalEntrada = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
+                                    }"
                                 />
                             </td>
                             <td>
                                 <x-form.input-table
+                                    id="importe-entrada-{{$i}}"
                                     wire:model="items.{{$i}}.importe_entrada"
                                     type="number"
                                     label=""
@@ -103,10 +109,15 @@
                                     type="number"
                                     label=""
                                     step="0.01"
+                                    @input="(e) => {
+                                        const inputs = Array.from(document.querySelectorAll('[id^=importe-salida-]'));
+                                        totalSalida = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
+                                    }"
                                 />
                             </td>
                             <td>
                                 <x-form.input-table
+                                    id="importe-salida-{{$i}}"
                                     wire:model="items.{{$i}}.importe_salida"
                                     type="number"
                                     label=""
@@ -121,10 +132,15 @@
                                     type="number"
                                     label=""
                                     step="0.01"
+                                    @input="(e) => {
+                                        const inputs = Array.from(document.querySelectorAll('[id^=importe-sobrante-]'));
+                                        totalSobrante = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
+                                    }"
                                 />
                             </td>
                             <td>
                                 <x-form.input-table
+                                    id="importe-sobrante-{{$i}}"
                                     wire:model="items.{{$i}}.importe_sobrante"
                                     type="number"
                                     label=""
@@ -137,6 +153,20 @@
                     @empty
                     @endforelse
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td x-text="totalEntrada"></td>
+                        <td></td>
+                        <td x-text="totalSalida"></td>
+                        <td></td>
+                        <td x-text="totalSobrante"></td>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -150,7 +180,8 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <x-button x-show="$wire.step > 1" x-on:click="$wire.step = $wire.step-1" theme="outline-primary">Atrás</x-button>
+            <x-button x-show="$wire.step > 1" x-on:click="$wire.step = $wire.step-1" theme="outline-primary">Atrás
+            </x-button>
             <x-button wire:click.prevent="step1">Siguiente</x-button>
         </div>
     </div>

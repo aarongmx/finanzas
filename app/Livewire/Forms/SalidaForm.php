@@ -40,13 +40,6 @@ class SalidaForm extends Form
                 'sucursal_destino_id' => $this->sucursalDestinoId,
                 'cuenta_id' => $cuenta->id
             ]);
-
-            ItemCuenta::firstOrCreate([
-                'producto_id' => $this->productoId,
-                'cantidad_salida' => $this->cantidad,
-                'importe_salida' => round($this->precio * $this->cantidad, 2),
-                'cuenta_id' => $cuenta->id,
-            ]);
         });
     }
 }
