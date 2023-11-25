@@ -20,9 +20,9 @@ return new class extends Migration
             $table->float('saldo', 14);
             $table->date('fecha_credito');
             $table->date('fecha_vencimiento');
-            $table->foreignIdFor(Cliente::class);
-            $table->foreignIdFor(Cuenta::class);
-            $table->foreignIdFor(Estatus::class);
+            $table->foreignIdFor(Cliente::class)->constrained('clientes');
+            $table->foreignIdFor(Cuenta::class)->constrained('cuentas');
+            $table->foreignIdFor(Estatus::class)->constrained('estatuses');
             $table->timestamps();
         });
     }

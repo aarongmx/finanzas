@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->float('precio', 14);
             $table->string('concepto');
-            $table->foreignIdFor(Sucursal::class);
+            $table->foreignIdFor(Sucursal::class)->constrained('sucursales');
             $table->timestamps();
         });
     }

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('cuenta_gasto_fijo', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Cuenta::class);
-            $table->foreignIdFor(GastoFijo::class);
+            $table->foreignIdFor(Cuenta::class)->constrained('cuentas');
+            $table->foreignIdFor(GastoFijo::class)->constrained('gasto_fijos');
             $table->timestamps();
         });
     }
