@@ -14,7 +14,7 @@ class CategoriasSeeder extends Seeder
     public function run(): void
     {
         Categoria::query()->create([
-           'nombre' => 'Pollo',
+            'nombre' => 'Pollo',
         ]);
 
         Categoria::query()->create([
