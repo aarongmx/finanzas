@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\Role;
+use App\Models\Sucursal;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,14 +25,14 @@ class UsuariosSeeder extends Seeder
             'name' => 'Axel',
             'email' => 'axel@mlgrupo.com.mx',
             'password' => 'password',
-            'sucursal_id' => 1,
+            'sucursal_id' => Sucursal::first()->id,
         ])->assignRole(Role::CAPTURISTA);
 
         User::create([
             'name' => 'Aarón',
             'email' => 'aaron@mlgrupo.com.mx',
             'password' => 'password',
-            'sucursal_id' => 1,
+            'sucursal_id' => Sucursal::first()->id,
         ])->assignRole(Role::CAPTURISTA);
     }
 }
