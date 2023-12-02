@@ -17,7 +17,7 @@
         "livewire/livewire": "^v3.0.10",
         "openspout/openspout": "^v4.19.0",
         "power-components/livewire-powergrid": "^v5.1.9",
-        "spatie/laravel-data": "^3.9.2",
+        "spatie/laravel-data": "^3.10.0",
         "spatie/laravel-permission": "^6.1"
     },
     "require-dev": {
