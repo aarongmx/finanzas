@@ -6,7 +6,7 @@
     </div>
     <div class="grid">
         @forelse($this->steps as $i => $step)
-            <p class="badge text-center mb-0"
+            <p class="badge text-center mb-0 d-flex align-items-center justify-content-center rounded-pill"
                :class="$wire.step === {{$i}} ? 'text-bg-primary' : 'text-bg-light'">{{$step}}</p>
             @if(!$loop->last)
                 <hr>
