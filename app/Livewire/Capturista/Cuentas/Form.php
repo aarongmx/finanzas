@@ -19,11 +19,12 @@ class Form extends Component
     public $step = 1;
 
     public $steps = [
-        1 => 'Productos',
-        2 => 'Salidas',
-        3 => 'Gastos',
-        4 => 'Créditos',
-        5 => 'Prestamos',
+        1 => 'Existencia',
+        2 => 'Entardas',
+        3 => 'Salidas',
+        4 => 'Sobrantes',
+        5 => 'Gastos',
+        6 => 'Prestamos',
     ];
 
     public $items = [];
@@ -40,6 +41,34 @@ class Form extends Component
         ];
     }
 
+    public function mount()
+    {
+        $this->items = Producto::query()
+            ->with([
+                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('fecha_venta', today()->subDay()))
+            ])
+            ->get()
+            ->map(fn($p) => $this->extractValues($p));
+    }
+
+    private function extractValues(Producto $producto)
+    {
+        $item = $producto?->itemsCuenta->first();
+
+        return [
+            'producto_id' => $producto->id,
+            'producto' => $producto->nombre,
+            'precio' => round($item?->precio) ?? round(floatval($item?->precio), 2) ?? 0,
+            'cantidad_existencia' => round(floatval($item?->cantidad_sobrante), 2) ?? 0,
+            'importe_existencia' => round(floatval($item?->importe_sobrante), 2) ?? 0,
+            'cantidad_entrada' => 0,
+            'importe_entrada' => 0,
+            'cantidad_salida' => 0,
+            'importe_salida' => 0,
+            'cantidad_sobrante' => 0,
+            'importe_sobrante' => 0,
+        ];
+    }
 
     public function updatedFechaVenta($value)
     {
@@ -48,26 +77,10 @@ class Form extends Component
 
         $this->items = Producto::query()
             ->with([
-                'itemsCuenta' => fn ($q) => $q->whereHas('cuenta', fn ($q) => $q->where('fecha_venta', $fechaVentaAnterior))
+                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('fecha_venta', $fechaVentaAnterior))
             ])
             ->get()
-            ->map(function ($producto) {
-                $item = $producto?->itemsCuenta->first();
-
-                return [
-                    'producto_id' => $producto->id,
-                    'producto' => $producto->nombre,
-                    'precio' => round($item?->precio) ?? round(floatval($item?->precio), 2) ?? 0,
-                    'cantidad_existencia' => round(floatval($item?->cantidad_sobrante), 2) ?? 0,
-                    'importe_existencia' => round(floatval($item?->importe_sobrante), 2) ?? 0,
-                    'cantidad_entrada' => 0,
-                    'importe_entrada' => 0,
-                    'cantidad_salida' => 0,
-                    'importe_salida' => 0,
-                    'cantidad_sobrante' => 0,
-                    'importe_sobrante' => 0,
-                ];
-            });
+            ->map(fn($p) => $this->extractValues($p));
     }
 
     public function step1()
