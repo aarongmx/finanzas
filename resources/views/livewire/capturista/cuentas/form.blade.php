@@ -1,5 +1,10 @@
 <form wire:submit.prevent="store" class="p-4"
-      x-data="{totalExistencia:0, totalEntrada: 0, totalSalida:0, totalSobrante:0}">
+      x-data="{
+        totalExistencia:0,
+        totalEntrada: 0,
+        totalSalida:0,
+        totalSobrante:0
+      }">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">Cuentas</h1>
@@ -10,7 +15,7 @@
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Existencia</strong>
-                    <p class="h4" x-text="() => `$${parseFloat(totalExistencia).toLocaleString()}`"></p>
+                    <p class="h4" x-text="() => `$${($wire.importeExistencia).toLocaleString()} / ${$wire.cantidadExistencia} Kg.`"></p>
                 </div>
             </div>
         </div>
@@ -112,6 +117,9 @@
                     </tbody>
                 </x-table.table>
             </div>
+            <div class="col-12">
+                <x-button wire:click.prevent="step1">Siguiente</x-button>
+            </div>
         </div>
         <div class="row" x-show="$wire.step === 2">
             <div class="col-12">
@@ -163,6 +171,10 @@
                     @empty
                     @endforelse
                 </x-table.table>
+            </div>
+            <div class="col-12">
+                <x-button theme="outline-primary" wire:click.prevent="back(1)">Atrás</x-button>
+                <x-button wire:click.prevent="step2">Siguiente</x-button>
             </div>
         </div>
         <div class="row" x-show="$wire.step === 3">
@@ -216,6 +228,10 @@
                     @endforelse
                 </x-table.table>
             </div>
+            <div class="col-12">
+                <x-button theme="outline-primary" wire:click.prevent="back(2)">Atrás</x-button>
+                <x-button wire:click.prevent="step3">Siguiente</x-button>
+            </div>
         </div>
         <div class="row" x-show="$wire.step === 4">
             <div class="col-12">
@@ -254,16 +270,10 @@
                     @endforelse
                 </x-table.table>
             </div>
+            <div class="col-12">
+                <x-button theme="outline-primary" wire:click.prevent="back(3)">Atrás</x-button>
+                <x-button type="submit">Registrar</x-button>
+            </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-12">
-            <x-button x-show="$wire.step > 1" x-on:click="$wire.step = $wire.step-1" theme="outline-primary">Atrás
-            </x-button>
-            <x-button x-on:click="$wire.step = $wire.step+1">Siguiente</x-button>
-            {{--<x-button wire:click.prevent="step1">Siguiente</x-button>--}}
-        </div>
-    </div>
-    <x-button type="submit">Registrar</x-button>
 </form>

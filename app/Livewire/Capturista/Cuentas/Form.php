@@ -7,9 +7,8 @@ use App\Models\Cuenta;
 use App\Models\ItemCuenta;
 use App\Models\Producto;
 use Domain\Cuentas\Actions\ProcesarItemAction;
-use Exception;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Form extends Component
@@ -29,6 +28,9 @@ class Form extends Component
 
     public $items = [];
 
+    public $cantidadExistencia = 0;
+    public $importeExistencia = 0;
+
     public $fechaVenta;
     public $fechaCaptura;
 
@@ -38,6 +40,10 @@ class Form extends Component
             'fechaVenta' => ['date', 'required'],
             'fechaCaptura' => ['date', 'required'],
             'items' => ['required', 'array', 'min:1'],
+            'items.*.precio' => ['required', 'numeric'],
+            'items.*.cantidad_entrada' => ['required', 'numeric'],
+            'items.*.cantidad_salida' => ['required', 'numeric'],
+            'items.*.cantidad_sobrante' => ['required', 'numeric'],
         ];
     }
 
@@ -49,11 +55,13 @@ class Form extends Component
             ])
             ->get()
             ->map(fn($p) => $this->extractValues($p));
+
+
     }
 
     private function extractValues(Producto $producto)
     {
-        $item = $producto?->itemsCuenta->first();
+        $item = $producto->itemsCuenta->first();
 
         return [
             'producto_id' => $producto->id,
@@ -81,15 +89,35 @@ class Form extends Component
             ])
             ->get()
             ->map(fn($p) => $this->extractValues($p));
+
+        $this->cantidadExistencia = $this->items->sum('cantidad_existencia');
+        $this->importeExistencia = $this->items->sum('importe_existencia');
     }
 
     public function step1()
     {
-        $this->validateOnly('form.fechaVenta');
-        $this->validateOnly('form.fechaCaptura');
-        $this->validateOnly('items');
+        $this->validateOnly('fechaVenta');
+        $this->validateOnly('fechaCaptura');
+        $this->validateOnly('items.*.precio');
 
         $this->step = 2;
+    }
+
+    public function step2()
+    {
+        $this->validateOnly('items.*.cantidad_entrada');
+        $this->step = 3;
+    }
+
+    public function step3()
+    {
+        $this->validateOnly('items.*.cantidad_salida');
+        $this->step = 4;
+    }
+
+    public function back($step)
+    {
+        $this->step = $step;
     }
 
     public function store()
