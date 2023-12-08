@@ -108,7 +108,7 @@ final class ClientesSucursalTable extends PowerGridComponent
             Button::add('edit')
                 ->slot('Edit: '.$row->id)
                 ->id()
-                ->class('btn btn-primary')
+                ->class('btn btn-outline-primary')
                 ->dispatch('edit', ['rowId' => $row->id])
         ];
     }
