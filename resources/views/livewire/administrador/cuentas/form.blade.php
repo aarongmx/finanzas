@@ -2,7 +2,6 @@
     <div class="row">
         <div class="col-12">
             <h1>Cuenta</h1>
-            <button wire:click.prevent="tests">test</button>
         </div>
     </div>
     <div class="row">
