@@ -76,8 +76,8 @@
                         <tr>
                             <x-table.th>Producto</x-table.th>
                             <x-table.th>Precio</x-table.th>
-                            <x-table.th>Existencia</x-table.th>
-                            <x-table.th>Importe Existencia</x-table.th>
+                            <x-table.th>Cantidad Anterior</x-table.th>
+                            <x-table.th>Importe Anterior</x-table.th>
                         </tr>
                     </x-slot:header>
                     <tbody>
