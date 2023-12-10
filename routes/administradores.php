@@ -25,3 +25,7 @@ Route::name('productos.')->prefix('productos')->group(function () {
 Route::name('usuarios.')->prefix('usuarios')->group(function () {
     Route::get('/', \App\Livewire\Administrador\Usuarios\Index::class)->name('index');
 });
+
+Route::name('creditos.')->prefix('creditos')->group(function () {
+    Route::get('/', \App\Livewire\Administrador\Creditos\Index::class)->name('index');
+});

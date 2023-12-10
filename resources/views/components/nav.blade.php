@@ -35,6 +35,10 @@
                            href="{{route('administracion.clientes.index')}}">Clientes</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link @if(request()->routeIs('administracion.creditos.index')) active @endif"
+                           href="{{route('administracion.creditos.index')}}">Créditos</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('administracion.usuarios.index')) active @endif"
                            href="{{route('administracion.usuarios.index')}}">Usuarios</a>
                     </li>
