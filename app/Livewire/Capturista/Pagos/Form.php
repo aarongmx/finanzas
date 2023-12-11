@@ -25,8 +25,9 @@ class Form extends Component
             $this->closeModal('abono-modal');
             $this->notify('Abono aplicado correctamente!', 'El abono se aplico correctamente!');
             $this->dispatch('refresh');
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             logger($exception);
+            $this->notify('Error al intentar abonar!', $exception->getMessage(), 'error');
         }
     }
 

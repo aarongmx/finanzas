@@ -14,6 +14,10 @@ class Pago extends Model
         'monto', 'fecha_pago', 'pagable_id', 'pagable_type',
     ];
 
+    protected $casts = [
+        'fecha_pago' => 'immutable_datetime',
+    ];
+
     public function pagable(): MorphTo
     {
         return $this->morphTo();

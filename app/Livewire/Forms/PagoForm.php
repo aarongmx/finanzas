@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Enums\EstatusPago;
 use App\Models\Credito;
 use App\Models\Pago;
 use Carbon\Carbon;
@@ -21,6 +22,8 @@ class PagoForm extends Form
 
     public function store(): void
     {
+        throw_if($this->monto > $this->credito->saldo, new \Exception("El monto pagado excede el saldo del crédito!"));
+
         DB::transaction(function () {
             Pago::create([
                 'monto' => $this->monto,
@@ -32,11 +35,11 @@ class PagoForm extends Form
             $saldo = round($this->credito->saldo, 2) - round($this->monto, 2);
 
             if ($saldo > 0 || $saldo > 0.0) {
-                $this->credito->update(['saldo' => $saldo, 'estatus_id' => 2]);
+                $this->credito->update(['saldo' => $saldo, 'estatus_id' => EstatusPago::PAGO_PARCIAL]);
             }
 
             if ($saldo == 0) {
-                $this->credito->update(['saldo' => $saldo, 'estatus_id' => 3]);
+                $this->credito->update(['saldo' => $saldo, 'estatus_id' => EstatusPago::PAGADO]);
             }
         });
     }
