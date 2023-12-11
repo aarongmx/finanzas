@@ -10,6 +10,10 @@ Route::name('clientes.')->prefix('clientes')->group(function () {
     Route::get('/', \App\Livewire\Capturista\Clientes\Index::class)->name('index');
 });
 
+Route::name('entradas.')->prefix('entradas')->group(function () {
+    Route::get('/', \App\Livewire\Capturista\Entradas\Index::class)->name('index');
+});
+
 Route::name('salidas.')->prefix('salidas')->group(function () {
     Route::get('/', \App\Livewire\Capturista\Salidas\Index::class)->name('index');
 });
