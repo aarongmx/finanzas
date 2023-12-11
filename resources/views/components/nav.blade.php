@@ -10,64 +10,23 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 @if(auth()->user()->hasRole(\App\Enums\Role::ADMINISTRACION))
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('administracion.home')) active @endif"
-                           href="{{route('administracion.home')}}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('administracion.sucursales.index')) active @endif"
-                           href="{{route('administracion.sucursales.index')}}">Sucursales</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('administracion.cuentas.index')) active @endif"
-                           href="{{route('administracion.cuentas.index')}}">Cuentas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('administracion.cuentas.form')) active @endif"
-                           href="{{route('administracion.cuentas.form')}}">Registrar cuenta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('administracion.productos.index')) active @endif"
-                           href="{{route('administracion.productos.index')}}">Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('administracion.clientes.index')) active @endif"
-                           href="{{route('administracion.clientes.index')}}">Clientes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('administracion.creditos.index')) active @endif"
-                           href="{{route('administracion.creditos.index')}}">Créditos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('administracion.usuarios.index')) active @endif"
-                           href="{{route('administracion.usuarios.index')}}">Usuarios</a>
-                    </li>
+                    <x-nav-item path="administracion.home">Inicio</x-nav-item>
+                    <x-nav-item path="administracion.sucursales.index">Sucursales</x-nav-item>
+                    <x-nav-item path="administracion.cuentas.index">Cuentas</x-nav-item>
+                    <x-nav-item path="administracion.cuentas.form">Registrar cuenta</x-nav-item>
+                    <x-nav-item path="administracion.productos.index">Productos</x-nav-item>
+                    <x-nav-item path="administracion.clientes.index">Clientes</x-nav-item>
+                    <x-nav-item path="administracion.creditos.index">Créditos</x-nav-item>
+                    <x-nav-item path="administracion.usuarios.index">Usuarios</x-nav-item>
                 @endif
                 @if(auth()->user()->hasRole(\App\Enums\Role::CAPTURISTA))
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('capturista.home')) active @endif"
-                           href="{{route('capturista.home')}}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('capturista.cuenta.sucursal')) active @endif"
-                           href="{{route('capturista.cuenta.sucursal')}}">Cuenta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('capturista.salidas.index')) active @endif"
-                           href="{{route('capturista.salidas.index')}}">Salidas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('capturista.clientes.index')) active @endif"
-                           href="{{route('capturista.clientes.index')}}">Clientes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('capturista.gastos.index')) active @endif"
-                           href="{{route('capturista.gastos.index')}}">Gastos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('capturista.creditos.índex')) active @endif"
-                           href="{{route('capturista.creditos.índex')}}">Créditos</a>
-                    </li>
+                    <x-nav-item path="capturista.home">Inicio</x-nav-item>
+                    <x-nav-item path="capturista.cuenta.sucursal">Cuenta</x-nav-item>
+                    <x-nav-item path="capturista.salidas.index">Salidas</x-nav-item>
+                    <x-nav-item path="capturista.entradas.index">Entradas</x-nav-item>
+                    <x-nav-item path="capturista.clientes.index">Clientes</x-nav-item>
+                    <x-nav-item path="capturista.gastos.index">Gastos</x-nav-item>
+                    <x-nav-item path="capturista.creditos.índex">Créditos</x-nav-item>
                 @endif
             </ul>
             <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
