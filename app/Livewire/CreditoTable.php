@@ -42,7 +42,11 @@ final class CreditoTable extends PowerGridComponent
 
     public function relationSearch(): array
     {
-        return [];
+        return [
+            'cliente',
+            'estatus',
+            'cuenta',
+        ];
     }
 
     public function addColumns(): PowerGridColumns
@@ -53,9 +57,9 @@ final class CreditoTable extends PowerGridComponent
             ->addColumn('saldo')
             ->addColumn('fecha_credito_formatted', fn (Credito $model) => Carbon::parse($model->fecha_credito)->format('d/m/Y'))
             ->addColumn('fecha_vencimiento_formatted', fn (Credito $model) => Carbon::parse($model->fecha_vencimiento)->format('d/m/Y'))
-            ->addColumn('cliente_id')
-            ->addColumn('cuenta_id')
-            ->addColumn('estatus_id')
+            ->addColumn('cliente_id', fn (Credito $model) => $model->cliente->razon_social)
+            ->addColumn('cuenta_id', fn (Credito $model) => $model->cuenta->id)
+            ->addColumn('estatus_id', fn(Credito $model) => $model->estatus->nombre)
             ->addColumn('created_at_formatted', fn (Credito $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -77,13 +81,13 @@ final class CreditoTable extends PowerGridComponent
             Column::make('Fecha vencimiento', 'fecha_vencimiento_formatted', 'fecha_vencimiento')
                 ->sortable(),
 
-            Column::make('Cliente id', 'cliente_id'),
-            Column::make('Cuenta id', 'cuenta_id'),
-            Column::make('Estatus id', 'estatus_id'),
+            Column::make('Cliente', 'cliente_id'),
+            Column::make('Cuenta', 'cuenta_id'),
+            Column::make('Estatus', 'estatus_id'),
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Acciones')
         ];
     }
 
@@ -106,9 +110,9 @@ final class CreditoTable extends PowerGridComponent
     {
         return [
             Button::add('edit')
-                ->slot('Edit: '.$row->id)
+                ->slot('Abonar')
                 ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->class('btn btn-outline-primary')
                 ->dispatch('edit', ['rowId' => $row->id])
         ];
     }
