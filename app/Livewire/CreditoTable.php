@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Detail;
 use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
@@ -32,6 +33,10 @@ final class CreditoTable extends PowerGridComponent
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
+
+            Detail::make()
+                ->view('components.detail-credito-pago')
+                ->showCollapseIcon(),
         ];
     }
 
@@ -46,6 +51,7 @@ final class CreditoTable extends PowerGridComponent
             'cliente',
             'estatus',
             'cuenta',
+            'pagos'
         ];
     }
 
@@ -53,29 +59,29 @@ final class CreditoTable extends PowerGridComponent
     {
         return PowerGrid::columns()
             ->addColumn('id')
-            ->addColumn('monto')
-            ->addColumn('saldo')
-            ->addColumn('fecha_credito_formatted', fn (Credito $model) => Carbon::parse($model->fecha_credito)->format('d/m/Y'))
-            ->addColumn('fecha_vencimiento_formatted', fn (Credito $model) => Carbon::parse($model->fecha_vencimiento)->format('d/m/Y'))
-            ->addColumn('cliente_id', fn (Credito $model) => $model->cliente->razon_social)
-            ->addColumn('cuenta_id', fn (Credito $model) => $model->cuenta->id)
+            ->addColumn('monto_formatted', fn(Credito $model) => '$' . number_format($model->monto, 2))
+            ->addColumn('saldo_formatted', fn(Credito $model) => '$' . number_format($model->saldo, 2))
+            ->addColumn('fecha_credito_formatted', fn(Credito $model) => Carbon::parse($model->fecha_credito)->format('d/m/Y'))
+            ->addColumn('fecha_vencimiento_formatted', fn(Credito $model) => Carbon::parse($model->fecha_vencimiento)->format('d/m/Y'))
+            ->addColumn('cliente_id', fn(Credito $model) => $model->cliente->razon_social)
+            ->addColumn('cuenta_id', fn(Credito $model) => $model->cuenta->id)
             ->addColumn('estatus_id', fn(Credito $model) => $model->estatus->nombre)
-            ->addColumn('created_at_formatted', fn (Credito $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('created_at_formatted', fn(Credito $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     public function columns(): array
     {
         return [
             Column::make('Id', 'id'),
-            Column::make('Monto', 'monto')
+            Column::make('Monto', 'monto_formatted', 'monto')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Saldo', 'saldo')
+            Column::make('Saldo', 'saldo_formatted', 'saldo')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Fecha credito', 'fecha_credito_formatted', 'fecha_credito')
+            Column::make('Fecha crédito', 'fecha_credito_formatted', 'fecha_credito')
                 ->sortable(),
 
             Column::make('Fecha vencimiento', 'fecha_vencimiento_formatted', 'fecha_vencimiento')
@@ -103,7 +109,7 @@ final class CreditoTable extends PowerGridComponent
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        $this->js('alert(' . $rowId . ')');
     }
 
     public function actions(\App\Models\Credito $row): array
