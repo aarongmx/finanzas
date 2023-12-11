@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Enums\EstatusPago;
 use App\Models\Credito;
 use App\Models\Cuenta;
 use Carbon\Carbon;
@@ -33,7 +34,7 @@ class CreditoForm extends Form
 
             Credito::create([
                 'cliente_id' => $this->clienteId,
-                'estatus_id' => 1,
+                'estatus_id' => EstatusPago::PENDIENTE,
                 'monto' => $this->monto,
                 'saldo' => $this->monto,
                 'fecha_credito' => $fecha,
