@@ -4,18 +4,20 @@ namespace App\Livewire\Capturista\Cuentas;
 
 use App\Livewire\Forms\CuentaForm;
 use App\Models\Cuenta;
+use App\Models\GastoFijo;
 use App\Models\ItemCuenta;
 use App\Models\Producto;
 use Domain\Cuentas\Actions\ProcesarItemAction;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Form extends Component
 {
     public CuentaForm $form;
 
-    public $step = 1;
+    public $step = 5;
 
     public $steps = [
         1 => 'Existencia',
@@ -27,6 +29,10 @@ class Form extends Component
     ];
 
     public $items = [];
+
+    public $gasto = [
+        ['concepto' => '', 'precio' => 0]
+    ];
 
     public $cantidadExistencia = 0;
     public $importeExistencia = 0;
@@ -115,6 +121,16 @@ class Form extends Component
         $this->step = 4;
     }
 
+    public function step4()
+    {
+        $this->step = 5;
+    }
+
+    public function step5()
+    {
+        $this->step = 6;
+    }
+
     public function back($step)
     {
         $this->step = $step;
@@ -137,12 +153,45 @@ class Form extends Component
                         'cuenta_id' => $cuenta->id
                     ]);
                 });
+
+                collect($this->gasto)->each(function ($gasto) use (&$cuenta) {
+                    ray($cuenta);
+                    if (!empty($gasto['precio']) && !empty($gasto['concepto'])) {
+                        GastoFijo::create([
+                            'concepto' => $gasto['concepto'],
+                            'precio' => $gasto['precio'],
+                            'sucursal_id' => auth()->user()->sucursal_id,
+                            'cuenta_id' => $cuenta->id,
+                        ]);
+                    }
+                });
             });
 
             $this->notify('Cuenta registrada correctamente!', 'Se registro correctamente la cuenta!');
         } catch (\Exception $exception) {
             logger($exception);
         }
+    }
+
+    #[Computed]
+    public function gastos()
+    {
+        return GastoFijo::query()
+            ->where('sucursal_id', auth()->user()->sucursal_id)
+            ->get();
+    }
+
+    public function addGasto()
+    {
+        $this->gasto[] = [
+            'concepto' => '',
+            'precio' => 0
+        ];
+    }
+
+    public function removeGasto($index)
+    {
+        unset($this->gasto[$index]);
     }
 
     public function render()

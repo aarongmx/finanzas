@@ -3,7 +3,10 @@
         totalExistencia:0,
         totalEntrada: 0,
         totalSalida:0,
-        totalSobrante:0
+        totalSobrante:0,
+        totalGastos: 0,
+        total: 0,
+        data: []
       }">
     <div class="row">
         <div class="col-12">
@@ -11,15 +14,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-3">
+        <div class="col-4">
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Existencia</strong>
-                    <p class="h4" x-text="() => `$${($wire.importeExistencia).toLocaleString()} / ${$wire.cantidadExistencia} Kg.`"></p>
+                    <p class="h4"
+                       x-text="() => `$${($wire.importeExistencia).toLocaleString()} / ${$wire.cantidadExistencia} Kg.`"></p>
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Entrada</strong>
@@ -27,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Salida</strong>
@@ -35,11 +39,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Sobrante</strong>
                     <p class="h4" x-text="() => `$${parseFloat(totalSobrante).toLocaleString()}`"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="card">
+                <div class="card-body">
+                    <strong class="text-muted">Gastos</strong>
+                    <p class="h4" x-text="() => `$${parseFloat(totalGastos).toLocaleString()}`"></p>
                 </div>
             </div>
         </div>
@@ -58,16 +70,16 @@
         <div class="row" x-show="$wire.step === 1">
             <div class="col-12 col-md-3">
                 <x-form.input
-                        type="date"
-                        wire:model.live="fechaVenta"
-                        label="Fecha de venta"
+                    type="date"
+                    wire:model.live="fechaVenta"
+                    label="Fecha de venta"
                 />
             </div>
             <div class="col-12 col-md-3">
                 <x-form.input
-                        type="date"
-                        wire:model.live="fechaCaptura"
-                        label="Fecha de captura"
+                    type="date"
+                    wire:model.live="fechaCaptura"
+                    label="Fecha de captura"
                 />
             </div>
             <div class="col-12">
@@ -86,29 +98,29 @@
                             <td>{{$item['producto']}}</td>
                             <td>
                                 <x-form.input-table
-                                        wire:model="items.{{$i}}.precio"
-                                        type="number"
-                                        label=""
-                                        step="0.01"
+                                    wire:model="items.{{$i}}.precio"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
                                 />
                             </td>
                             <td>
                                 <x-form.input-table
-                                        wire:model="items.{{$i}}.cantidad_existencia"
-                                        type="number"
-                                        label=""
-                                        step="0.01"
-                                        disabled
+                                    wire:model="items.{{$i}}.cantidad_existencia"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
                                 />
                             </td>
                             <td>
                                 <x-form.input-table
-                                        wire:model="items.{{$i}}.importe_existencia"
-                                        type="number"
-                                        label=""
-                                        step="0.01"
-                                        disabled
-                                        x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_existencia')"
+                                    wire:model="items.{{$i}}.importe_existencia"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
+                                    x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_existencia')"
                                 />
                             </td>
                         </tr>
@@ -137,20 +149,20 @@
                             <td>{{$item['producto']}}</td>
                             <td>
                                 <x-form.input-table
-                                        wire:model="items.{{$i}}.precio"
-                                        type="number"
-                                        label=""
-                                        step="0.01"
-                                        disabled
+                                    wire:model="items.{{$i}}.precio"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
                                 />
                             </td>
                             <td>
                                 <x-form.input-table
-                                        wire:model="items.{{$i}}.cantidad_entrada"
-                                        type="number"
-                                        label=""
-                                        step="0.01"
-                                        @input="(e) => {
+                                    wire:model="items.{{$i}}.cantidad_entrada"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    @input="(e) => {
                                         const inputs = Array.from(document.querySelectorAll('[id^=importe-entrada-]'));
                                         totalEntrada = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
                                     }"
@@ -158,13 +170,13 @@
                             </td>
                             <td>
                                 <x-form.input-table
-                                        id="importe-entrada-{{$i}}"
-                                        wire:model="items.{{$i}}.importe_entrada"
-                                        type="number"
-                                        label=""
-                                        step="0.01"
-                                        disabled
-                                        x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_entrada')"
+                                    id="importe-entrada-{{$i}}"
+                                    wire:model="items.{{$i}}.importe_entrada"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
+                                    x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_entrada')"
                                 />
                             </td>
                         </tr>
@@ -193,20 +205,20 @@
                             <td>{{$item['producto']}}</td>
                             <td>
                                 <x-form.input-table
-                                        wire:model="items.{{$i}}.precio"
-                                        type="number"
-                                        label=""
-                                        step="0.01"
-                                        disabled
+                                    wire:model="items.{{$i}}.precio"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
                                 />
                             </td>
                             <td>
                                 <x-form.input-table
-                                        wire:model="items.{{$i}}.cantidad_salida"
-                                        type="number"
-                                        label=""
-                                        step="0.01"
-                                        @input="(e) => {
+                                    wire:model="items.{{$i}}.cantidad_salida"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    @input="(e) => {
                                         const inputs = Array.from(document.querySelectorAll('[id^=importe-salida-]'));
                                         totalSalida = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
                                     }"
@@ -214,13 +226,13 @@
                             </td>
                             <td>
                                 <x-form.input-table
-                                        id="importe-salida-{{$i}}"
-                                        wire:model="items.{{$i}}.importe_salida"
-                                        type="number"
-                                        label=""
-                                        step="0.01"
-                                        disabled
-                                        x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_salida')"
+                                    id="importe-salida-{{$i}}"
+                                    wire:model="items.{{$i}}.importe_salida"
+                                    type="number"
+                                    label=""
+                                    step="0.01"
+                                    disabled
+                                    x-bind:value="$wire.get('items.{{$i}}.precio') * $wire.get('items.{{$i}}.cantidad_salida')"
                                 />
                             </td>
                         </tr>
@@ -272,8 +284,47 @@
             </div>
             <div class="col-12">
                 <x-button theme="outline-primary" wire:click.prevent="back(3)">Atrás</x-button>
+                <x-button wire:click.prevent="step4">Siguiente</x-button>
+            </div>
+        </div>
+        <div class="row" x-show="$wire.step === 5">
+            <div class="col-12">
+                <x-table.table>
+                    <x-slot:header>
+                        <tr>
+                            <x-table.th>Concepto</x-table.th>
+                            <x-table.th>Precio</x-table.th>
+                            <x-table.th></x-table.th>
+                        </tr>
+                    </x-slot:header>
+                    @forelse($this->gasto as $i => $gasto)
+                        <tr>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="gasto.{{$i}}.concepto"
+                                />
+                            </td>
+                            <td>
+                                <x-form.input-table
+                                    wire:model="gasto.{{$i}}.precio"
+                                />
+                            </td>
+                            <td>
+                                <x-button wire:click.prevent="addGasto">+</x-button>
+                                @if(!$loop->first)
+                                    <x-button wire:click.prevent="removeGasto({{$i}})">-</x-button>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                    @endforelse
+                </x-table.table>
+            </div>
+            <div class="col-12">
+                <x-button theme="outline-primary" wire:click.prevent="back(4)">Atrás</x-button>
                 <x-button type="submit">Registrar</x-button>
             </div>
         </div>
     </div>
+
 </form>
