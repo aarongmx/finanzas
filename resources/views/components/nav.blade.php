@@ -25,7 +25,6 @@
                     <x-nav-item path="capturista.salidas.index">Salidas</x-nav-item>
                     <x-nav-item path="capturista.entradas.index">Entradas</x-nav-item>
                     <x-nav-item path="capturista.clientes.index">Clientes</x-nav-item>
-                    <x-nav-item path="capturista.gastos.index">Gastos</x-nav-item>
                     <x-nav-item path="capturista.creditos.índex">Créditos</x-nav-item>
                 @endif
             </ul>
