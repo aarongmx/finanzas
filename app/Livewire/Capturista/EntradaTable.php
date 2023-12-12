@@ -43,7 +43,11 @@ final class EntradaTable extends PowerGridComponent
 
     public function relationSearch(): array
     {
-        return [];
+        return [
+            'sucursal',
+            'sucursalEnvio',
+            'producto',
+        ];
     }
 
     public function addColumns(): PowerGridColumns
@@ -51,11 +55,9 @@ final class EntradaTable extends PowerGridComponent
         return PowerGrid::columns()
             ->addColumn('id')
             ->addColumn('precio')
-            ->addColumn('precio_envio')
             ->addColumn('cantidad')
-            ->addColumn('sucursal_id')
-            ->addColumn('sucursal_envio_id')
-            ->addColumn('producto_id')
+            ->addColumn('sucursal_envio_id', fn(Entrada $model) => $model->sucursalEnvio->nombre)
+            ->addColumn('producto_id', fn(Entrada $model) => $model->producto->nombre)
             ->addColumn('salida_id')
             ->addColumn('created_at_formatted', fn(Entrada $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
@@ -68,18 +70,12 @@ final class EntradaTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Precio envio', 'precio_envio')
-                ->sortable()
-                ->searchable(),
-
             Column::make('Cantidad', 'cantidad')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Sucursal id', 'sucursal_id'),
-            Column::make('Sucursal envio id', 'sucursal_envio_id'),
-            Column::make('Producto id', 'producto_id'),
-            Column::make('Salida id', 'salida_id'),
+            Column::make('Sucursal envio', 'sucursal_envio_id'),
+            Column::make('Producto', 'producto_id'),
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
@@ -106,7 +102,7 @@ final class EntradaTable extends PowerGridComponent
             Button::add('edit')
                 ->slot('Edit: ' . $row->id)
                 ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->class('btn btn-outline-primary')
                 ->dispatch('edit', ['rowId' => $row->id])
         ];
     }
