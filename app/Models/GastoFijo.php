@@ -16,6 +16,7 @@ class GastoFijo extends Model
         'precio',
         'concepto',
         'sucursal_id',
+        'cuenta_id'
     ];
 
     public function concepto(): Attribute
