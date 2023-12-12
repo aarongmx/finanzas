@@ -335,6 +335,26 @@
         </div>
         <div class="row" x-show="$wire.step === 6">
             <div class="col-6">
+                <div>
+                    <strong>Gastos</strong>
+                    <p x-text="() => `$${parseFloat(totalGastos).toLocaleString()}`"></p>
+                </div>
+                <div>
+                    <strong>Salidas</strong>
+                    <p x-text="() => `$${parseFloat(totalSalida).toLocaleString()}`"></p>
+                </div>
+                <div>
+                    <strong>Sobrante</strong>
+                    <p x-text="() => `$${parseFloat(totalSobrante).toLocaleString()}`"></p>
+                </div>
+                <div>
+                    <strong>Entrada</strong>
+                    <p x-text="() => `$${parseFloat(totalEntrada).toLocaleString()}`"></p>
+                </div>
+                <div>
+                    <strong>Total</strong>
+                    <p x-text="() => `$${(parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)+parseFloat(totalSobrante)).toLocaleString()}`"></p>
+                </div>
                 <x-form.input
                     wire:model="efectivo"
                     type="number"
