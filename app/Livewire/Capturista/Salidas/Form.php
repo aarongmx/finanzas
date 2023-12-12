@@ -21,7 +21,7 @@ class Form extends Component
     #[Computed]
     public function sucursales()
     {
-        return Sucursal::query()->get();
+        return Sucursal::query()->whereNotIn('id', [auth()->user()->sucursal_id])->get();
     }
 
     public function store()
