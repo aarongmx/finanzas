@@ -4,6 +4,7 @@ namespace App\Livewire\Capturista\Cuentas;
 
 use App\Livewire\Forms\CuentaForm;
 use App\Models\Cuenta;
+use App\Models\Entrada;
 use App\Models\GastoFijo;
 use App\Models\ItemCuenta;
 use App\Models\Producto;
@@ -40,6 +41,9 @@ class Form extends Component
     public $fechaVenta;
     public $fechaCaptura;
 
+    public $efectivo;
+    public $aCuenta;
+
     public function rules(): array
     {
         return [
@@ -50,6 +54,8 @@ class Form extends Component
             'items.*.cantidad_entrada' => ['required', 'numeric'],
             'items.*.cantidad_salida' => ['required', 'numeric'],
             'items.*.cantidad_sobrante' => ['required', 'numeric'],
+            'efectivo' => ['required', 'numeric'],
+            'aCuenta' => ['required', 'numeric'],
         ];
     }
 
@@ -61,8 +67,6 @@ class Form extends Component
             ])
             ->get()
             ->map(fn($p) => $this->extractValues($p));
-
-
     }
 
     private function extractValues(Producto $producto)
@@ -144,6 +148,8 @@ class Form extends Component
                     'fecha_venta' => $this->fechaVenta,
                     'fecha_captura' => $this->fechaCaptura,
                     'sucursal_id' => auth()->user()->sucursal_id,
+                    'efectivo' => $this->efectivo,
+                    'a_cuenta' => $this->aCuenta,
                 ]);
 
                 collect($this->items)->each(function ($item) use (&$cuenta) {

@@ -322,6 +322,27 @@
             </div>
             <div class="col-12">
                 <x-button theme="outline-primary" wire:click.prevent="back(4)">Atrás</x-button>
+                <x-button wire:click.prevent="step5">Siguiente</x-button>
+            </div>
+        </div>
+        <div class="row" x-show="$wire.step === 6">
+            <div class="col-6">
+                <x-form.input
+                    wire:model="efectivo"
+                    type="number"
+                    step="0.01"
+                    label="Efectivo"
+                />
+            </div>
+            <div class="col-6">
+                <x-form.input
+                    label="A Cuenta"
+                    wire:model="aCuenta"
+                    type="number"
+                    step="0.01"
+                />
+            </div>
+            <div class="col-12">
                 <x-button type="submit">Registrar</x-button>
             </div>
         </div>
