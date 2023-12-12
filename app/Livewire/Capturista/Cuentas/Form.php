@@ -26,7 +26,7 @@ class Form extends Component
         3 => 'Salidas',
         4 => 'Sobrantes',
         5 => 'Gastos',
-        6 => 'Prestamos',
+        6 => 'Totales',
     ];
 
     public $items = [];
