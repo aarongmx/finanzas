@@ -17,7 +17,7 @@ class Form extends Component
 {
     public CuentaForm $form;
 
-    public $step = 5;
+    public $step = 1;
 
     public $steps = [
         1 => 'Existencia',
