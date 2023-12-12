@@ -1,8 +1,9 @@
 @props([
-    'header' => false
+    'header' => false,
+    'min' => 60,
 ])
 <div class="card">
-    <div class="card-body p-0 table-responsive" style="max-height: 60vh; min-height: 60vh;">
+    <div class="card-body p-0 table-responsive" style="max-height: 60vh; min-height: {{$min}}vh;">
         <table class="table table-hover">
             @if($header)
                 <thead class="table-primary">
