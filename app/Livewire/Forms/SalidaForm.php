@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Cuenta;
+use App\Models\Entrada;
 use App\Models\ItemCuenta;
 use App\Models\Salida;
 use Livewire\Attributes\Rule;
@@ -32,13 +33,24 @@ class SalidaForm extends Form
                 'fecha_venta' => today()->toDate()
             ]);
 
-            Salida::updateOrCreate([
+            $salida = Salida::updateOrCreate([
                 'precio' => $this->precio,
                 'cantidad' => $this->cantidad,
                 'producto_id' => $this->productoId,
                 'total' => round($this->cantidad * $this->precio, 2),
                 'sucursal_destino_id' => $this->sucursalDestinoId,
                 'cuenta_id' => $cuenta->id
+            ]);
+
+            Entrada::create([
+                'sucursal_id' => $this->sucursalDestinoId,
+                'sucursal_envio_id' => auth()->user()->sucursal_id,
+                'precio_envio' => $this->precio,
+                'cantidad' => $this->cantidad,
+                'precio' => 0,
+                'salida_id' => $salida->id,
+                'producto_id' => $this->productoId,
+                'fecha' => today()->toDateString()
             ]);
         });
     }
