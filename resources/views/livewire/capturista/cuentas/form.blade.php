@@ -307,12 +307,20 @@
                             <td>
                                 <x-form.input-table
                                     wire:model="gasto.{{$i}}.precio"
+                                    id="gastos-precio-{{$i}}"
+                                    @input="(e) => {
+                                        const inputs = Array.from(document.querySelectorAll('[id^=gastos-precio-]'));
+                                        totalGastos = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
+                                    }"
                                 />
                             </td>
                             <td>
                                 <x-button wire:click.prevent="addGasto">+</x-button>
                                 @if(!$loop->first)
-                                    <x-button wire:click.prevent="removeGasto({{$i}})">-</x-button>
+                                    <x-button wire:click.prevent="removeGasto({{$i}})" @click.prevent="(e) => {
+                                        const input = document.querySelectorAll('[id^=gastos-precio-{{$i}}]')[0];
+                                        totalGastos -= parseFloat(input.value, 0)
+                                    }">-</x-button>
                                 @endif
                             </td>
                         </tr>
@@ -343,6 +351,7 @@
                 />
             </div>
             <div class="col-12">
+                <x-button theme="outline-primary" wire:click.prevent="back(5)">Atrás</x-button>
                 <x-button type="submit">Registrar</x-button>
             </div>
         </div>
