@@ -20,6 +20,7 @@ class Entrada extends Model
         'sucursal_envio_id',
         'producto_id',
         'salida_id',
+        'fecha',
     ];
 
     public function sucursal(): BelongsTo
