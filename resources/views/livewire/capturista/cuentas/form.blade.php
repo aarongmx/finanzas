@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4">
+        <div class="col-12 col-lg-4">
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Existencia</strong>
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-12 col-lg-2">
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Entrada</strong>
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-12 col-lg-2">
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Salida</strong>
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-12 col-lg-2">
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Sobrante</strong>
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-12 col-lg-2">
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Gastos</strong>
@@ -353,7 +353,8 @@
                 </div>
                 <div>
                     <strong>Total</strong>
-                    <p x-text="() => `$${(parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)+parseFloat(totalSobrante)).toLocaleString()}`"></p>
+                    <p x-text="() => `$${
+                    (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)).toLocaleString()-parseFloat(totalGastos).toLocaleString()}`"></p>
                 </div>
                 <x-form.input
                     wire:model="efectivo"
