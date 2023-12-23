@@ -386,7 +386,23 @@
                     step="0.01"
                     label="Efectivo"
                 />
-                <p x-text="() => `$${parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos))}`" :class="{'text-bg-danger': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) < 0, 'text-bg-info': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) > 0, 'text-bg-success': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) === 0}" class="badge"></p>
+
+                <div class="card" :class="{
+                    'bg-success': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) === 0,
+                    'bg-danger': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) < 0,
+                    'bg-info': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) > 0
+                }">
+                    <div class="card-body">
+                        <p x-text="() => {
+                            let total = (parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos))).toFixed(2);
+                            if(total > 0) return `Saldo a favor: $${total}`
+                            if(total < 0) return `Adeuda: $${total}`
+                            if(total === 0) return `Cuenta correcta: $${total}`
+                        }"
+                        class="text-muted m-0"></p>
+                    </div>
+                </div>
+
             </div>
             <div class="col-6">
                 <x-form.input
