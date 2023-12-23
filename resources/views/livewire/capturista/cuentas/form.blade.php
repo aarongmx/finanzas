@@ -6,7 +6,8 @@
         totalSobrante:0,
         totalGastos: 0,
         total: 0,
-        data: @entangle('items')
+        data: @entangle('items'),
+        efectivo: @entangle('efectivo')
       }">
     <div class="row">
         <div class="col-12">
@@ -380,11 +381,12 @@
                         `$${(parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)).toLocaleString()}`"></p>
                 </div>
                 <x-form.input
-                    wire:model="efectivo"
+                    x-model="efectivo"
                     type="number"
                     step="0.01"
                     label="Efectivo"
                 />
+                <p x-text="() => `$${parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos))}`" :class="{'text-bg-danger': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) < 0, 'text-bg-info': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) > 0, 'text-bg-success': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) === 0}" class="badge"></p>
             </div>
             <div class="col-6">
                 <x-form.input
