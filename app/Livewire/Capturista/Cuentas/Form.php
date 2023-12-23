@@ -200,6 +200,11 @@ class Form extends Component
         unset($this->gasto[$index]);
     }
 
+    public function arrastrarDatosMarinados()
+    {
+
+    }
+
     public function render()
     {
         return view('livewire.capturista.cuentas.form');

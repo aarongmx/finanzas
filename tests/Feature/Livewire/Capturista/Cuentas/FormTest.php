@@ -88,3 +88,9 @@ test('Se puede retirar un gasto', function () {
         ->call('removeGasto', 1)
         ->assertCount('gasto', 1);
 });
+
+test('Se muestra botón para arrastrar datos de marinados', function () {
+    livewire(Form::class)
+        ->assertMethodWired('arrastrarDatosMarinados')
+        ->call('arrastrarDatosMarinados');
+});
