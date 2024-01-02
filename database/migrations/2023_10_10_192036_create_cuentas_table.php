@@ -14,8 +14,10 @@ return new class extends Migration
     {
         Schema::create('cuentas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedDouble('efectivo', 16, 2);
-            $table->unsignedDouble('a_cuenta', 16, 2);
+            $table->unsignedDouble('efectivo_pollo', 16, 2);
+            $table->unsignedDouble('efectivo_marinado', 16, 2);
+            $table->unsignedDouble('efectivo_total', 16, 2);
+            $table->unsignedDouble('saldo', 16, 2);
             $table->date('fecha_captura')->default(now()->format('Y-m-d'));
             $table->date('fecha_venta')->default(now()->format('Y-m-d'));
             $table->foreignIdFor(Sucursal::class)->constrained('sucursales');
