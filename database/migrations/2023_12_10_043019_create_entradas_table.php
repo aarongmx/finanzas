@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cuenta;
 use App\Models\Producto;
 use App\Models\Salida;
 use App\Models\Sucursal;
@@ -21,8 +22,9 @@ return new class extends Migration
             $table->float('cantidad');
             $table->foreignIdFor(Producto::class)->constrained();
             $table->foreignIdFor(Sucursal::class, 'sucursal_envio_id')->constrained('sucursales');
-            $table->foreignIdFor(Sucursal::class)->constrained('sucursales');
+            $table->foreignIdFor(Sucursal::class, 'sucursal_destino_id')->constrained('sucursales');
             $table->foreignIdFor(Salida::class)->constrained();
+            $table->foreignIdFor(Cuenta::class)->constrained();
             $table->softDeletes();
             $table->timestamps();
         });
