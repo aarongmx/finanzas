@@ -39,6 +39,11 @@ class Cuenta extends Model
         return $this->hasMany(Salida::class);
     }
 
+    public function entradas(): HasMany
+    {
+        return $this->hasMany(Entrada::class);
+    }
+
     public function gastosFijos(): HasMany
     {
         return $this->hasMany(GastoFijo::class);
