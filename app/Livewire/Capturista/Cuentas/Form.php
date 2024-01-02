@@ -63,7 +63,7 @@ class Form extends Component
     {
         $this->items = Producto::query()
             ->with([
-                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('fecha_venta', today()->subDay()))
+                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('sucursal_id', auth()->user()->sucursal_id)->where('fecha_venta', today()->subDay()))
             ])
             ->get()
             ->map(fn($p) => $this->extractValues($p));
@@ -95,7 +95,7 @@ class Form extends Component
 
         $this->items = Producto::query()
             ->with([
-                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('fecha_venta', $fechaVentaAnterior))
+                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('sucursal_id', auth()->user()->sucursal_id)->where('fecha_venta', $fechaVentaAnterior))
             ])
             ->get()
             ->map(fn($p) => $this->extractValues($p));
@@ -148,8 +148,10 @@ class Form extends Component
                     'fecha_venta' => $this->fechaVenta,
                     'fecha_captura' => $this->fechaCaptura,
                     'sucursal_id' => auth()->user()->sucursal_id,
-                    'efectivo' => $this->efectivo,
-                    'a_cuenta' => $this->aCuenta,
+                    'efectivo_marinado' => $this->efectivo,
+                    'efectivo_pollo' => $this->aCuenta,
+                    'efectivo_total' => $this->aCuenta,
+                    'saldo' => $this->efectivo
                 ]);
 
                 collect($this->items)->each(function ($item) use (&$cuenta) {
