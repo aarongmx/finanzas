@@ -26,9 +26,9 @@ class GastoFijo extends Model
         );
     }
 
-    public function cuentas(): BelongsToMany
+    public function cuenta(): BelongsTo
     {
-        return $this->belongsToMany(Cuenta::class)->withTimestamps();
+        return $this->belongsTo(Cuenta::class);
     }
 
     public function sucursal(): BelongsTo

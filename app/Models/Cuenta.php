@@ -15,12 +15,13 @@ class Cuenta extends Model
     protected $table = 'cuentas';
 
     protected $fillable = [
-        'efectivo', 'a_cuenta', 'fecha_captura', 'fecha_venta', 'sucursal_id',
-    ];
-
-    protected $attributes = [
-        'efectivo' => 0.0,
-        'a_cuenta' => 0.0
+        'efectivo_pollo',
+        'efectivo_marinado',
+        'efectivo_total',
+        'saldo',
+        'fecha_captura',
+        'fecha_venta',
+        'sucursal_id',
     ];
 
     public function sucursal(): BelongsTo
@@ -38,8 +39,8 @@ class Cuenta extends Model
         return $this->hasMany(Salida::class);
     }
 
-    public function gastosFijos(): BelongsToMany
+    public function gastosFijos(): HasMany
     {
-        return $this->belongsToMany(GastoFijo::class)->withTimestamps();
+        return $this->hasMany(GastoFijo::class);
     }
 }
