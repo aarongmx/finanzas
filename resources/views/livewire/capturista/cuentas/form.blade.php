@@ -335,8 +335,7 @@
                                     <x-button wire:click.prevent="removeGasto({{$i}})" @click.prevent="(e) => {
                                         const input = document.querySelectorAll('[id^=gastos-precio-{{$i}}]')[0];
                                         totalGastos -= parseFloat(input.value, 0)
-                                    }">-
-                                    </x-button>
+                                    }">-</x-button>
                                 @endif
                             </td>
                         </tr>
@@ -395,11 +394,11 @@
                     <div class="card-body">
                         <p x-text="() => {
                             let total = (parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos))).toFixed(2);
-                            if(total > 0) return `Saldo a favor: $${total}`
-                            if(total < 0) return `Adeuda: $${total}`
-                            if(total === 0) return `Cuenta correcta: $${total}`
+                            if(parseFloat(total) > 0) return `Saldo a favor: $${total}`
+                            if(parseFloat(total) < 0) return `Adeuda: $${total}`
+                            if(parseFloat(total) === 0) return `Cuenta correcta: $${total}`
                         }"
-                        class="text-muted m-0"></p>
+                           class="text-muted m-0"></p>
                     </div>
                 </div>
 
