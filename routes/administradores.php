@@ -14,6 +14,7 @@ Route::name('sucursales.')->prefix('sucursales')->group(function () {
 Route::name('cuentas.')->prefix('cuentas')->group(function () {
     Route::get('/', \App\Livewire\Administrador\Cuentas\Index::class)->name('index');
     Route::get('/nueva', \App\Livewire\Administrador\Cuentas\Form::class)->name('form');
+    Route::get('/{cuenta}', \App\Livewire\Administrador\Cuentas\Show::class)->name('show');
 
 });
 
