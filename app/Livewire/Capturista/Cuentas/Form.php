@@ -146,8 +146,9 @@ class Form extends Component
             DB::transaction(function () {
                 $cuenta = Cuenta::query()->firstOrCreate([
                     'fecha_venta' => $this->fechaVenta,
-                    'fecha_captura' => $this->fechaCaptura,
                     'sucursal_id' => auth()->user()->sucursal_id,
+                ], [
+                    'fecha_captura' => $this->fechaCaptura,
                     'efectivo_marinado' => $this->efectivo,
                     'efectivo_pollo' => $this->aCuenta,
                     'efectivo_total' => $this->aCuenta,
@@ -163,7 +164,6 @@ class Form extends Component
                 });
 
                 collect($this->gasto)->each(function ($gasto) use (&$cuenta) {
-                    ray($cuenta);
                     if (!empty($gasto['precio']) && !empty($gasto['concepto'])) {
                         GastoFijo::create([
                             'concepto' => $gasto['concepto'],
