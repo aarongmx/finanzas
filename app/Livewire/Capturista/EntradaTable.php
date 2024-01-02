@@ -38,7 +38,7 @@ final class EntradaTable extends PowerGridComponent
     public function datasource(): Builder
     {
         return Entrada::query()
-            ->where('sucursal_id', auth()->user()->sucursal_id);
+            ->where('sucursal_destino_id', auth()->user()->sucursal_id);
     }
 
     public function relationSearch(): array
