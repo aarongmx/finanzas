@@ -62,14 +62,16 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Concepto</th>
+                            <th>Producto</th>
                             <th style="text-align: right;">Precio</th>
+                            <th style="text-align: right;">Cantidad</th>
                         </tr>
                         </thead>
-                        @forelse($this->cuenta->gastosFijos as $gasto)
+                        @forelse($this->cuenta->entradas as $entrada)
                             <tr>
-                                <td>{{$gasto->concepto}}</td>
-                                <td style="text-align: right;">@money($gasto->precio)</td>
+                                <td>{{$entrada->producto->nombre}}</td>
+                                <td style="text-align: right;">@money($entrada->precio)</td>
+                                <td style="text-align: right;">@amount($entrada->cantidad)</td>
                             </tr>
                         @empty
                         @endforelse

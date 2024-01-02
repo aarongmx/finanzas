@@ -21,6 +21,9 @@ class Show extends Component
                 'sucursalDestino',
             ],
             'sucursal',
+            'entradas' => [
+                'producto',
+            ],
         ]);
         ray($this->cuenta);
     }
