@@ -1,5 +1,11 @@
 <form wire:submit.prevent="store">
     <x-form.input
+        label="Fecha de venta"
+        type="date"
+        wire:model="form.fechaVenta"
+    />
+
+    <x-form.input
         wire:model="form.cantidad"
         type="number"
         step="0.01"
