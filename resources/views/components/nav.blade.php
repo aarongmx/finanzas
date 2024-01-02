@@ -31,7 +31,7 @@
             <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
                 <li class="nav-item col-6 col-lg-auto text-white px-4 justify-content-center align-items-center">
                     <p class="m-0">
-                        {{auth()->user()->name}} - {{auth()->user()->sucursal->nombre}}
+                        {{auth()->user()->name}} - {{auth()->user()?->sucursal?->nombre ?? 'ADMINISTRACIÓN'}}
                     </p>
                 </li>
                 <li class="nav-item col-6 col-lg-auto">
