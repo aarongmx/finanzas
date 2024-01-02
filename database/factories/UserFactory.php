@@ -37,4 +37,11 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function sinSucursal(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'sucursal_id' => null,
+        ]);
+    }
 }
