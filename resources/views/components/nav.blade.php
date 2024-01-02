@@ -29,11 +29,15 @@
                 @endif
             </ul>
             <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
-                <li class="nav-item col-6 col-lg-auto text-white">{{auth()->user()->name}}</li>
+                <li class="nav-item col-6 col-lg-auto text-white px-4 justify-content-center align-items-center">
+                    <p class="m-0">
+                        {{auth()->user()->name}} - {{auth()->user()->sucursal->nombre}}
+                    </p>
+                </li>
                 <li class="nav-item col-6 col-lg-auto">
                     <form action='/logout' method='POST'>
                         @csrf
-                        <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                        <button type="submit" class="btn btn-light">Cerrar sesión</button>
                     </form>
                 </li>
             </ul>
