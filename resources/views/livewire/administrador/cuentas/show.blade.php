@@ -4,8 +4,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-lg-8">
-                            <h1 class="h2">{{$this->cuenta->sucursal->nombre}}</h1>
+                        <div class="col-12 col-lg-8 d-flex align-items-center">
+                            <h1 class="h2 m-0">{{$this->cuenta->sucursal->nombre}}</h1>
                         </div>
                         <div class="col-12 col-lg-2">
                             <strong>Fecha de venta</strong>
