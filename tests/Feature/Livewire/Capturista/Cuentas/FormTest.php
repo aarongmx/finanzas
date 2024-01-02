@@ -28,9 +28,9 @@ test('Se valida el paso 1', function () {
 
     livewire(Form::class)
         ->assertPropertyWired('fechaVenta')
-        ->set('fechaVenta', today())
+        ->set('fechaVenta', today()->toDateString())
         ->assertPropertyWired('fechaCaptura')
-        ->set('fechaCaptura', today())
+        ->set('fechaCaptura', today()->toDateString())
         ->set('items.0.precio', 10)
         ->assertMethodWired('step1')
         ->call('step1')
@@ -46,8 +46,8 @@ test('Se guarda correctamente el registro de la cuenta', function () {
 
     livewire(Form::class)
         ->assertMethodWiredToForm('store')
-        ->set('fechaVenta', today())
-        ->set('fechaCaptura', today())
+        ->set('fechaVenta', today()->toDateString())
+        ->set('fechaCaptura', today()->toDateString())
         ->set('items.0.precio', 10)
         ->call('step1')
         ->assertHasNoErrors()
@@ -55,8 +55,8 @@ test('Se guarda correctamente el registro de la cuenta', function () {
         ->assertHasNoErrors();
 
     expect([
-        'fecha_venta' => today(),
-        'fecha_captura' => today(),
+        'fecha_venta' => today()->toDateString(),
+        'fecha_captura' => today()->toDateString(),
     ])->toBeInDatabase('cuentas');
     /*->and([
 
