@@ -66,7 +66,8 @@ final class CuentaTable extends PowerGridComponent
             ->addColumn('a_cuenta_formated', fn(Cuenta $model) => "$" . e(number_format($model->a_cuenta, 2)))
             ->addColumn('sucursal_id', fn(Cuenta $model) => e($model->sucursal?->nombre))
             ->addColumn('fecha_venta_formatted', fn(Cuenta $model) => Carbon::parse($model->fecha_venta)->format('d/m/Y'))
-            ->addColumn('created_at_formatted', fn(Cuenta $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('created_at_formatted', fn(Cuenta $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
+            ->addColumn('link', fn(Cuenta $model) => "<a class='link-underline-light' href='" . route('administracion.cuentas.show', ['cuenta' => $model]) . "'>Mostrar</a>");
     }
 
     public function columns(): array
@@ -79,6 +80,7 @@ final class CuentaTable extends PowerGridComponent
             Column::make('Fecha Venta', 'fecha_venta_formatted'),
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
+            Column::make('Mostrar cuenta', 'link'),
 
             Column::action('Action')
         ];
