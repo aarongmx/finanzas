@@ -2,11 +2,11 @@
     'header' => false,
     'min' => 60,
 ])
-<div class="card">
-    <div class="card-body p-0 table-responsive" style="max-height: 60vh; min-height: {{$min}}vh;">
-        <table class="table table-hover">
+<div class="card overflow-hidden">
+    <div class="card-body table-responsive" style="max-height: 60vh; min-height: {{$min}}vh;">
+        <table class="table table-hover table-striped">
             @if($header)
-                <thead class="table-primary">
+                <thead>
                 {{$header}}
                 </thead>
             @endif
