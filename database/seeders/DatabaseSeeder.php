@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             CategoriasSeeder::class,
             PermissionsSeeder::class,
             UsuariosSeeder::class,
-            #ProductosSeeder::class,
+            ProductosSeeder::class,
             EstatusSeeder::class,
         ]);
     }
