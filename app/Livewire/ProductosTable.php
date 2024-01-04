@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Administrador\Productos\Form;
 use App\Models\Producto;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -85,20 +86,33 @@ final class ProductosTable extends PowerGridComponent
         ];
     }
 
-    #[\Livewire\Attributes\On('edit')]
+    #[On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        $this->dispatch('update', $rowId)->to(Form::class);
+        $this->openModal('producto-form');
     }
 
-    public function actions(\App\Models\Producto $row): array
+    #[On('askDelete')]
+    public function askDelete($rowId): void
+    {
+        $producto = Producto::query()->find($rowId);
+        $producto->delete();
+    }
+
+    public function actions(Producto $row): array
     {
         return [
-            Button::add('edit')
-                ->slot('Edit: '.$row->id)
+            Button::add('delete')
+                ->slot('Eliminar')
                 ->id()
-                ->class('btn btn-outline-primary')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->class('btn btn-outline-danger')
+                ->dispatch('askDelete', ['rowId' => $row->id]),
+            Button::add('edit')
+                ->slot('Actualizar')
+                ->id()
+                ->class('btn btn-primary')
+                ->dispatch('edit', ['rowId' => $row->id]),
         ];
     }
 

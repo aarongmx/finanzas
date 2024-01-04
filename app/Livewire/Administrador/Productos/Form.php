@@ -5,13 +5,21 @@ namespace App\Livewire\Administrador\Productos;
 use App\Livewire\Forms\ProductoForm;
 use App\Livewire\ProductosTable;
 use App\Models\Categoria;
+use App\Models\Producto;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Form extends Component
 {
     public ProductoForm $form;
+
+    #[On('update')]
+    public function edit(Producto $producto)
+    {
+        $this->form->setForm($producto);
+    }
 
     #[Computed]
     public function categorias(): Collection
@@ -25,7 +33,8 @@ class Form extends Component
         try {
             $this->form->store();
             $this->dispatch('refresh');
-            $this->closeModal('exampleModal');
+            $this->form->reset();
+            $this->closeModal('producto-form');
             $this->notify('Producto guardaro!', 'El producto quedo registrado correctamente!');
         } catch (\Exception $exception) {
             logger($exception);
