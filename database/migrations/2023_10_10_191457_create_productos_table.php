@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->foreignIdFor(Categoria::class)->constrained('categorias');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
