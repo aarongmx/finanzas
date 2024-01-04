@@ -136,7 +136,7 @@
         <div class="col-12">
             <h2 class="h4 text-muted">Productos</h2>
             <x-table.table>
-                <tr>
+                <x-slot:header>
                     <x-table.th>Producto</x-table.th>
                     <x-table.th>Precio</x-table.th>
                     <x-table.th>Cantidad anterior</x-table.th>
@@ -147,7 +147,7 @@
                     <x-table.th>Importe salida</x-table.th>
                     <x-table.th>Cantidad sobrante</x-table.th>
                     <x-table.th>Importe sobrante</x-table.th>
-                </tr>
+                </x-slot:header>
                 @forelse($this->cuenta->itemsCuenta as $item)
                     <tr>
                         <td>{{$item->producto->nombre}}</td>
