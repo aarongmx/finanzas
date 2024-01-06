@@ -16,12 +16,12 @@ class Entrada extends Model
         'precio',
         'precio_envio',
         'cantidad',
+        'fecha_entrada',
         'producto_id',
-        'sucursal_envio_id',
+        'sucursal_origen_id',
         'sucursal_destino_id',
         'salida_id',
         'cuenta_id',
-        'fecha',
     ];
 
     public function sucursalDestino(): BelongsTo
@@ -31,7 +31,7 @@ class Entrada extends Model
 
     public function sucursalEnvio(): BelongsTo
     {
-        return $this->belongsTo(Sucursal::class, 'sucursal_envio_id');
+        return $this->belongsTo(Sucursal::class, 'sucursal_origen_id');
     }
 
     public function producto(): BelongsTo

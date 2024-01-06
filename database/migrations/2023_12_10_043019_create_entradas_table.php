@@ -20,8 +20,9 @@ return new class extends Migration
             $table->float('precio');
             $table->float('precio_envio');
             $table->float('cantidad');
+            $table->date('fecha_entrada');
             $table->foreignIdFor(Producto::class)->constrained();
-            $table->foreignIdFor(Sucursal::class, 'sucursal_envio_id')->constrained('sucursales');
+            $table->foreignIdFor(Sucursal::class, 'sucursal_origen_id')->constrained('sucursales');
             $table->foreignIdFor(Sucursal::class, 'sucursal_destino_id')->constrained('sucursales');
             $table->foreignIdFor(Salida::class)->constrained();
             $table->foreignIdFor(Cuenta::class)->constrained();
