@@ -41,6 +41,9 @@ class SalidaForm extends Form
             ]);
 
             $salida = Salida::updateOrCreate([
+                'fecha_salida' => today()->toDateString(),
+                'sucursal_origen_id' => auth()->user()->sucursal_id,
+            ],[
                 'precio' => $this->precio,
                 'cantidad' => $this->cantidad,
                 'producto_id' => $this->productoId,
@@ -52,7 +55,7 @@ class SalidaForm extends Form
             $cuentaDestino = Cuenta::firstOrCreate([
                 'sucursal_id' => $this->sucursalDestinoId,
                 'fecha_venta' => $this->fechaVenta,
-            ],[
+            ], [
                 'efectivo_pollo' => 0,
                 'efectivo_marinado' => 0,
                 'efectivo_total' => 0,
@@ -61,13 +64,13 @@ class SalidaForm extends Form
 
             Entrada::create([
                 'sucursal_destino_id' => $this->sucursalDestinoId,
-                'sucursal_envio_id' => auth()->user()->sucursal_id,
+                'sucursal_origen_id' => auth()->user()->sucursal_id,
                 'precio_envio' => $this->precio,
                 'cantidad' => $this->cantidad,
                 'precio' => 0,
                 'salida_id' => $salida->id,
                 'producto_id' => $this->productoId,
-                'fecha' => today()->toDateString(),
+                'fecha_entrada' => today()->toDateString(),
                 'cuenta_id' => $cuentaDestino->id,
             ]);
         });
