@@ -3,7 +3,7 @@
         <livewire:capturista.mayoreo.form/>
     </x-modal>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 d-flex align-items-center justify-content-between">
             <h1>Mayoreos</h1>
             <x-button data-bs-target="#mayoreo" data-bs-toggle="modal">Nuevo</x-button>
         </div>

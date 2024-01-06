@@ -39,6 +39,9 @@ final class MayoreosTable extends PowerGridComponent
     public function datasource(): Builder
     {
         return Mayoreo::query()
+            ->with([
+                'producto'
+            ])
             ->where('sucursal_id', auth()->user()->sucursal_id);
     }
 
@@ -52,11 +55,10 @@ final class MayoreosTable extends PowerGridComponent
         return PowerGrid::columns()
             ->addColumn('id')
             ->addColumn('fecha_venta_formatted', fn(Mayoreo $model) => Carbon::parse($model->fecha_venta)->format('d/m/Y'))
-            ->addColumn('precio')
-            ->addColumn('cantidad')
-            ->addColumn('total')
-            ->addColumn('producto_id')
-            ->addColumn('sucursal_id')
+            ->addColumn('precio', fn(Mayoreo $mayoreo) => '$' . number_format($mayoreo->precio, 2))
+            ->addColumn('cantidad', fn(Mayoreo $mayoreo) => number_format($mayoreo->cantidad, 2). ' kg')
+            ->addColumn('total', fn(Mayoreo $mayoreo) => '$'.number_format($mayoreo->total,2))
+            ->addColumn('producto_id', fn(Mayoreo $model) => $model->producto->nombre)
             ->addColumn('created_at_formatted', fn(Mayoreo $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -67,11 +69,11 @@ final class MayoreosTable extends PowerGridComponent
             Column::make('Fecha venta', 'fecha_venta_formatted', 'fecha_venta')
                 ->sortable(),
 
-            Column::make('Precio', 'precio')
+            Column::make('Cantidad', 'cantidad')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Cantidad', 'cantidad')
+            Column::make('Precio', 'precio')
                 ->sortable()
                 ->searchable(),
 
@@ -79,12 +81,11 @@ final class MayoreosTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Producto id', 'producto_id'),
-            Column::make('Sucursal id', 'sucursal_id'),
+            Column::make('Producto', 'producto_id'),
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            //Column::action('Action')
         ];
     }
 
@@ -102,16 +103,16 @@ final class MayoreosTable extends PowerGridComponent
         $this->js('alert(' . $rowId . ')');
     }
 
-    public function actions(\App\Models\Mayoreo $row): array
+    /*public function actions(\App\Models\Mayoreo $row): array
     {
         return [
             Button::add('edit')
                 ->slot('Edit: ' . $row->id)
                 ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->class('btn btn-p')
                 ->dispatch('edit', ['rowId' => $row->id])
         ];
-    }
+    }*/
 
     #[On('refresh')]
     public function refreshData(): void
