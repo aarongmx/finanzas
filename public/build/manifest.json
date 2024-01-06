@@ -7,9 +7,14 @@
     "css": [
       "assets/app-f6cbb402.css"
     ],
-    "file": "assets/app-dcf26269.js",
+    "file": "assets/app-41cece11.js",
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/js/form.js": {
+    "file": "assets/form-fe71c1bc.js",
+    "isEntry": true,
+    "src": "resources/js/form.js"
   },
   "resources/scss/app.scss": {
     "file": "assets/app-e90502ce.css",
