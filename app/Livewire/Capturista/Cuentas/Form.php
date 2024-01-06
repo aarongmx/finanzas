@@ -8,6 +8,7 @@ use App\Models\Entrada;
 use App\Models\GastoFijo;
 use App\Models\ItemCuenta;
 use App\Models\Producto;
+use App\Models\Salida;
 use Domain\Cuentas\Actions\ProcesarItemAction;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +36,6 @@ class Form extends Component
         ['concepto' => '', 'precio' => 0]
     ];
 
-    public $cantidadExistencia = 0;
     public $importeExistencia = 0;
 
     public $fechaVenta;
@@ -83,6 +83,12 @@ class Form extends Component
         $this->fechaCaptura = today()->format('Y-m-d');
         $fechaVentaAnterior = Carbon::parse($value)->subDay()->toDateString();
 
+        $entradas = Entrada::query()->where('fecha_entrada', $value)->where('sucursal_destino_id', auth()->user()->sucursal_id)->get();
+        ray($entradas);
+
+        $salidas = Salida::query()->where('fecha_salida', $value)->where('sucursal_origen_id', auth()->user()->sucursal_id)->get();
+        ray($salidas);
+
         $this->items = Producto::query()
             ->with([
                 'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('sucursal_id', auth()->user()->sucursal_id)->where('fecha_venta', $fechaVentaAnterior))
@@ -91,10 +97,7 @@ class Form extends Component
             ->get()
             ->map(fn($p) => $this->extractValues($p));
 
-        $this->cantidadExistencia = $this->items->sum('cantidad_existencia');
         $this->importeExistencia = $this->items->sum('importe_existencia');
-        ray($this->cantidadExistencia);
-        ray($this->importeExistencia);
     }
 
     public function step1()
