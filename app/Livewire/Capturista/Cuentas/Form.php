@@ -59,16 +59,6 @@ class Form extends Component
         ];
     }
 
-    public function mount()
-    {
-        $this->items = Producto::query()
-            ->with([
-                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('sucursal_id', auth()->user()->sucursal_id)->where('fecha_venta', today()->subDay()))
-            ])
-            ->get()
-            ->map(fn($p) => $this->extractValues($p));
-    }
-
     private function extractValues(Producto $producto)
     {
         $item = $producto->itemsCuenta->first();
@@ -97,11 +87,14 @@ class Form extends Component
             ->with([
                 'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('sucursal_id', auth()->user()->sucursal_id)->where('fecha_venta', $fechaVentaAnterior))
             ])
+            ->orderBy('nombre')
             ->get()
             ->map(fn($p) => $this->extractValues($p));
 
         $this->cantidadExistencia = $this->items->sum('cantidad_existencia');
         $this->importeExistencia = $this->items->sum('importe_existencia');
+        ray($this->cantidadExistencia);
+        ray($this->importeExistencia);
     }
 
     public function step1()
