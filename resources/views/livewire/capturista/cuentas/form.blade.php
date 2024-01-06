@@ -1,4 +1,4 @@
-<div class="container" x-data="form(@entangle('importeExistencia'), @entangle('items'), @entangle('efectivo'))">
+<div class="container py-lg-4" x-data="form(@entangle('importeExistencia'), @entangle('items'), @entangle('efectivo'))">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">Cuentas</h1>
@@ -327,6 +327,7 @@
                                                 x-bind:value="data[{{$i}}].precio * data[{{$i}}].cantidad_sobrante"
                                             />
                                         </td>
+                                        <td></td>
                                     </tr>
                                 @empty
                                 @endforelse
@@ -442,7 +443,7 @@
                         </div>
                         <div class="col-6">
                             <x-form.input
-                                label="A Cuenta"
+                                label="Efectivo marinados"
                                 wire:model="aCuenta"
                                 type="number"
                                 step="0.01"
