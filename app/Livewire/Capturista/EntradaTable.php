@@ -56,7 +56,7 @@ final class EntradaTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('precio')
             ->addColumn('cantidad')
-            ->addColumn('sucursal_envio_id', fn(Entrada $model) => $model->sucursalEnvio->nombre)
+            ->addColumn('sucursal_origen_id', fn(Entrada $model) => $model->sucursalOrigen->nombre)
             ->addColumn('producto_id', fn(Entrada $model) => $model->producto->nombre)
             ->addColumn('salida_id')
             ->addColumn('created_at_formatted', fn(Entrada $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));

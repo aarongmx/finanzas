@@ -71,7 +71,7 @@
                         @forelse($this->cuenta->entradas as $entrada)
                             <tr>
                                 <td>{{$entrada->producto->nombre}}</td>
-                                <td>{{$entrada->sucursalEnvio->nombre}}</td>
+                                <td>{{$entrada->sucursalOrigen->nombre}}</td>
                                 <td style="text-align: right;">@money($entrada->precio)</td>
                                 <td style="text-align: right;">@amount($entrada->cantidad)</td>
                             </tr>
