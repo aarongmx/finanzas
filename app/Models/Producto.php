@@ -55,4 +55,9 @@ class Producto extends Model
     {
         return $this->hasMany(Salida::class);
     }
+
+    public function mayoreos(): HasMany
+    {
+        return $this->hasMany(Mayoreo::class);
+    }
 }
