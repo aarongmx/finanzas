@@ -15,10 +15,16 @@ class Mayoreo extends Model
         'cantidad',
         'total',
         'producto_id',
+        'sucursal_id',
     ];
 
     public function producto()
     {
         return $this->belongsTo(Producto::class);
+    }
+
+    public function sucursal()
+    {
+        return $this->belongsTo(Sucursal::class);
     }
 }

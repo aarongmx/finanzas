@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->float('cantidad', 16);
             $table->float('total', 16);
             $table->foreignIdFor(\App\Models\Producto::class)->constrained('productos');
+            $table->foreignIdFor(\App\Models\Sucursal::class)->constrained('sucursales');
             $table->timestamps();
         });
     }
