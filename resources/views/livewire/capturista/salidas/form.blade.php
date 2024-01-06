@@ -1,6 +1,6 @@
 <form wire:submit.prevent="store">
     <x-form.input
-        label="Fecha de venta"
+        label="Fecha de salida"
         type="date"
         wire:model="form.fechaVenta"
     />
