@@ -1,4 +1,4 @@
-<div class="container py-lg-4" x-data="form(@entangle('importeExistencia'), @entangle('items'), @entangle('efectivo'))">
+<div class="container-fluid py-lg-4" x-data="form(@entangle('importeExistencia'), @entangle('items'), @entangle('efectivo'))">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">Cuentas</h1>
