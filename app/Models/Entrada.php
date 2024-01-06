@@ -29,7 +29,7 @@ class Entrada extends Model
         return $this->belongsTo(Sucursal::class, 'sucursal_destino_id');
     }
 
-    public function sucursalEnvio(): BelongsTo
+    public function sucursalOrigen(): BelongsTo
     {
         return $this->belongsTo(Sucursal::class, 'sucursal_origen_id');
     }
