@@ -23,6 +23,7 @@
                     <x-nav-item path="capturista.home">Inicio</x-nav-item>
                     <x-nav-item path="capturista.cuenta.sucursal">Cuenta</x-nav-item>
                     <x-nav-item path="capturista.salidas.index">Salidas</x-nav-item>
+                    <x-nav-item path="capturista.mayoreo.index">Mayoreo</x-nav-item>
                     <x-nav-item path="capturista.entradas.index">Entradas</x-nav-item>
                     <x-nav-item path="capturista.clientes.index">Clientes</x-nav-item>
                     <x-nav-item path="capturista.creditos.índex">Créditos</x-nav-item>
