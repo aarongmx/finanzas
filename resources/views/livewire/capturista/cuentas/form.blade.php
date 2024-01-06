@@ -50,7 +50,7 @@
     <div class="row">
         <div class="col-12">
             <form wire:submit.prevent="store">
-                <div class="grid mb-3 d-flex align-items-center justify-content-center">
+                <div class="mb-3 d-flex align-items-center justify-content-center">
                     @forelse($this->steps as $i => $step)
                         <p class="badge text-center mb-0 d-flex align-items-center justify-content-center rounded-pill"
                            :class="$wire.step === {{$i}} ? 'text-bg-primary' : 'text-bg-light'">{{$step}}</p>
@@ -102,6 +102,7 @@
                                                 type="number"
                                                 label=""
                                                 step="0.01"
+                                                before="$"
                                             />
                                         </td>
                                         <td>
@@ -111,6 +112,7 @@
                                                 label=""
                                                 step="0.01"
                                                 disabled
+                                                after="kg"
                                                 @input="(e) => {
                                         const inputs = Array.from(document.querySelectorAll('[id^=importe-existencia-]'));
                                         totalExistencia = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
@@ -125,6 +127,7 @@
                                                 label=""
                                                 step="0.01"
                                                 disabled
+                                                before="$"
                                                 x-bind:value="data[{{$i}}].precio * data[{{$i}}].cantidad_existencia"
                                             />
                                         </td>
@@ -165,6 +168,7 @@
                                                 label=""
                                                 step="0.01"
                                                 disabled
+                                                before="$"
                                             />
                                         </td>
                                         <td>
@@ -173,6 +177,7 @@
                                                 type="number"
                                                 label=""
                                                 step="0.01"
+                                                after="kg"
                                                 @input="(e) => {
                                         const inputs = Array.from(document.querySelectorAll('[id^=importe-entrada-]'));
                                         totalEntrada = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
@@ -187,6 +192,7 @@
                                                 label=""
                                                 step="0.01"
                                                 disabled
+                                                before="$"
                                                 x-bind:value="data[{{$i}}].precio * data[{{$i}}].cantidad_entrada"
                                             />
                                         </td>
@@ -227,6 +233,7 @@
                                                 label=""
                                                 step="0.01"
                                                 disabled
+                                                before="$"
                                             />
                                         </td>
                                         <td>
@@ -235,6 +242,7 @@
                                                 type="number"
                                                 label=""
                                                 step="0.01"
+                                                after="kg"
                                                 @input="(e) => {
                                         const inputs = Array.from(document.querySelectorAll('[id^=importe-salida-]'));
                                         totalSalida = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
@@ -249,6 +257,7 @@
                                                 label=""
                                                 step="0.01"
                                                 disabled
+                                                before="$"
                                                 x-bind:value="data[{{$i}}].precio * data[{{$i}}].cantidad_salida"
                                             />
                                         </td>
@@ -290,14 +299,17 @@
                                         <td>
                                             <x-form.input-table
                                                 x-model="data[{{$i}}].precio"
-                                                type="number" label="" step="0.01"
+                                                type="number"
+                                                step="0.01"
                                                 disabled
+                                                before="$"
                                             />
                                         </td>
                                         <td>
                                             <x-form.input-table
                                                 x-model="data[{{$i}}].cantidad_sobrante" type="number" label=""
                                                 step="0.01"
+                                                after="kg"
                                                 @input="(e) => {
                                         const inputs = Array.from(document.querySelectorAll('[id^=importe-sobrante-]'));
                                         totalSobrante = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
@@ -307,7 +319,11 @@
                                             <x-form.input-table
                                                 id="importe-sobrante-{{$i}}"
                                                 x-model="data[{{$i}}].importe_sobrante"
-                                                type="number" label="" step="0.01" disabled
+                                                type="number"
+                                                label=""
+                                                step="0.01"
+                                                disabled
+                                                before="$"
                                                 x-bind:value="data[{{$i}}].precio * data[{{$i}}].cantidad_sobrante"
                                             />
                                         </td>
@@ -342,6 +358,7 @@
                                             <x-form.input-table
                                                 wire:model="gasto.{{$i}}.precio"
                                                 id="gastos-precio-{{$i}}"
+                                                before="$"
                                                 @input="(e) => {
                                         const inputs = Array.from(document.querySelectorAll('[id^=gastos-precio-]'));
                                         totalGastos = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
