@@ -18,9 +18,11 @@ return new class extends Migration {
             $table->float('precio', 14);
             $table->float('cantidad', 14);
             $table->float('total', 14);
+            $table->date('fecha_salida');
             $table->foreignIdFor(Producto::class)->constrained('productos');
             $table->foreignIdFor(Cuenta::class)->constrained('cuentas');
             $table->foreignIdFor(Sucursal::class, 'sucursal_destino_id')->constrained('sucursales');
+            $table->foreignIdFor(Sucursal::class, 'sucursal_origen_id')->constrained('sucursales');
             $table->timestamps();
         });
     }

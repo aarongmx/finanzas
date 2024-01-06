@@ -11,12 +11,24 @@ class Salida extends Model
     use HasFactory;
 
     protected $fillable = [
-        'precio', 'cantidad', 'total', 'producto_id', 'cuenta_id', 'sucursal_destino_id',
+       'precio',
+       'cantidad',
+       'total',
+       'fecha_salida',
+       'producto_id',
+       'cuenta_id',
+       'sucursal_destino_id',
+       'sucursal_origen_id',
     ];
 
     public function sucursalDestino(): BelongsTo
     {
         return $this->belongsTo(Sucursal::class, 'sucursal_destino_id');
+    }
+
+    public function sucursalOrigen(): BelongsTo
+    {
+        return $this->belongsTo(Sucursal::class, 'sucursal_origen_id');
     }
 
     public function producto(): BelongsTo
