@@ -13,12 +13,9 @@ class CategoriasSeeder extends Seeder
      */
     public function run(): void
     {
-        Categoria::query()->create([
-            'nombre' => 'Pollo',
-        ]);
-
-        Categoria::query()->create([
-            'nombre' => 'Marinado',
-        ]);
+        collect([
+            ['nombre' => 'POLLO'],
+            ['nombre' => 'MARINADO'],
+        ])->each(fn($categoria) => Categoria::create($categoria));
     }
 }
