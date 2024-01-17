@@ -38,7 +38,8 @@ final class SalidasTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Salida::query();
+        return Salida::query()
+            ->where('sucursal_origen_id', auth()->user()->sucursal_id);
     }
 
     public function relationSearch(): array
