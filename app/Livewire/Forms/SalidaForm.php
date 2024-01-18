@@ -40,16 +40,15 @@ class SalidaForm extends Form
                 'saldo' => 0
             ]);
 
-            $salida = Salida::updateOrCreate([
-                'fecha_salida' => today()->toDateString(),
+            $salida = Salida::create([
+                'producto_id' => $this->productoId,
+                'fecha_salida' => $this->fechaVenta,
                 'sucursal_origen_id' => auth()->user()->sucursal_id,
-            ],[
+                'sucursal_destino_id' => $this->sucursalDestinoId,
+                'cuenta_id' => $cuenta->id,
                 'precio' => $this->precio,
                 'cantidad' => $this->cantidad,
-                'producto_id' => $this->productoId,
                 'total' => round($this->cantidad * $this->precio, 2),
-                'sucursal_destino_id' => $this->sucursalDestinoId,
-                'cuenta_id' => $cuenta->id
             ]);
 
             $cuentaDestino = Cuenta::firstOrCreate([
@@ -70,7 +69,7 @@ class SalidaForm extends Form
                 'precio' => 0,
                 'salida_id' => $salida->id,
                 'producto_id' => $this->productoId,
-                'fecha_entrada' => today()->toDateString(),
+                'fecha_entrada' => $this->fechaVenta,
                 'cuenta_id' => $cuentaDestino->id,
             ]);
         });
