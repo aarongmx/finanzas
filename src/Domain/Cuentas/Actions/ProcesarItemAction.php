@@ -8,7 +8,7 @@ class ProcesarItemAction
 {
     public function __invoke(array $item): array
     {
-        $attributes = collect($item)->except('producto')->toArray();
+        $attributes = collect($item)->except(['producto', 'categoria_id'])->toArray();
         $precio = floatval($item["precio"]);
         $importeExistencia = (new CalcularImporte)($precio, floatval($item["cantidad_existencia"]));
         $attributes['importe_existencia'] = $importeExistencia;

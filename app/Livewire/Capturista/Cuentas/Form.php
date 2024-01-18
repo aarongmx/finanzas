@@ -7,6 +7,7 @@ use App\Models\Cuenta;
 use App\Models\Entrada;
 use App\Models\GastoFijo;
 use App\Models\ItemCuenta;
+use App\Models\Mayoreo;
 use App\Models\Producto;
 use App\Models\Salida;
 use Domain\Cuentas\Actions\ProcesarItemAction;
@@ -23,11 +24,14 @@ class Form extends Component
 
     public $steps = [
         1 => 'Existencia',
-        2 => 'Entardas',
-        3 => 'Salidas',
-        4 => 'Sobrantes',
-        5 => 'Gastos',
-        6 => 'Totales',
+        2 => 'Entradas',
+        3 => 'Entradas recibidas',
+        4 => 'Salidas',
+        5 => 'Salidas a sucursal',
+        6 => 'Mayoreo',
+        7 => 'Sobrantes',
+        8 => 'Gastos',
+        9 => 'Totales',
     ];
 
     public $items = [];
@@ -44,6 +48,18 @@ class Form extends Component
     public $efectivo;
     public $aCuenta;
 
+    public $totalEntrada = 0;
+    public $totalSalidas = 0;
+    public $mayoreos = [];
+
+    public $salidas = [];
+
+    public $entradas = [];
+
+    public $sumSobrante = 0;
+    public $sumEntrada = 0;
+    public $sumSalida = 0;
+
     public function rules(): array
     {
         return [
@@ -54,6 +70,7 @@ class Form extends Component
             'items.*.cantidad_entrada' => ['required', 'numeric'],
             'items.*.cantidad_salida' => ['required', 'numeric'],
             'items.*.cantidad_sobrante' => ['required', 'numeric'],
+            'entradas.*.precio' => ['nullable', 'numeric'],
             'efectivo' => ['required', 'numeric'],
             'aCuenta' => ['required', 'numeric'],
         ];
@@ -62,10 +79,16 @@ class Form extends Component
     private function extractValues(Producto $producto)
     {
         $item = $producto->itemsCuenta->first();
-
+        $cantidadSobrante = 0.0;
+        $importeSobrante = 0.0;
+        if ($producto->categoria_id === 2) {
+            $cantidadSobrante = $item?->cantidad_sobrante;
+            $importeSobrante = $item?->importe_sobrante;
+        }
         return [
             'producto_id' => $producto->id,
             'producto' => $producto->nombre,
+            'categoria_id' => $producto->categoria_id,
             'precio' => round($item?->precio) ?? round(floatval($item?->precio), 2) ?? 0,
             'cantidad_existencia' => round(floatval($item?->cantidad_sobrante), 2) ?? 0,
             'importe_existencia' => round(floatval($item?->importe_sobrante), 2) ?? 0,
@@ -73,8 +96,8 @@ class Form extends Component
             'importe_entrada' => 0,
             'cantidad_salida' => 0,
             'importe_salida' => 0,
-            'cantidad_sobrante' => 0,
-            'importe_sobrante' => 0,
+            'cantidad_sobrante' => $cantidadSobrante,
+            'importe_sobrante' => $importeSobrante,
         ];
     }
 
@@ -83,11 +106,11 @@ class Form extends Component
         $this->fechaCaptura = today()->format('Y-m-d');
         $fechaVentaAnterior = Carbon::parse($value)->subDay()->toDateString();
 
-        $entradas = Entrada::query()->where('fecha_entrada', $value)->where('sucursal_destino_id', auth()->user()->sucursal_id)->get();
-        ray($entradas);
+        $this->entradas = Entrada::query()->where('fecha_entrada', $value)->where('sucursal_destino_id', auth()->user()->sucursal_id)->get()->toArray();
 
-        $salidas = Salida::query()->where('fecha_salida', $value)->where('sucursal_origen_id', auth()->user()->sucursal_id)->get();
-        ray($salidas);
+        $this->salidas = Salida::query()->where('fecha_salida', $value)->where('sucursal_origen_id', auth()->user()->sucursal_id)->get();
+
+        $this->mayoreos = Mayoreo::query()->where('fecha_venta', $value)->where('sucursal_id', auth()->user()->sucursal_id)->with(['producto:id,nombre'])->get();
 
         $this->items = Producto::query()
             ->with([
@@ -98,6 +121,8 @@ class Form extends Component
             ->map(fn($p) => $this->extractValues($p));
 
         $this->importeExistencia = $this->items->sum('importe_existencia');
+        $this->totalSalidas = $this->salidas->sum('total') + $this->mayoreos->sum('total');
+        $this->sumSalida = $this->totalSalidas ?? 0;
     }
 
     public function step1()
@@ -117,18 +142,33 @@ class Form extends Component
 
     public function step3()
     {
-        $this->validateOnly('items.*.cantidad_salida');
         $this->step = 4;
     }
 
     public function step4()
     {
+        $this->validateOnly('items.*.cantidad_salida');
         $this->step = 5;
     }
 
     public function step5()
     {
         $this->step = 6;
+    }
+
+    public function step6()
+    {
+        $this->step = 7;
+    }
+
+    public function step7()
+    {
+        $this->step = 8;
+    }
+
+    public function step8()
+    {
+        $this->step = 9;
     }
 
     public function back($step)

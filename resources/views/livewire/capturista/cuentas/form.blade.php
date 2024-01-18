@@ -1,4 +1,5 @@
-<div class="container-fluid py-lg-4" x-data="form(@entangle('importeExistencia'), @entangle('items'), @entangle('efectivo'))">
+<div class="container-fluid py-lg-4"
+     x-data="form(@entangle('importeExistencia'), @entangle('items'), @entangle('efectivo'), @entangle('totalSalidas'), @entangle('totalEntrada'), @entangle('sumSalida'), @entangle('sumEntrada'), @entangle('entradas'))">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">Cuentas</h1>
@@ -26,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Salida</strong>
-                    <p class="h4" x-text="() => `$${parseFloat(totalSalida).toLocaleString()}`"></p>
+                    <p class="h4" x-text="() => `$${parseFloat(sumSalida).toLocaleString()}`"></p>
                 </div>
             </div>
         </div>
@@ -103,6 +104,7 @@
                                                 label=""
                                                 step="0.01"
                                                 before="$"
+                                                @input="(e) => setTotalExistencia(data[{{$i}}], e.target.value)"
                                             />
                                         </td>
                                         <td>
@@ -113,10 +115,7 @@
                                                 step="0.01"
                                                 disabled
                                                 after="kg"
-                                                @input="(e) => {
-                                        const inputs = Array.from(document.querySelectorAll('[id^=importe-existencia-]'));
-                                        totalExistencia = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
-                                    }"
+
                                             />
                                         </td>
                                         <td>
@@ -128,7 +127,6 @@
                                                 step="0.01"
                                                 disabled
                                                 before="$"
-                                                x-bind:value="data[{{$i}}].precio * data[{{$i}}].cantidad_existencia"
                                             />
                                         </td>
                                     </tr>
@@ -178,10 +176,7 @@
                                                 label=""
                                                 step="0.01"
                                                 after="kg"
-                                                @input="(e) => {
-                                        const inputs = Array.from(document.querySelectorAll('[id^=importe-entrada-]'));
-                                        totalEntrada = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
-                                    }"
+                                                @input="(e) => setTotalEntrada(data[{{$i}}], e.target.value)"
                                             />
                                         </td>
                                         <td>
@@ -193,7 +188,6 @@
                                                 step="0.01"
                                                 disabled
                                                 before="$"
-                                                x-bind:value="data[{{$i}}].precio * data[{{$i}}].cantidad_entrada"
                                             />
                                         </td>
                                     </tr>
@@ -207,6 +201,38 @@
                         </div>
                     </div>
                     <div class="row" x-show="$wire.step === 3">
+                        <div class="col-12">
+                            <x-table.table>
+                                <x-slot:header>
+                                    <x-table.th>Precio</x-table.th>
+                                    <x-table.th>Producto</x-table.th>
+                                    <x-table.th>Cantidad</x-table.th>
+                                    <x-table.th>Sucursal de origen</x-table.th>
+                                    <x-table.th>Total</x-table.th>
+                                </x-slot:header>
+                                @forelse($this->entradas as $entrada)
+                                    <tr>
+                                        {{--<td x-text="data.find(i => i['producto_id'] === {{$entrada->producto_id}}).precio"></td>--}}
+                                        {{--<td>{{$entrada->producto->nombre}}</td>
+                                        <td>@amount($entrada->cantidad)</td>
+                                        <td>{{$entrada->sucursalOrigen->nombre}}</td>--}}
+                                        {{--<td x-text="data.find(i => i['producto_id'] === {{$entrada->producto_id}}).precio * {{$entrada->cantidad}}"></td>--}}
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5">
+                                            <x-empty/>
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </x-table.table>
+                        </div>
+                        <div class="col-12 py-3">
+                            <x-button theme="outline-primary" wire:click.prevent="back(2)">Atrás</x-button>
+                            <x-button wire:click.prevent="step3">Siguiente</x-button>
+                        </div>
+                    </div>
+                    <div class="row" x-show="$wire.step === 4">
                         <div class="col-12">
                             <x-form.input
                                 label="Buscar producto"
@@ -243,10 +269,7 @@
                                                 label=""
                                                 step="0.01"
                                                 after="kg"
-                                                @input="(e) => {
-                                        const inputs = Array.from(document.querySelectorAll('[id^=importe-salida-]'));
-                                        totalSalida = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
-                                    }"
+                                                @input="(e) => setTotalSalida(data[{{$i}}], e.target.value)"
                                             />
                                         </td>
                                         <td>
@@ -267,11 +290,63 @@
                             </x-table.table>
                         </div>
                         <div class="col-12 py-3">
-                            <x-button theme="outline-primary" wire:click.prevent="back(2)">Atrás</x-button>
-                            <x-button wire:click.prevent="step3">Siguiente</x-button>
+                            <x-button theme="outline-primary" wire:click.prevent="back(3)">Atrás</x-button>
+                            <x-button wire:click.prevent="step4">Siguiente</x-button>
                         </div>
                     </div>
-                    <div class="row" x-show="$wire.step === 4">
+                    <div class="row" x-show="$wire.step === 5">
+                        <div class="col-12">
+                            <x-table.table>
+                                <x-slot:header>
+                                    <x-table.th>Producto</x-table.th>
+                                    <x-table.th>Cantidad</x-table.th>
+                                    <x-table.th>Precio</x-table.th>
+                                    <x-table.th>Total</x-table.th>
+                                    <x-table.th>Sucursal destino</x-table.th>
+                                </x-slot:header>
+                                @forelse($this->salidas as $salida)
+                                    <tr>
+                                        <td>{{$salida->producto->nombre}}</td>
+                                        <td>@amount($salida->cantidad)</td>
+                                        <td>@money($salida->precio)</td>
+                                        <td>@money($salida->total)</td>
+                                        <td>{{$salida->sucursalDestino->nombre}}</td>
+                                    </tr>
+                                @empty
+                                @endforelse
+                            </x-table.table>
+                        </div>
+                        <div class="col-12 py-3">
+                            <x-button theme="outline-primary" wire:click.prevent="back(4)">Atrás</x-button>
+                            <x-button wire:click.prevent="step5">Siguiente</x-button>
+                        </div>
+                    </div>
+                    <div class="row" x-show="$wire.step === 6">
+                        <div class="col-12">
+                            <x-table.table>
+                                <x-slot:header>
+                                    <x-table.th>Producto</x-table.th>
+                                    <x-table.th>Cantidad</x-table.th>
+                                    <x-table.th>Precio</x-table.th>
+                                    <x-table.th>Total</x-table.th>
+                                </x-slot:header>
+                                @forelse($mayoreos as $mayoreo)
+                                    <tr>
+                                        <td>{{$mayoreo->producto->nombre}}</td>
+                                        <td>@amount($mayoreo->cantidad)</td>
+                                        <td>@money($mayoreo->precio)</td>
+                                        <td>@money($mayoreo->total)</td>
+                                    </tr>
+                                @empty
+                                @endforelse
+                            </x-table.table>
+                        </div>
+                        <div class="col-12 py-3">
+                            <x-button theme="outline-primary" wire:click.prevent="back(5)">Atrás</x-button>
+                            <x-button wire:click.prevent="step6">Siguiente</x-button>
+                        </div>
+                    </div>
+                    <div class="row" x-show="$wire.step === 7">
                         <div class="col-12">
                             <x-form.input
                                 label="Buscar producto"
@@ -286,11 +361,6 @@
                                         <x-table.th>Precio</x-table.th>
                                         <x-table.th>Sobrante</x-table.th>
                                         <x-table.th>Importe Sobrante</x-table.th>
-                                        <x-table.th>
-                                            <x-button wire:click.prevent="arrastrarDatosMarinados">Arrastrar sobrantes
-                                                marinado
-                                            </x-button>
-                                        </x-table.th>
                                     </tr>
                                 </x-slot:header>
                                 @forelse($this->items as $i => $item)
@@ -311,9 +381,9 @@
                                                 step="0.01"
                                                 after="kg"
                                                 @input="(e) => {
-                                        const inputs = Array.from(document.querySelectorAll('[id^=importe-sobrante-]'));
-                                        totalSobrante = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
-                                    }"/>
+                                                    const inputs = Array.from(document.querySelectorAll('[id^=importe-sobrante-]'));
+                                                    totalSobrante = inputs.map(input => parseFloat(input.value).toFixed(2)).reduce((acc, value) => acc + parseFloat(value), 0)
+                                                }"/>
                                         </td>
                                         <td>
                                             <x-form.input-table
@@ -327,18 +397,17 @@
                                                 x-bind:value="data[{{$i}}].precio * data[{{$i}}].cantidad_sobrante"
                                             />
                                         </td>
-                                        <td></td>
                                     </tr>
                                 @empty
                                 @endforelse
                             </x-table.table>
                         </div>
                         <div class="col-12 py-3">
-                            <x-button theme="outline-primary" wire:click.prevent="back(3)">Atrás</x-button>
-                            <x-button wire:click.prevent="step4">Siguiente</x-button>
+                            <x-button theme="outline-primary" wire:click.prevent="back(6)">Atrás</x-button>
+                            <x-button wire:click.prevent="step7">Siguiente</x-button>
                         </div>
                     </div>
-                    <div class="row" x-show="$wire.step === 5">
+                    <div class="row" x-show="$wire.step === 8">
                         <div class="col-12">
                             <x-table.table>
                                 <x-slot:header>
@@ -382,11 +451,11 @@
                             </x-table.table>
                         </div>
                         <div class="col-12 py-3">
-                            <x-button theme="outline-primary" wire:click.prevent="back(4)">Atrás</x-button>
-                            <x-button wire:click.prevent="step5">Siguiente</x-button>
+                            <x-button theme="outline-primary" wire:click.prevent="back(7)">Atrás</x-button>
+                            <x-button wire:click.prevent="step8">Siguiente</x-button>
                         </div>
                     </div>
-                    <div class="row" x-show="$wire.step === 6">
+                    <div class="row" x-show="$wire.step === 9">
                         <div class="col-6">
                             <div>
                                 <strong>Existencia anterior</strong>
@@ -450,7 +519,7 @@
                             />
                         </div>
                         <div class="col-12 py-3">
-                            <x-button theme="outline-primary" wire:click.prevent="back(5)">Atrás</x-button>
+                            <x-button theme="outline-primary" wire:click.prevent="back(8)">Atrás</x-button>
                             <x-button type="submit">Registrar</x-button>
                         </div>
                     </div>
