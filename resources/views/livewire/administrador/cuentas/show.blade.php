@@ -76,6 +76,11 @@
                                 <td style="text-align: right;">@amount($entrada->cantidad)</td>
                             </tr>
                         @empty
+                            <tr>
+                                <td colspan="4">
+                                    <x-empty/>
+                                </td>
+                            </tr>
                         @endforelse
                     </table>
                 </div>
@@ -98,6 +103,11 @@
                                 <td style="text-align: right;">@money($gasto->precio)</td>
                             </tr>
                         @empty
+                            <tr>
+                                <td colspan="2">
+                                    <x-empty/>
+                                </td>
+                            </tr>
                         @endforelse
                     </table>
                 </div>
@@ -126,6 +136,11 @@
                                 <td style="text-align: right;">@money($salida->total)</td>
                             </tr>
                         @empty
+                            <tr>
+                                <td colspan="5">
+                                    <x-empty/>
+                                </td>
+                            </tr>
                         @endforelse
                     </table>
                 </div>
@@ -162,6 +177,11 @@
                         <td>@money($item->importe_sobrante)</td>
                     </tr>
                 @empty
+                    <tr>
+                        <td colspan="10">
+                            <x-empty/>
+                        </td>
+                    </tr>
                 @endforelse
             </x-table.table>
         </div>
