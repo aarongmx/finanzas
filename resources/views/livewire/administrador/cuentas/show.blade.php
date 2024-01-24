@@ -54,8 +54,8 @@
             </div>
         </div>
     </div>
-    <div class="row mb-3">
-        <div class="col-12 col-lg-4">
+    <div class="row">
+        <div class="col-12 col-lg-4 mb-3">
             <h2 class="h4 text-muted">Entradas</h2>
             <div class="card">
                 <div class="card-body table-responsive">
@@ -81,7 +81,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-4 mb-3">
             <h2 class="h4 text-muted">Gastos</h2>
             <div class="card">
                 <div class="card-body table-responsive">
@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-4 mb-3">
             <h2 class="h4 text-muted">Salidas</h2>
             <div class="card">
                 <div class="card-body table-responsive">
@@ -132,7 +132,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-12">
             <h2 class="h4 text-muted">Productos</h2>
             <x-table.table>
