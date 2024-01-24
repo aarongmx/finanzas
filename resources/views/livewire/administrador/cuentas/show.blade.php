@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="row row-cols-1 row-cols-lg-4 my-3">
-        <div class="col">
+        <div class="col mb-3">
             <div class="card">
                 <div class="card-body">
                     <strong>Efectivo de pollo</strong>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col mb-3">
             <div class="card">
                 <div class="card-body">
                     <strong>Efectivo de marinado</strong>
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col mb-3">
             <div class="card">
                 <div class="card-body">
                     <strong>Efectivo total</strong>
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col mb-3">
             <div class="card">
                 <div class="card-body">
                     <strong>Saldo</strong>
