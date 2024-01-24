@@ -58,7 +58,7 @@ final class MayoreosTable extends PowerGridComponent
             ->addColumn('precio', fn(Mayoreo $mayoreo) => '$' . number_format($mayoreo->precio, 2))
             ->addColumn('cantidad', fn(Mayoreo $mayoreo) => number_format($mayoreo->cantidad, 2). ' kg')
             ->addColumn('total', fn(Mayoreo $mayoreo) => '$'.number_format($mayoreo->total,2))
-            ->addColumn('producto_id', fn(Mayoreo $model) => $model->producto->nombre)
+            ->addColumn('producto_name', fn(Mayoreo $model) => $model->producto->nombre)
             ->addColumn('created_at_formatted', fn(Mayoreo $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -66,8 +66,8 @@ final class MayoreosTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id'),
-            Column::make('Fecha venta', 'fecha_venta_formatted', 'fecha_venta')
-                ->sortable(),
+
+            Column::make('Producto', 'producto_name'),
 
             Column::make('Cantidad', 'cantidad')
                 ->sortable()
@@ -81,7 +81,8 @@ final class MayoreosTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Producto', 'producto_id'),
+            Column::make('Fecha venta', 'fecha_venta_formatted', 'fecha_venta')->sortable(),
+
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
