@@ -57,7 +57,7 @@ final class SalidasTable extends PowerGridComponent
             ->addColumn('precio', fn(Salida $model) => '$' . number_format($model->precio, 2))
             ->addColumn('cantidad', fn(Salida $model) => number_format($model->cantidad, 2) . ' kg')
             ->addColumn('total', fn(Salida $model) => '$' . number_format($model->total, 2))
-            ->addColumn('producto_id', fn(Salida $model) => $model->producto->nombre)
+            ->addColumn('producto_name', fn(Salida $model) => $model->producto->nombre)
             ->addColumn('sucursal_destino_id', fn(Salida $model) => $model->sucursalDestino->nombre)
             ->addColumn('created_at_formatted', fn(Salida $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
@@ -66,6 +66,7 @@ final class SalidasTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id'),
+            Column::make('Producto', 'producto_name'),
             Column::make('Cantidad', 'cantidad')
                 ->sortable()
                 ->searchable(),
@@ -79,7 +80,6 @@ final class SalidasTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Producto', 'producto_id'),
             Column::make('Sucursal destino', 'sucursal_destino_id'),
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
