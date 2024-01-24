@@ -105,7 +105,7 @@ final class SalidasTable extends PowerGridComponent
     {
         return [
             Button::add('edit')
-                ->slot('Edit: ' . $row->id)
+                ->slot('Editar')
                 ->id()
                 ->class('btn btn-outline-primary')
                 ->dispatch('edit', ['rowId' => $row->id])
