@@ -11,7 +11,10 @@ class Pago extends Model
     use HasFactory;
 
     protected $fillable = [
-        'monto', 'fecha_pago', 'pagable_id', 'pagable_type',
+        'monto',
+        'fecha_pago',
+        'pagable_id',
+        'pagable_type',
     ];
 
     protected $casts = [
