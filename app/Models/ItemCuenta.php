@@ -13,7 +13,17 @@ class ItemCuenta extends Model
     protected $table = 'item_cuentas';
 
     protected $fillable = [
-        'precio', 'cantidad_existencia', 'importe_existencia', 'cantidad_entrada', 'importe_entrada', 'cantidad_salida', 'importe_salida', 'cantidad_sobrante', 'importe_sobrante', 'producto_id', 'cuenta_id',
+        'precio',
+        'cantidad_existencia',
+        'importe_existencia',
+        'cantidad_entrada',
+        'importe_entrada',
+        'cantidad_salida',
+        'importe_salida',
+        'cantidad_sobrante',
+        'importe_sobrante',
+        'producto_id',
+        'cuenta_id',
     ];
 
     protected $attributes = [
