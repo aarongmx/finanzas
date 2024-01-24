@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             UsuariosSeeder::class,
             ProductosSeeder::class,
             EstatusSeeder::class,
+            EstadoCuentaSeeder::class,
         ]);
     }
 }

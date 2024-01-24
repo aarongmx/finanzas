@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\EstadoCuenta;
 use App\Models\Sucursal;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->date('fecha_captura')->default(now()->format('Y-m-d'));
             $table->date('fecha_venta')->default(now()->format('Y-m-d'));
             $table->foreignIdFor(Sucursal::class)->constrained('sucursales');
+            $table->foreignIdFor(EstadoCuenta::class)->constrained('estado_cuentas');
             $table->timestamps();
         });
     }

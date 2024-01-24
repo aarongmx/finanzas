@@ -22,6 +22,7 @@ class Cuenta extends Model
         'fecha_captura',
         'fecha_venta',
         'sucursal_id',
+        'estado_cuenta_id'
     ];
 
     public function sucursal(): BelongsTo
