@@ -11,6 +11,7 @@ use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
+use PowerComponents\LivewirePowerGrid\Facades\Rule;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
@@ -96,7 +97,7 @@ final class ProductosTable extends PowerGridComponent
     #[On('askDelete')]
     public function askDelete($rowId): void
     {
-        $this->askConfirm('remove', $rowId, 'Realmente dese eliminar', 'eliminar?');
+        $this->askConfirm('remove', $rowId, 'Realmente desea eliminar el producto?', 'Al eliminar el producto, podrá restaurarlo posteriormente!');
     }
 
     #[On('remove')]
@@ -104,6 +105,7 @@ final class ProductosTable extends PowerGridComponent
     {
         $producto = Producto::query()->find($id);
         $producto->delete();
+        $this->notify('Producto eliminado correctamente!', 'El producto fue eliminado correctamente!');
     }
 
     #[On('askRestore')]
@@ -111,37 +113,28 @@ final class ProductosTable extends PowerGridComponent
     {
         $producto = Producto::query()->onlyTrashed()->find($rowId);
         $producto->restore();
+        $this->notify('Producto restaurado correctamente!', 'El producto se restauro correctamente!');
     }
 
     public function actions(Producto $row): array
     {
-        $buttons = [];
-
-        if ($row->trashed()) {
-            $buttons = [
-                Button::add('restore')
-                    ->slot('Restaurar')
-                    ->id()
-                    ->class('btn btn-outline-primary')
-                    ->dispatch('askRestore', ['rowId' => $row->id]),
-            ];
-        }
-
-        if (!$row->trashed()) {
-            $buttons = [
-                Button::add('delete')
-                    ->slot('Eliminar')
-                    ->id()
-                    ->class('btn btn-outline-danger')
-                    ->dispatch('askDelete', ['rowId' => $row->id]),
-                Button::add('edit')
-                    ->slot('Actualizar')
-                    ->id()
-                    ->class('btn btn-primary')
-                    ->dispatch('edit', ['rowId' => $row->id]),
-            ];
-        }
-        return $buttons;
+        return [
+            Button::add('restore')
+                ->slot('Restaurar')
+                ->id()
+                ->class('btn btn-outline-primary')
+                ->dispatch('askRestore', ['rowId' => $row->id]),
+            Button::add('delete')
+                ->slot('Eliminar')
+                ->id()
+                ->class('btn btn-outline-danger')
+                ->dispatch('askDelete', ['rowId' => $row->id]),
+            Button::add('edit')
+                ->slot('Actualizar')
+                ->id()
+                ->class('btn btn-primary')
+                ->dispatch('edit', ['rowId' => $row->id]),
+        ];
     }
 
     #[On('refresh')]
@@ -150,15 +143,20 @@ final class ProductosTable extends PowerGridComponent
         $this->fillData();
     }
 
-    /*
-    public function actionRules($row): array
+
+    public function actionRules(Producto $row): array
     {
-       return [
-            // Hide button edit for ID 1
+        return [
+            Rule::button('delete')
+                ->when(fn($row) => $row->trashed())
+                ->hide(),
             Rule::button('edit')
-                ->when(fn($row) => $row->id === 1)
+                ->when(fn($row) => $row->trashed())
+                ->hide(),
+            Rule::button('restore')
+                ->when(fn($row) => !$row->trashed())
                 ->hide(),
         ];
     }
-    */
+
 }
