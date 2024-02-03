@@ -33,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
             $this->dispatch('openModal', modal: $modal);
         });
 
+        Component::macro('askConfirm', function ($dispatch, $id, $title, $text, $icon = 'warning') {
+            $this->dispatch('askConfirm', dispatch: $dispatch, id: $id, title: $title, text: $text, icon: $icon);
+        });
+
         Blade::directive('amount', fn(string|int|float $value) => "<?php echo number_format(floatval($value), 2); ?>");
 
         Blade::directive('money', fn(string|int|float $value) => "<?php echo '$' . number_format(floatval($value), 2); ?>");
