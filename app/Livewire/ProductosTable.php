@@ -16,6 +16,7 @@ use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridColumns;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
 final class ProductosTable extends PowerGridComponent
@@ -39,7 +40,8 @@ final class ProductosTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Producto::query();
+        return Producto::query()
+            ->withTrashed();
     }
 
     public function relationSearch(): array
@@ -49,17 +51,15 @@ final class ProductosTable extends PowerGridComponent
         ];
     }
 
-    public function addColumns(): PowerGridColumns
+    public function fields(): PowerGridFields
     {
-        return PowerGrid::columns()
-            ->addColumn('id')
-            ->addColumn('nombre')
-
-           /** Example of custom column using a closure **/
-            ->addColumn('nombre_lower', fn (Producto $model) => strtolower(e($model->nombre)))
-
-            ->addColumn('categoria', fn(Producto $model) => $model->categoria->nombre)
-            ->addColumn('created_at_formatted', fn (Producto $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+        return PowerGrid::fields()
+            ->add('id')
+            ->add('nombre')
+            /** Example of custom column using a closure **/
+            ->add('nombre_lower', fn(Producto $model) => strtolower(e($model->nombre)))
+            ->add('categoria', fn(Producto $model) => $model->categoria->nombre)
+            ->add('created_at_formatted', fn(Producto $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     public function columns(): array
@@ -100,20 +100,42 @@ final class ProductosTable extends PowerGridComponent
         $producto->delete();
     }
 
+    #[On('askRestore')]
+    public function askRestore($rowId): void
+    {
+        $producto = Producto::query()->onlyTrashed()->find($rowId);
+        $producto->restore();
+    }
+
     public function actions(Producto $row): array
     {
-        return [
-            Button::add('delete')
-                ->slot('Eliminar')
-                ->id()
-                ->class('btn btn-outline-danger')
-                ->dispatch('askDelete', ['rowId' => $row->id]),
-            Button::add('edit')
-                ->slot('Actualizar')
-                ->id()
-                ->class('btn btn-primary')
-                ->dispatch('edit', ['rowId' => $row->id]),
-        ];
+        $buttons = [];
+
+        if ($row->trashed()){
+            $buttons = [
+                Button::add('restore')
+                    ->slot('Restaurar')
+                    ->id()
+                    ->class('btn btn-outline-primary')
+                    ->dispatch('askRestore', ['rowId' => $row->id]),
+            ];
+        }
+
+        if (!$row->trashed()) {
+            $buttons = [
+                Button::add('delete')
+                    ->slot('Eliminar')
+                    ->id()
+                    ->class('btn btn-outline-danger')
+                    ->dispatch('askDelete', ['rowId' => $row->id]),
+                Button::add('edit')
+                    ->slot('Actualizar')
+                    ->id()
+                    ->class('btn btn-primary')
+                    ->dispatch('edit', ['rowId' => $row->id]),
+            ];
+        }
+        return $buttons;
     }
 
     #[On('refresh')]
