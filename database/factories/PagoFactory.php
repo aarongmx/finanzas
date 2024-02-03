@@ -17,7 +17,8 @@ class PagoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'monto' => fake()->randomFloat(2, 1, 1000),
+            'fecha_pago' => today(),
         ];
     }
 }

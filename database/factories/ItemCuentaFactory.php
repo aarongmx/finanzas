@@ -18,11 +18,11 @@ class ItemCuentaFactory extends Factory
      */
     public function definition(): array
     {
-        $precio = fake()->randomFloat(2, 1);
-        $cantidadExistencia = fake()->randomFloat(2, 1);
-        $cantidadEntrada = fake()->randomFloat(2, 1);
-        $cantidadSalida = fake()->randomFloat(2, 1);
-        $cantidadSobrante = fake()->randomFloat(2, 1);
+        $precio = fake()->randomFloat(2, 1, 100);
+        $cantidadExistencia = fake()->randomFloat(2, 1, 100);
+        $cantidadEntrada = fake()->randomFloat(2, 1, 100);
+        $cantidadSalida = fake()->randomFloat(2, 1, 100);
+        $cantidadSobrante = fake()->randomFloat(2, 1, 100);
 
         return [
             'precio' => $precio,

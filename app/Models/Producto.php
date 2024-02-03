@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Producto extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use HasEagerLimit;
 
     protected $table = 'productos';
 

@@ -4,27 +4,19 @@ namespace App\Livewire\Administrador\Cuentas;
 
 use App\Livewire\Forms\CuentaForm;
 use App\Models\Categoria;
+use App\Models\ItemCuenta;
 use App\Models\Producto;
+use App\Models\Sucursal;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Form extends Component
 {
-    public CuentaForm $form;
-
-    public $categoriaSeleccionada;
+    #public CuentaForm $form;
 
     public $items = [];
 
-    public function mount()
-    {
-        $this->items = Producto::query()->get()
-            ->groupBy('categoria_id')
-            ->map(fn($productos) => collect($productos)
-                ->map(fn($producto) => [$producto->id => ['producto' => $producto->nombre, 'precio' => 0, 'kilos_existencia' => 0, 'kilos_entrada' => 0, 'kilos_sobrante' => 0, 'kilos_salida' => 0]]
-                )
-            )->toArray();
-    }
+    public $categoriaSeleccionada;
 
     #[Computed]
     public function categorias()
@@ -32,9 +24,32 @@ class Form extends Component
         return Categoria::query()->get();
     }
 
-    public function tests()
+    #[Computed]
+    public function sucursales()
     {
-        ray($this->form->items);
+        return Sucursal::query()->select(['id', 'nombre'])->get();
+    }
+
+    public function mount()
+    {
+        $this->items = Producto::query()
+            ->with([
+                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('fecha_venta', today()->subDay()))->limit(1)
+            ])
+            ->get()
+            ->map(function ($producto) {
+                $item = $producto->itemsCuenta?->first();
+                return [
+                    'producto_name' => $producto->nombre,
+                    'producto_id' => $producto->id,
+                    'precio' => $item->precio ?? 0,
+                    'importe_existencia' => $item->importe_existencia ?? 0,
+                    'cantidad_existencia' => $item->cantidad_existencia ?? 0,
+                    'cantidad_sobrante' => $producto->categoria_id === 2 ? $item->cantidad_sobrante : 0,
+                    'importe_sobrante' => $producto->categoria_id === 2 ? $item->importe_sobrante : 0,
+                    'categoria_id' => $producto->categoria_id,
+                ];
+            })->toArray();
     }
 
     public function render()

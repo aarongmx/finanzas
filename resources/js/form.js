@@ -1,4 +1,14 @@
-Alpine.data('form', (totalExistencia, data, efectivo, totalSalida, totalEntrada, sumSalida, sumEntrada, entradas) => ({
+Alpine.data('form', (
+    totalExistencia,
+    data,
+    efectivo,
+    totalSalida,
+    totalEntrada,
+    sumSalida,
+    sumEntrada,
+    entradas,
+    saldo
+) => ({
     totalExistencia,
     totalEntrada,
     totalSalida,
@@ -11,7 +21,7 @@ Alpine.data('form', (totalExistencia, data, efectivo, totalSalida, totalEntrada,
     data,
     efectivo,
     entradas,
-    marinados: [],
+    saldo,
 
     searchOnTable(e, tableId) {
         const searchTable = document.getElementById(tableId);
@@ -38,7 +48,7 @@ Alpine.data('form', (totalExistencia, data, efectivo, totalSalida, totalEntrada,
     sumaTotalEntrada() {
         this.totalEntrada = this.data.map(item => parseFloat(item.importe_entrada) || 0).reduce((acc, total) => acc + (parseFloat(total) || 0), 0)
     },
-    sumaTotalSalida(){
+    sumaTotalSalida() {
         let total = this.data.map(item => parseFloat(item.importe_salida) || 0).reduce((acc, total) => acc + (parseFloat(total) || 0), 0)
         this.sumSalida = this.totalSalida + total
     },
@@ -50,8 +60,11 @@ Alpine.data('form', (totalExistencia, data, efectivo, totalSalida, totalEntrada,
         item.importe_salida = this.calcularTotal(item.precio, cantidad)
         this.sumaTotalSalida()
     },
-    setTotalExistencia(item, precio){
+    setTotalExistencia(item, precio) {
         item.importe_existencia = this.calcularTotal(precio, item.cantidad_existencia)
         this.sumaTotalExistencia()
+    },
+    calcularTotal() {
+        return (parseFloat(this.efectivo) + parseFloat(this.$wire.efectivoMarinado)) - (parseFloat(this.totalEntrada) + parseFloat(this.totalExistencia) - parseFloat(this.totalSalida) - parseFloat(this.totalSobrante) - parseFloat(this.totalGastos));
     }
 }))

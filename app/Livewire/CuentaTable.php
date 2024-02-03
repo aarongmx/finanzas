@@ -62,8 +62,10 @@ final class CuentaTable extends PowerGridComponent
     {
         return PowerGrid::columns()
             ->addColumn('id')
-            ->addColumn('efectivo_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo, 2)))
-            ->addColumn('a_cuenta_formated', fn(Cuenta $model) => "$" . e(number_format($model->a_cuenta, 2)))
+            ->addColumn('efectivo_pollo_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_pollo, 2)))
+            ->addColumn('efectivo_marinado_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_marinado, 2)))
+            ->addColumn('efectivo_total_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_total, 2)))
+            ->addColumn('saldo_formated', fn(Cuenta $model) => "$" . e(number_format($model->saldo, 2)))
             ->addColumn('sucursal_id', fn(Cuenta $model) => e($model->sucursal?->nombre))
             ->addColumn('fecha_venta_formatted', fn(Cuenta $model) => Carbon::parse($model->fecha_venta)->format('d/m/Y'))
             ->addColumn('created_at_formatted', fn(Cuenta $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
@@ -74,8 +76,10 @@ final class CuentaTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id'),
-            Column::make('Efectivo', 'efectivo_formated', 'efectivo'),
-            Column::make('A cuenta', 'a_cuenta_formated', 'a_cuenta'),
+            Column::make('Efectivo Pollo', 'efectivo_pollo_formated', 'efectivo_pollo'),
+            Column::make('Efectivo Marinado', 'efectivo_marinado_formated', 'efectivo_marinado'),
+            Column::make('Total', 'efectivo_total_formated', 'efectivo_total'),
+            Column::make('Saldo', 'saldo_formated', 'saldo'),
             Column::make('Sucursal', 'sucursal_id'),
             Column::make('Fecha Venta', 'fecha_venta_formatted'),
             Column::make('Created at', 'created_at_formatted', 'created_at')

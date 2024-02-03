@@ -2,6 +2,6 @@
 
 use function Pest\Laravel\get;
 
-test('Se muestr la ruta del componente correctamente', function () {
-    get('/clientes')->assertSuccessful();
+test('Se muestra la ruta del componente correctamente', function () {
+    get('/administracion/clientes')->assertSuccessful();
 });

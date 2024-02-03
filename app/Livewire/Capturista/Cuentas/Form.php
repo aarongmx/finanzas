@@ -60,6 +60,10 @@ class Form extends Component
     public $sumEntrada = 0;
     public $sumSalida = 0;
 
+    public $efectivoMarinado = 0;
+
+    public $saldo = 0;
+
     public function rules(): array
     {
         return [
@@ -72,7 +76,7 @@ class Form extends Component
             'items.*.cantidad_sobrante' => ['required', 'numeric'],
             'entradas.*.precio' => ['nullable', 'numeric'],
             'efectivo' => ['required', 'numeric'],
-            'aCuenta' => ['required', 'numeric'],
+            'efectivoMarinado' => ['required', 'numeric'],
         ];
     }
 
@@ -180,15 +184,17 @@ class Form extends Component
     {
         try {
             DB::transaction(function () {
-                $cuenta = Cuenta::query()->firstOrCreate([
+                $montoTotal = $this->efectivo + $this->efectivoMarinado;
+
+                $cuenta = Cuenta::query()->updateOrCreate([
                     'fecha_venta' => $this->fechaVenta,
                     'sucursal_id' => auth()->user()->sucursal_id,
                 ], [
                     'fecha_captura' => $this->fechaCaptura,
-                    'efectivo_marinado' => $this->efectivo,
-                    'efectivo_pollo' => $this->aCuenta,
-                    'efectivo_total' => $this->aCuenta,
-                    'saldo' => $this->efectivo
+                    'efectivo_marinado' => $this->efectivoMarinado,
+                    'efectivo_pollo' => $this->efectivo,
+                    'efectivo_total' => $montoTotal,
+                    'saldo' => 0
                 ]);
 
                 collect($this->items)->each(function ($item) use (&$cuenta) {
@@ -201,11 +207,12 @@ class Form extends Component
 
                 collect($this->gasto)->each(function ($gasto) use (&$cuenta) {
                     if (!empty($gasto['precio']) && !empty($gasto['concepto'])) {
-                        GastoFijo::create([
+                        GastoFijo::updateOrCreate([
                             'concepto' => $gasto['concepto'],
-                            'precio' => $gasto['precio'],
                             'sucursal_id' => auth()->user()->sucursal_id,
                             'cuenta_id' => $cuenta->id,
+                        ], [
+                            'precio' => $gasto['precio'],
                         ]);
                     }
                 });
@@ -236,11 +243,6 @@ class Form extends Component
     public function removeGasto($index)
     {
         unset($this->gasto[$index]);
-    }
-
-    public function arrastrarDatosMarinados()
-    {
-
     }
 
     public function render()

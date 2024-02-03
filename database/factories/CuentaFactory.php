@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\EstadoCuenta;
 use App\Models\Sucursal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,6 +26,7 @@ class CuentaFactory extends Factory
             'fecha_captura' => now(),
             'fecha_venta' => now()->subDay(),
             'sucursal_id' => Sucursal::factory()->create()->id,
+            'estado_cuenta_id' => EstadoCuenta::factory()->create()->id,
         ];
     }
 }

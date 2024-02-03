@@ -1,5 +1,5 @@
 <div class="container-fluid py-lg-4"
-     x-data="form(@entangle('importeExistencia'), @entangle('items'), @entangle('efectivo'), @entangle('totalSalidas'), @entangle('totalEntrada'), @entangle('sumSalida'), @entangle('sumEntrada'), @entangle('entradas'))">
+     x-data="form(@entangle('importeExistencia'), @entangle('items'), @entangle('efectivo'), @entangle('totalSalidas'), @entangle('totalEntrada'), @entangle('sumSalida'), @entangle('sumEntrada'), @entangle('entradas'), @entangle('saldo'))">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">Cuentas</h1>
@@ -81,6 +81,7 @@
                             <x-form.input
                                 label="Buscar producto"
                                 @input="(e) => searchOnTable(e, 'precio-table')"
+                                type="search"
                             />
                         </div>
                         <div class="col-12">
@@ -131,6 +132,11 @@
                                         </td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="4">
+                                            <x-empty/>
+                                        </td>
+                                    </tr>
                                 @endforelse
                                 </tbody>
                             </x-table.table>
@@ -144,6 +150,7 @@
                             <x-form.input
                                 label="Buscar producto"
                                 @input="(e) => searchOnTable(e, 'entrada-table')"
+                                type="search"
                             />
                         </div>
                         <div class="col-12">
@@ -192,6 +199,11 @@
                                         </td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="4">
+                                            <x-empty/>
+                                        </td>
+                                    </tr>
                                 @endforelse
                             </x-table.table>
                         </div>
@@ -237,6 +249,7 @@
                             <x-form.input
                                 label="Buscar producto"
                                 @input="(e) => searchOnTable(e, 'salida-table')"
+                                type="search"
                             />
                         </div>
                         <div class="col-12">
@@ -286,6 +299,11 @@
                                         </td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="4">
+                                            <x-empty/>
+                                        </td>
+                                    </tr>
                                 @endforelse
                             </x-table.table>
                         </div>
@@ -313,6 +331,11 @@
                                         <td>{{$salida->sucursalDestino->nombre}}</td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="5">
+                                            <x-empty/>
+                                        </td>
+                                    </tr>
                                 @endforelse
                             </x-table.table>
                         </div>
@@ -338,6 +361,11 @@
                                         <td>@money($mayoreo->total)</td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="4">
+                                            <x-empty/>
+                                        </td>
+                                    </tr>
                                 @endforelse
                             </x-table.table>
                         </div>
@@ -351,6 +379,7 @@
                             <x-form.input
                                 label="Buscar producto"
                                 @input="(e) => searchOnTable(e, 'sobrante-table')"
+                                type="search"
                             />
                         </div>
                         <div class="col-12">
@@ -399,6 +428,11 @@
                                         </td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="4">
+                                            <x-empty/>
+                                        </td>
+                                    </tr>
                                 @endforelse
                             </x-table.table>
                         </div>
@@ -447,6 +481,11 @@
                                         </td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="3">
+                                            <x-empty/>
+                                        </td>
+                                    </tr>
                                 @endforelse
                             </x-table.table>
                         </div>
@@ -456,7 +495,7 @@
                         </div>
                     </div>
                     <div class="row" x-show="$wire.step === 9">
-                        <div class="col-6">
+                        <div class="col-12">
                             <div>
                                 <strong>Existencia anterior</strong>
                                 <p x-text="() => `$${parseFloat(totalExistencia).toLocaleString()}`"></p>
@@ -486,37 +525,43 @@
                                 <p x-text="() =>
                         `$${(parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)).toLocaleString()}`"></p>
                             </div>
+
+                        </div>
+                        <div class="col-12 col-md-6">
                             <x-form.input
-                                x-model="efectivo"
+                                wire:model="efectivo"
                                 type="number"
                                 step="0.01"
                                 label="Efectivo"
                             />
-
-                            <div class="card" :class="{
-                    'bg-success': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) === 0,
-                    'bg-danger': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) < 0,
-                    'bg-info': parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)) > 0
-                }">
-                                <div class="card-body">
-                                    <p x-text="() => {
-                            let total = (parseFloat(efectivo) - (parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos))).toFixed(2);
-                            if(parseFloat(total) > 0) return `Saldo a favor: $${total}`
-                            if(parseFloat(total) < 0) return `Adeuda: $${total}`
-                            if(parseFloat(total) === 0) return `Cuenta correcta: $${total}`
-                        }"
-                                       class="text-muted m-0"></p>
-                                </div>
-                            </div>
-
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <x-form.input
                                 label="Efectivo marinados"
-                                wire:model="aCuenta"
+                                wire:model="efectivoMarinado"
                                 type="number"
                                 step="0.01"
                             />
+                        </div>
+                        <div class="col-12">
+                            <div
+                                class="card"
+                                 :class="{
+                                    'bg-success': calcularTotal() === 0,
+                                    'bg-danger': calcularTotal() < 0,
+                                    'bg-info': calcularTotal() > 0
+                                }"
+                            >
+                                <div class="card-body">
+                                    <p x-text="() => {
+                                        let total = calcularTotal().toFixed(2);
+                                        if(parseFloat(total) > 0) return `Saldo a favor: $${total}`
+                                        if(parseFloat(total) < 0) return `Adeuda: $${total}`
+                                        if(parseFloat(total) === 0) return `Cuenta correcta: $${total}`
+                                    }"
+                                       class="text-muted m-0"></p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-12 py-3">
                             <x-button theme="outline-primary" wire:click.prevent="back(8)">Atrás</x-button>
