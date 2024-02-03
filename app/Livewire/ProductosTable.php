@@ -96,7 +96,13 @@ final class ProductosTable extends PowerGridComponent
     #[On('askDelete')]
     public function askDelete($rowId): void
     {
-        $producto = Producto::query()->find($rowId);
+        $this->askConfirm('remove', $rowId, 'Realmente dese eliminar', 'eliminar?');
+    }
+
+    #[On('remove')]
+    public function remove($id)
+    {
+        $producto = Producto::query()->find($id);
         $producto->delete();
     }
 
@@ -111,7 +117,7 @@ final class ProductosTable extends PowerGridComponent
     {
         $buttons = [];
 
-        if ($row->trashed()){
+        if ($row->trashed()) {
             $buttons = [
                 Button::add('restore')
                     ->slot('Restaurar')
