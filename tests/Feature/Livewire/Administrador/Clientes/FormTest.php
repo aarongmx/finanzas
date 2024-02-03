@@ -10,7 +10,12 @@ use function Pest\Laravel\seed;
 use function Pest\Livewire\livewire;
 
 beforeEach(function () {
-    Sucursal::factory()->create();
+    seed(PermissionsSeeder::class);
+
+    $user = User::factory()->create();
+    $user->assignRole(Role::ADMINISTRACION);
+
+    actingAs($user);
 });
 
 test('Se muestran las sucursales disponibles', function () {
@@ -21,13 +26,6 @@ test('Se muestran las sucursales disponibles', function () {
 });
 
 test('Se muestra select de sucursales si el usuario es administrador', function () {
-    seed(PermissionsSeeder::class);
-
-    $user = User::factory()->create();
-    $user->assignRole(Role::ADMINISTRACION);
-
-    actingAs($user);
-
     livewire(Form::class)->assertPropertyWired('form.sucursalId');
 });
 
