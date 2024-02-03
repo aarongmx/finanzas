@@ -1,9 +1,9 @@
 <?php
 
 use App\Livewire\Administrador\Creditos\Index;
-use Livewire\Livewire;
+use function Pest\Livewire\livewire;
 
 it('renders successfully', function () {
-    Livewire::test(Index::class)
+   livewire(Index::class)
         ->assertStatus(200);
 });
