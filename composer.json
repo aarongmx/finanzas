@@ -21,7 +21,8 @@
         "openspout/openspout": "^v4.19.0",
         "power-components/livewire-powergrid": "^v5.1.9",
         "spatie/laravel-data": "^3.11.0",
-        "spatie/laravel-permission": "^6.3"
+        "spatie/laravel-permission": "^6.3",
+        "staudenmeir/eloquent-eager-limit": "^1.0"
     },
     "require-dev": {
         "defstudio/pest-plugin-laravel-expectations": "^2.1.2",
