@@ -27,4 +27,24 @@ document.addEventListener('livewire:initialized', () => {
         const {title, text, icon = 'success'} = event
         Swal.fire(title, text, icon)
     });
+
+    Livewire.on('askConfirm', (event) => {
+        const {dispatch, id, title, text, icon = 'warning'} = event
+        const config = {
+            title,
+            text,
+            icon,
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Si, eliminar',
+            reverseButtons: true
+        }
+
+        Swal.fire(config)
+            .then((result) => {
+                if (result.isConfirmed){
+                    Livewire.dispatch(dispatch, {id: id})
+                }
+            })
+    });
 });
