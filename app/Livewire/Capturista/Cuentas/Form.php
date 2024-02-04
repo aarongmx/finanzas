@@ -56,9 +56,11 @@ class Form extends Component
 
     public $entradas = [];
 
+    public $sumExistencia = 0;
     public $sumSobrante = 0;
     public $sumEntrada = 0;
     public $sumSalida = 0;
+    public $sumGastos = 0;
 
     public $efectivoMarinado = 0;
 
