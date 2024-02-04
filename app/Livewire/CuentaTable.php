@@ -16,6 +16,7 @@ use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridColumns;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
 final class CuentaTable extends PowerGridComponent
@@ -58,18 +59,18 @@ final class CuentaTable extends PowerGridComponent
         return [];
     }
 
-    public function addColumns(): PowerGridColumns
+    public function addColumns(): PowerGridFields
     {
         return PowerGrid::columns()
-            ->addColumn('id')
-            ->addColumn('efectivo_pollo_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_pollo, 2)))
-            ->addColumn('efectivo_marinado_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_marinado, 2)))
-            ->addColumn('efectivo_total_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_total, 2)))
-            ->addColumn('saldo_formated', fn(Cuenta $model) => "$" . e(number_format($model->saldo, 2)))
-            ->addColumn('sucursal_id', fn(Cuenta $model) => e($model->sucursal?->nombre))
-            ->addColumn('fecha_venta_formatted', fn(Cuenta $model) => Carbon::parse($model->fecha_venta)->format('d/m/Y'))
-            ->addColumn('created_at_formatted', fn(Cuenta $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
-            ->addColumn('link', fn(Cuenta $model) => "<a class='link-underline-light' href='" . route('administracion.cuentas.show', ['cuenta' => $model]) . "'>Mostrar</a>");
+            ->add('id')
+            ->add('efectivo_pollo_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_pollo, 2)))
+            ->add('efectivo_marinado_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_marinado, 2)))
+            ->add('efectivo_total_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_total, 2)))
+            ->add('saldo_formated', fn(Cuenta $model) => "$" . e(number_format($model->saldo, 2)))
+            ->add('sucursal_id', fn(Cuenta $model) => e($model->sucursal?->nombre))
+            ->add('fecha_venta_formatted', fn(Cuenta $model) => Carbon::parse($model->fecha_venta)->format('d/m/Y'))
+            ->add('created_at_formatted', fn(Cuenta $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
+            ->add('link', fn(Cuenta $model) => "<a class='link-underline-light' href='" . route('administracion.cuentas.show', ['cuenta' => $model]) . "'>Mostrar</a>");
     }
 
     public function columns(): array
