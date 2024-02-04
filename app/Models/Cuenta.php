@@ -25,6 +25,10 @@ class Cuenta extends Model
         'estado_cuenta_id'
     ];
 
+    protected $attributes = [
+        'estado_cuenta_id' => 1,
+    ];
+
     public function sucursal(): BelongsTo
     {
         return $this->belongsTo(Sucursal::class);
