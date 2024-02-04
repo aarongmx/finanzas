@@ -59,9 +59,9 @@ final class CuentaTable extends PowerGridComponent
         return [];
     }
 
-    public function addColumns(): PowerGridFields
+    public function fields(): PowerGridFields
     {
-        return PowerGrid::columns()
+        return PowerGrid::fields()
             ->add('id')
             ->add('efectivo_pollo_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_pollo, 2)))
             ->add('efectivo_marinado_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_marinado, 2)))
