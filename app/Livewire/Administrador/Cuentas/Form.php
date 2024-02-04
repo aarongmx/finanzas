@@ -38,15 +38,15 @@ class Form extends Component
             ])
             ->get()
             ->map(function ($producto) {
-                $item = $producto->itemsCuenta?->first();
+                $item = $producto?->itemsCuenta?->first();
                 return [
                     'producto_name' => $producto->nombre,
                     'producto_id' => $producto->id,
                     'precio' => $item->precio ?? 0,
                     'importe_existencia' => $item->importe_existencia ?? 0,
                     'cantidad_existencia' => $item->cantidad_existencia ?? 0,
-                    'cantidad_sobrante' => $producto->categoria_id === 2 ? $item->cantidad_sobrante : 0,
-                    'importe_sobrante' => $producto->categoria_id === 2 ? $item->importe_sobrante : 0,
+                    'cantidad_sobrante' => $producto->categoria_id === 2 ? ($item?->cantidad_sobrante) ?? 0 : 0,
+                    'importe_sobrante' => $producto->categoria_id === 2 ? ($item?->importe_sobrante) ?? 0 : 0,
                     'categoria_id' => $producto->categoria_id,
                 ];
             })->toArray();

@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 col-md-4">
             <select class="form-select">
                 @forelse($this->sucursales as $sucursal)
                     <option value="{{$sucursal->id}}" wire:key="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
@@ -13,17 +13,20 @@
                 @endforelse
             </select>
         </div>
-        <div class="col-12">
+        <div class="col-12 col-md-4">
             <x-form.input
                 label="Fecha de venta"
                 type="date"
             />
-
+        </div>
+        <div class="col-12 col-md-4">
             <x-form.input
                 label="Fecha de captura"
                 type="date"
             />
         </div>
+    </div>
+    <div class="row">
         <div class="col-12">
             @forelse($this->categorias as $categoria)
                 <div class="form-check form-check-inline">
