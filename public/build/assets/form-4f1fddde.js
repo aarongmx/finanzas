@@ -1,0 +1,1 @@
+Alpine.data("form",()=>({searchOnTable(t,c){document.getElementById(c).querySelectorAll("tbody tr").forEach(e=>{const l=Array.from(e.querySelectorAll("td")).map(o=>o.textContent.toLowerCase()).join(" ").includes(t.target.value);e.classList.toggle("d-none",!l)})}}));
