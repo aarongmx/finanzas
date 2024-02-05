@@ -200,20 +200,20 @@
     <thead>
     <tr>
         <th>Producto</th>
+        <th>Sucursal destino</th>
         <th class="td-right">Cantidad</th>
         <th class="td-right">Precio unitario</th>
         <th class="td-right">Total</th>
-        <th>Sucursal destino</th>
     </tr>
     </thead>
     <tbody>
     @forelse($cuenta->salidas as $salida)
         <tr>
             <td>{{$salida->producto->nombre}}</td>
+            <td>{{$salida->sucursalDestino->nombre}}</td>
             <td class="td-right">@amount($salida->cantidad)</td>
             <td class="td-right">$@amount($salida->precio)</td>
             <td class="td-right">$@amount($salida->total)</td>
-            <td>{{$salida->sucursalDestino->nombre}}</td>
         </tr>
     @empty
         <tr>
