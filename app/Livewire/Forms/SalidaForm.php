@@ -71,6 +71,7 @@ class SalidaForm extends Form
                 'producto_id' => $this->productoId,
                 'fecha_entrada' => $this->fechaVenta,
                 'cuenta_id' => $cuentaDestino->id,
+                'total' => 0,
             ]);
         });
     }
