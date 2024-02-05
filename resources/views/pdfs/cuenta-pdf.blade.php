@@ -48,7 +48,7 @@
             background-color: rgb(243 244 246);
         }
 
-        .td-right{
+        .td-right {
             text-align: right;
         }
 
@@ -128,6 +128,21 @@
             </td>
         </tr>
     @endforelse
+    <tr>
+        <td></td>
+        <td class="td-right" colspan="2">
+            TOTAL: $@amount($cuenta->itemsCuenta->sum('importe_existencia'))
+        </td>
+        <td class="td-right" colspan="2">
+            TOTAL: $@amount($cuenta->itemsCuenta->sum('importe_entrada'))
+        </td>
+        <td class="td-right" colspan="2">
+            TOTAL: $@amount($cuenta->itemsCuenta->sum('importe_salida'))
+        </td>
+        <td class="td-right" colspan="2">
+            TOTAL: $@amount($cuenta->itemsCuenta->sum('importe_sobrante'))
+        </td>
+    </tr>
     </tbody>
 </table>
 
@@ -165,6 +180,21 @@
             </td>
         </tr>
     @endforelse
+    <tr>
+        <td></td>
+        <td class="td-right" colspan="2">
+            TOTAL: $@amount($cuenta->itemsCuenta->sum('importe_existencia'))
+        </td>
+        <td class="td-right" colspan="2">
+            TOTAL: $@amount($cuenta->itemsCuenta->sum('importe_entrada'))
+        </td>
+        <td class="td-right" colspan="2">
+            TOTAL: $@amount($cuenta->itemsCuenta->sum('importe_salida'))
+        </td>
+        <td class="td-right" colspan="2">
+            TOTAL: $@amount($cuenta->itemsCuenta->sum('importe_sobrante'))
+        </td>
+    </tr>
     </tbody>
 </table>
 <h3>Entradas</h3>
@@ -192,6 +222,11 @@
             </td>
         </tr>
     @endforelse
+    <tr>
+        <td class="td-right" colspan="100%">
+            TOTAL: $@amount($cuenta->entradas->sum('precio'))
+        </td>
+    </tr>
     </tbody>
 </table>
 
@@ -222,6 +257,11 @@
             </td>
         </tr>
     @endforelse
+    <tr>
+        <td class="td-right" colspan="100%">
+            TOTAL: $@amount($cuenta->salidas->sum('total'))
+        </td>
+    </tr>
     </tbody>
 </table>
 
@@ -246,6 +286,11 @@
             </td>
         </tr>
     @endforelse
+    <tr>
+        <td class="td-right" colspan="2">
+            TOTAL: $@amount($cuenta->gastosFijos->sum('precio'))
+        </td>
+    </tr>
     </tbody>
 </table>
 
