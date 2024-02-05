@@ -3,8 +3,8 @@
 namespace App\Livewire\Capturista;
 
 use App\Models\Entrada;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -12,8 +12,8 @@ use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
-use PowerComponents\LivewirePowerGrid\PowerGridColumns;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
 final class EntradaTable extends PowerGridComponent
@@ -50,16 +50,16 @@ final class EntradaTable extends PowerGridComponent
         ];
     }
 
-    public function addColumns(): PowerGridColumns
+    public function fields(): PowerGridFields
     {
-        return PowerGrid::columns()
-            ->addColumn('id')
-            ->addColumn('precio')
-            ->addColumn('cantidad')
-            ->addColumn('sucursal_origen_id', fn(Entrada $model) => $model->sucursalOrigen->nombre)
-            ->addColumn('producto_id', fn(Entrada $model) => $model->producto->nombre)
-            ->addColumn('salida_id')
-            ->addColumn('created_at_formatted', fn(Entrada $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+        return PowerGrid::fields()
+            ->add('id')
+            ->add('precio')
+            ->add('cantidad')
+            ->add('sucursal_origen_id', fn(Entrada $model) => $model->sucursalOrigen->nombre)
+            ->add('producto_id', fn(Entrada $model) => $model->producto->nombre)
+            ->add('salida_id')
+            ->add('created_at_formatted', fn(Entrada $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     public function columns(): array
@@ -74,7 +74,7 @@ final class EntradaTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Sucursal envio', 'sucursal_envio_id'),
+            Column::make('Sucursal de origen', 'sucursal_origen_id'),
             Column::make('Producto', 'producto_id'),
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
