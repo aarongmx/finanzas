@@ -1,5 +1,6 @@
 <?php
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,5 +28,24 @@ Route::post('/logout', function(Request $request){
 
     return redirect()->route('login');
 });
+
+Route::get('reporte/{cuenta}', function(\App\Models\Cuenta $cuenta){
+    $cuenta->load([
+        'itemsCuenta' => [
+            'producto'
+        ],
+        'gastosFijos',
+        'salidas' => [
+            'producto',
+            'sucursalDestino',
+        ],
+        'sucursal',
+        'entradas' => [
+            'producto',
+            'sucursalOrigen',
+        ],
+    ]);
+    return Pdf::loadView('pdfs.cuenta-pdf', ['cuenta' => $cuenta])->download("{$cuenta->sucursal->nombre}-{$cuenta->fecha_venta}.pdf");
+})->name('reporte.cuenta');
 
 

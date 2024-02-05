@@ -3,6 +3,7 @@
 namespace App\Livewire\Administrador\Cuentas;
 
 use App\Models\Cuenta;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 
 class Show extends Component
@@ -26,7 +27,11 @@ class Show extends Component
                 'sucursalOrigen',
             ],
         ]);
-        ray($this->cuenta);
+    }
+
+    public function downloadReporte()
+    {
+        return redirect()->route('reporte.cuenta', ['cuenta' => $this->cuenta->id]);
     }
 
     public function render()

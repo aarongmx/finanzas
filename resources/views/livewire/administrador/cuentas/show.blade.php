@@ -15,6 +15,9 @@
                             <strong>Fecha de captura</strong>
                             <p>{{$this->cuenta->fecha_captura}}</p>
                         </div>
+                        <div class="col-12">
+                            <x-button wire:click.prevent="downloadReporte">Reporte</x-button>
+                        </div>
                     </div>
                 </div>
             </div>
