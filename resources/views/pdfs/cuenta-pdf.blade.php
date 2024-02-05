@@ -202,18 +202,20 @@
     <thead>
     <tr>
         <th>Producto</th>
+        <th>Sucursal origen</th>
         <th class="td-right">Precio</th>
         <th class="td-right">Cantidad</th>
-        <th>Sucursal origen</th>
+        <th class="td-right">Total</th>
     </tr>
     </thead>
     <tbody>
     @forelse($cuenta->entradas as $entrada)
         <tr>
+            <td>{{$entrada->sucursalOrigen->nombre}}</td>
             <td>{{$entrada->producto->nombre}}</td>
             <td class="td-right">$@amount($entrada->precio)</td>
             <td class="td-right">@amount($entrada->cantidad)</td>
-            <td>{{$entrada->sucursalOrigen->nombre}}</td>
+            <td class="td-right">@amount($entrada->total)</td>
         </tr>
     @empty
         <tr>
@@ -224,7 +226,7 @@
     @endforelse
     <tr>
         <td class="td-right" colspan="100%">
-            TOTAL: $@amount($cuenta->entradas->sum('precio'))
+            TOTAL: $@amount($cuenta->entradas->sum('total'))
         </td>
     </tr>
     </tbody>
