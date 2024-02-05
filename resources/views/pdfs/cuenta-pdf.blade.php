@@ -201,7 +201,8 @@
     <tr>
         <th>Producto</th>
         <th class="td-right">Cantidad</th>
-        <th class="td-right">Precio salida</th>
+        <th class="td-right">Precio unitario</th>
+        <th class="td-right">Total</th>
         <th>Sucursal destino</th>
     </tr>
     </thead>
@@ -211,6 +212,7 @@
             <td>{{$salida->producto->nombre}}</td>
             <td class="td-right">@amount($salida->cantidad)</td>
             <td class="td-right">$@amount($salida->precio)</td>
+            <td class="td-right">$@amount($salida->total)</td>
             <td>{{$salida->sucursalDestino->nombre}}</td>
         </tr>
     @empty
