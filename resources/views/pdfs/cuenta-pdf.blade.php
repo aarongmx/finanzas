@@ -117,7 +117,7 @@
     </tr>
     </thead>
     <tbody>
-    @forelse($cuenta->itemsCuenta as $item)
+    @forelse($cuenta->itemsCuenta->filter(fn($i) => $i->producto->categoria_id === 1) as $item)
         <tr>
             <td>{{$item->producto->nombre}}</td>
         </tr>
@@ -169,7 +169,7 @@
     </tr>
     </thead>
     <tbody>
-    @forelse($cuenta->itemsCuenta as $item)
+    @forelse($cuenta->itemsCuenta->filter(fn($i) => $i->producto->categoria_id === 2) as $item)
         <tr>
             <td>{{$item->producto->nombre}}</td>
         </tr>
