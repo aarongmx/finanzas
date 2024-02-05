@@ -48,6 +48,10 @@
             background-color: rgb(243 244 246);
         }
 
+        .td-right{
+            text-align: right;
+        }
+
         .title {
             display: block;
         }
@@ -102,14 +106,14 @@
     </tr>
     <tr>
         <th>Producto</th>
-        <th>Cantidad</th>
-        <th>Importe</th>
-        <th>Cantidad</th>
-        <th>Importe</th>
-        <th>Cantidad</th>
-        <th>Importe</th>
-        <th>Cantidad</th>
-        <th>Importe</th>
+        <th style="text-align: right;">Cantidad</th>
+        <th style="text-align: right;">Importe</th>
+        <th style="text-align: right;">Cantidad</th>
+        <th style="text-align: right;">Importe</th>
+        <th style="text-align: right;">Cantidad</th>
+        <th style="text-align: right;">Importe</th>
+        <th style="text-align: right;">Cantidad</th>
+        <th style="text-align: right;">Importe</th>
     </tr>
     </thead>
     <tbody>
@@ -139,14 +143,14 @@
     </tr>
     <tr>
         <th>Producto</th>
-        <th>Cantidad</th>
-        <th>Importe</th>
-        <th>Cantidad</th>
-        <th>Importe</th>
-        <th>Cantidad</th>
-        <th>Importe</th>
-        <th>Cantidad</th>
-        <th>Importe</th>
+        <th style="text-align: right;">Cantidad</th>
+        <th style="text-align: right;">Importe</th>
+        <th style="text-align: right;">Cantidad</th>
+        <th style="text-align: right;">Importe</th>
+        <th style="text-align: right;">Cantidad</th>
+        <th style="text-align: right;">Importe</th>
+        <th style="text-align: right;">Cantidad</th>
+        <th style="text-align: right;">Importe</th>
     </tr>
     </thead>
     <tbody>
@@ -168,8 +172,8 @@
     <thead>
     <tr>
         <th>Producto</th>
-        <th>Precio</th>
-        <th>Cantidad</th>
+        <th class="td-right">Precio</th>
+        <th class="td-right">Cantidad</th>
         <th>Sucursal origen</th>
     </tr>
     </thead>
@@ -177,8 +181,8 @@
     @forelse($cuenta->entradas as $entrada)
         <tr>
             <td>{{$entrada->producto->nombre}}</td>
-            <td>{{$entrada->precio}}</td>
-            <td>{{$entrada->cantidad}}</td>
+            <td class="td-right">$@amount($entrada->precio)</td>
+            <td class="td-right">@amount($entrada->cantidad)</td>
             <td>{{$entrada->sucursalOrigen->nombre}}</td>
         </tr>
     @empty
@@ -196,8 +200,8 @@
     <thead>
     <tr>
         <th>Producto</th>
-        <th>Cantidad</th>
-        <th>Precio salida</th>
+        <th class="td-right">Cantidad</th>
+        <th class="td-right">Precio salida</th>
         <th>Sucursal destino</th>
     </tr>
     </thead>
@@ -205,8 +209,8 @@
     @forelse($cuenta->salidas as $salida)
         <tr>
             <td>{{$salida->producto->nombre}}</td>
-            <td>{{$salida->cantidad}}</td>
-            <td>{{$salida->precio}}</td>
+            <td class="td-right">@amount($salida->cantidad)</td>
+            <td class="td-right">$@amount($salida->precio)</td>
             <td>{{$salida->sucursalDestino->nombre}}</td>
         </tr>
     @empty
@@ -224,14 +228,14 @@
     <thead>
     <tr>
         <th>Concepto</th>
-        <th>Monto</th>
+        <th class="td-right">Monto</th>
     </tr>
     </thead>
     <tbody>
     @forelse($cuenta->gastosFijos as $gasto)
         <tr>
             <td>{{$gasto->concepto}}</td>
-            <td>{{$gasto->precio}}</td>
+            <td class="td-right">$@amount($gasto->precio)</td>
         </tr>
     @empty
         <tr>
