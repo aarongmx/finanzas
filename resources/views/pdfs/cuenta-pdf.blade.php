@@ -1,12 +1,85 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        @page {
+            font-family: sans-serif;
+            font-size: 0.8rem;
+        }
+
+        header {
+            position: fixed;
+            left: -50px;
+            top: -150px;
+            right: -50px;
+            height: 80px;
+            padding: 25px 50px 25px 50px;
+            text-align: left;
+        }
+
+        table {
+            width: 100%;
+            border: 1px none black;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 0.25rem;
+        }
+
+        th {
+            background-color: rgb(209 213 219);
+            text-align: left;
+            text-transform: uppercase;
+            color: rgb(55 65 81);
+        }
+
+        th,
+        td {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgb(243 244 246);
+        }
+
+        .title {
+            display: block;
+        }
+
+        main {
+            min-height: calc(100% - 80px);
+        }
+
+        p {
+            margin-bottom: 0.25rem;
+            line-height: 1.2;
+        }
+
+        .red-text {
+            color: rgb(192, 0, 0);
+        }
+
+        .mb-0 {
+            margin-bottom: 0;
+        }
+
+        footer {
+            font-size: 0.75rem;
+            line-height: 1.5;
+            padding: 1rem 1.5rem;
+            margin: 0;
+            left: -50px;
+            right: -50px;
+            bottom: -25px;
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
 <p>Grupo Comercial ML</p>
