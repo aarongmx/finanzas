@@ -112,7 +112,7 @@ class Form extends Component
         $this->fechaCaptura = today()->format('Y-m-d');
         $fechaVentaAnterior = Carbon::parse($value)->subDay()->toDateString();
 
-        $this->entradas = Entrada::query()->where('fecha_entrada', $value)->where('sucursal_destino_id', auth()->user()->sucursal_id)->get()->toArray();
+        $this->entradas = Entrada::query()->where('fecha_entrada', $value)->where('sucursal_destino_id', auth()->user()->sucursal_id)->get();
 
         $this->salidas = Salida::query()->where('fecha_salida', $value)->where('sucursal_origen_id', auth()->user()->sucursal_id)->get();
 
