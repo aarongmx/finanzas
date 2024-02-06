@@ -69,6 +69,7 @@
                             <th>Sucursal origen</th>
                             <th style="text-align: right;">Precio</th>
                             <th style="text-align: right;">Cantidad</th>
+                            <th style="text-align: right;">Total</th>
                         </tr>
                         </thead>
                         @forelse($this->cuenta->entradas as $entrada)
@@ -77,6 +78,7 @@
                                 <td>{{$entrada->sucursalOrigen->nombre}}</td>
                                 <td style="text-align: right;">@money($entrada->precio)</td>
                                 <td style="text-align: right;">@amount($entrada->cantidad)</td>
+                                <td style="text-align: right;">@money($entrada->total)</td>
                             </tr>
                         @empty
                             <tr>
@@ -85,6 +87,9 @@
                                 </td>
                             </tr>
                         @endforelse
+                        <tr>
+                            <td style="text-align: right;" colspan="5">Total: @money($this->cuenta->entradas->sum('total'))</td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -112,6 +117,11 @@
                                 </td>
                             </tr>
                         @endforelse
+                        <tr>
+                            <td colspan="2" style="text-align: right;">
+                                @money($this->cuenta->gastosFijos->sum('precio'))
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -145,6 +155,11 @@
                                 </td>
                             </tr>
                         @endforelse
+                        <tr>
+                            <td colspan="5" style="text-align: right;">
+                                Total: @money($this->cuenta->salidas->sum('total'))
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
