@@ -230,19 +230,19 @@
                         <div class="col-12">
                             <x-table.table>
                                 <x-slot:header>
-                                    <x-table.th>Precio</x-table.th>
                                     <x-table.th>Producto</x-table.th>
-                                    <x-table.th>Cantidad</x-table.th>
                                     <x-table.th>Sucursal de origen</x-table.th>
-                                    <x-table.th>Total</x-table.th>
+                                    <x-table.th style="text-align: right;">Precio</x-table.th>
+                                    <x-table.th style="text-align: right;">Cantidad</x-table.th>
+                                    <x-table.th style="text-align: right;">Total</x-table.th>
                                 </x-slot:header>
                                 @forelse($this->entradas as $entrada)
                                     <tr>
-                                        {{--<td x-text="data.find(i => i['producto_id'] === {{$entrada->producto_id}}).precio"></td>--}}
-                                        {{--<td>{{$entrada->producto->nombre}}</td>
-                                        <td>@amount($entrada->cantidad)</td>
-                                        <td>{{$entrada->sucursalOrigen->nombre}}</td>--}}
-                                        {{--<td x-text="data.find(i => i['producto_id'] === {{$entrada->producto_id}}).precio * {{$entrada->cantidad}}"></td>--}}
+                                        <td>{{$entrada->producto->nombre}}</td>
+                                        <td>{{$entrada->sucursalOrigen->nombre}}</td>
+                                        <td style="text-align: right;">@money($entrada->producto->precio)</td>
+                                        <td style="text-align: right;">@amount($entrada->cantidad)</td>
+                                        <td style="text-align: right;">@money($entrada->total)</td>
                                     </tr>
                                 @empty
                                     <tr>
