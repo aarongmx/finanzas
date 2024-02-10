@@ -240,9 +240,9 @@
                                     <tr>
                                         <td>{{$entrada->producto->nombre}}</td>
                                         <td>{{$entrada->sucursalOrigen->nombre}}</td>
-                                        <td style="text-align: right;">@money($entrada->producto->precio)</td>
+                                        <td style="text-align: right;" x-text="$wire.items.find(i => i.producto_id === {{$entrada->producto_id}}).precio"></td>
                                         <td style="text-align: right;">@amount($entrada->cantidad)</td>
-                                        <td style="text-align: right;">@money($entrada->total)</td>
+                                        <td style="text-align: right;" x-text="$wire.items.find(i => i.producto_id === {{$entrada->producto_id}}).precio * {{$entrada->cantidad}}"></td>
                                     </tr>
                                 @empty
                                     <tr>
