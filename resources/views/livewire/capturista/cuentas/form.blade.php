@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-body">
                     <strong class="text-muted">Entrada</strong>
-                    <p class="h4" x-text="() => `$${parseFloat($wire.totalEntrada).toLocaleString()}`"></p>
+                    <p class="h4" x-text="() => `$${parseFloat($wire.sumEntrada).toLocaleString()}`"></p>
                 </div>
             </div>
         </div>
@@ -116,6 +116,9 @@
                                                     $wire.items[{{$i}}].importe_entrada = parseFloat(precio * cantidadEntrada).toFixed(2);
                                                     $wire.items[{{$i}}].importe_salida = parseFloat(precio * cantidadSalida).toFixed(2);
                                                     $wire.items[{{$i}}].importe_sobrante = parseFloat(precio * cantidadSobrante).toFixed(2);
+
+                                                    let total = $wire.items.reduce((total, item) => total + parseFloat(item.importe_existencia), 0).toFixed(2);
+                                                    $wire.sumExistencia = isNaN(total) ? $wire.importeExistencia : total + $wire.importeExistencia;
                                                 }"
                                             />
                                         </td>
@@ -197,6 +200,9 @@
                                                     let precio = parseFloat($wire.items[{{$i}}].precio).toFixed(2);
                                                     let cantidad = parseFloat(e.target.value).toFixed(2);
                                                     $wire.items[{{$i}}].importe_entrada = parseFloat(precio * cantidad).toFixed(2);
+
+                                                    let total = $wire.items.reduce((total, item) => total + parseFloat(item.importe_entrada), 0).toFixed(2);
+                                                    $wire.sumEntrada = isNaN(total) ? $wire.totalEntrada : total + $wire.totalEntrada;
                                                 }"
                                             />
                                         </td>
@@ -297,9 +303,13 @@
                                                 step="0.01"
                                                 after="kg"
                                                 @input="e => {
-                                                    let precio = parseFloat($wire.items[{{$i}}].precio).toFixed(2);
-                                                    let cantidad = parseFloat(e.target.value).toFixed(2);
-                                                    $wire.items[{{$i}}].importe_salida = parseFloat(precio * cantidad).toFixed(2);
+                                                    if(!isNaN(e.target.value)){
+                                                        let precio = parseFloat($wire.items[{{$i}}].precio).toFixed(2);
+                                                        let cantidad = parseFloat(e.target.value).toFixed(2);
+                                                        $wire.items[{{$i}}].importe_salida = parseFloat(precio * cantidad).toFixed(2);
+                                                        let total = $wire.items.reduce((total, item) => total + parseFloat(item.importe_salida), 0).toFixed(2);
+                                                        $wire.sumSalida = isNaN(total) ? {{$totalSalidas}} : parseFloat(parseFloat({{$totalSalidas}}) + parseFloat(total)).toFixed(2);
+                                                    }
                                                 }"
                                             />
                                         </td>

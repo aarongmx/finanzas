@@ -49,7 +49,9 @@ class Form extends Component
     public $aCuenta;
 
     public $totalEntrada = 0;
+
     public $totalSalidas = 0;
+
     public $mayoreos = [];
 
     public $salidas = [];
