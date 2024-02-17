@@ -57,6 +57,7 @@ class Form extends Component
     public $salidas = [];
 
     public $entradas = [];
+    public $entradasArray = [];
 
     public $sumExistencia = 0;
     public $sumSobrante = 0;
@@ -78,7 +79,7 @@ class Form extends Component
             'items.*.cantidad_entrada' => ['required', 'numeric'],
             'items.*.cantidad_salida' => ['required', 'numeric'],
             'items.*.cantidad_sobrante' => ['required', 'numeric'],
-            'entradas.*.precio' => ['nullable', 'numeric'],
+            #'entradas.*' => ['nullable', 'array'],
             'efectivo' => ['required', 'numeric'],
             'efectivoMarinado' => ['required', 'numeric'],
         ];
@@ -114,7 +115,11 @@ class Form extends Component
         $this->fechaCaptura = today()->format('Y-m-d');
         $fechaVentaAnterior = Carbon::parse($value)->subDay()->toDateString();
 
-        $this->entradas = Entrada::query()->where('fecha_entrada', $value)->where('sucursal_destino_id', auth()->user()->sucursal_id)->get();
+        $this->entradas = Entrada::query()
+            ->select(['id', 'producto_id', 'precio', 'sucursal_origen_id', 'cantidad'])
+            ->where('fecha_entrada', $value)
+            ->where('sucursal_destino_id', auth()->user()->sucursal_id)->get();
+        $this->entradasArray = $this->entradas->toArray();
 
         $this->salidas = Salida::query()->where('fecha_salida', $value)->where('sucursal_origen_id', auth()->user()->sucursal_id)->get();
 

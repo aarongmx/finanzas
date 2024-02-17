@@ -1,5 +1,10 @@
-<div class="container-fluid py-lg-4"
-     x-data="form">
+<div class="container-fluid py-lg-4" x-data="{
+    validNumber (value) {
+      let floatValue = parseFloat(value)
+      if(isNaN(floatValue)) return 0
+      return floatValue.toFixed(2)
+    }
+}">
     <div class="row">
         <div class="col-12">
             <h1 class="h3">Cuentas</h1>
@@ -119,6 +124,12 @@
 
                                                     let total = $wire.items.reduce((total, item) => total + parseFloat(item.importe_existencia), 0).toFixed(2);
                                                     $wire.sumExistencia = isNaN(total) ? $wire.importeExistencia : total + $wire.importeExistencia;
+
+                                                    $wire.entradasArray.map(i => {
+                                                        let precioProducto = parseFloat($wire.items.find(item => item.producto_id == i.producto_id).precio) || 0;
+                                                        let total = precioProducto * validNumber(i.cantidad);
+                                                        $wire.sumEntrada = total + parseFloat($wire.totalEntrada).toFixed(2)
+                                                    });
                                                 }"
                                             />
                                         </td>
@@ -244,7 +255,7 @@
                                 </x-slot:header>
                                 @forelse($this->entradas as $entrada)
                                     <tr>
-                                        <td>{{$entrada->producto->nombre}}</td>
+                                       <td>{{$entrada->producto->nombre}}</td>
                                         <td>{{$entrada->sucursalOrigen->nombre}}</td>
                                         <td style="text-align: right;" x-text="$wire.items.find(i => i.producto_id === {{$entrada->producto_id}}).precio"></td>
                                         <td style="text-align: right;">@amount($entrada->cantidad)</td>
