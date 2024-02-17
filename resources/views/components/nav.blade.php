@@ -20,7 +20,6 @@
                     <x-nav-item path="administracion.usuarios.index">Usuarios</x-nav-item>
                 @endif
                 @if(auth()->user()->hasRole(\App\Enums\Role::CAPTURISTA))
-                    <x-nav-item path="capturista.home">Inicio</x-nav-item>
                     <x-nav-item path="capturista.cuenta.sucursal">Cuenta</x-nav-item>
                     <x-nav-item path="capturista.salidas.index">Salidas</x-nav-item>
                     <x-nav-item path="capturista.mayoreo.index">Mayoreo</x-nav-item>

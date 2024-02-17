@@ -28,7 +28,7 @@ class LoginForm extends Form
             $user = Auth::user();
 
             if ($user->hasRole(Role::CAPTURISTA)){
-                return redirect()->intended()->route('capturista.home');
+                return redirect()->intended()->route('capturista.cuenta.sucursal');
             }
 
             if ($user->hasRole(Role::ADMINISTRACION)){
