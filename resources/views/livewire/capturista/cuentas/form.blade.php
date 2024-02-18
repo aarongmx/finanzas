@@ -1,4 +1,15 @@
 <div class="container-fluid py-lg-4" x-data="{
+    searchOnTable(e, tableId) {
+        const searchTable = document.getElementById(tableId);
+        const rows = searchTable.querySelectorAll('tbody tr');
+
+        rows.forEach((row) => {
+            const cells = Array.from(row.querySelectorAll('td'));
+            const matchString = cells.map((n) => n.textContent.toLowerCase()).join(' ');
+            const match = matchString.includes(e.target.value);
+            row.classList.toggle('d-none', !match);
+        });
+    },
     validNumber (value) {
       let floatValue = parseFloat(value)
       if(isNaN(floatValue)) return 0
@@ -215,7 +226,7 @@
                                                     $wire.items[{{$i}}].importe_entrada = parseFloat(precio * cantidad).toFixed(2);
 
                                                     let total = $wire.items.reduce((total, item) => total + parseFloat(item.importe_entrada), 0).toFixed(2);
-                                                    $wire.sumEntrada = isNaN(total) ? $wire.totalEntrada : total + $wire.totalEntrada;
+                                                    $wire.sumEntrada += isNaN(total) ? parseFloat(validNumber($wire.totalEntrada)) : total + parseFloat(validNumber($wire.totalEntrada));
                                                 }"
                                             />
                                         </td>
@@ -458,6 +469,7 @@
                                                     $wire.items[{{$i}}].importe_sobrante = parseFloat(precio * cantidad).toFixed(2);
 
                                                      let total = $wire.items.reduce((total, item) => total + parseFloat(item.importe_sobrante), 0).toFixed(2);
+                                                     console.log(total)
                                                     $wire.sumSobrante = isNaN(total) ? {{$totalSobrante}} : parseFloat(parseFloat({{$totalSobrante}}) + parseFloat(total)).toFixed(2);
                                                 }"
                                             />
