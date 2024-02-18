@@ -141,6 +141,7 @@
 
                                                         let total = precioProducto * validNumber(i.cantidad) + parseFloat(validNumber({{$totalEntrada}}));
 
+                                                        $wire.sumEntradasRecibidas = total;
                                                         $wire.sumEntrada = total;
                                                     });
                                                 }"
@@ -226,7 +227,7 @@
                                                     $wire.items[{{$i}}].importe_entrada = parseFloat(precio * cantidad).toFixed(2);
 
                                                     let total = $wire.items.reduce((total, item) => total + parseFloat(item.importe_entrada), 0).toFixed(2);
-                                                    $wire.sumEntrada += isNaN(total) ? parseFloat(validNumber($wire.totalEntrada)) : total + parseFloat(validNumber($wire.totalEntrada));
+                                                    $wire.sumEntrada = isNaN(total) ? parseFloat(validNumber($wire.sumEntradasRecibidas)) : parseFloat(total) + parseFloat(validNumber($wire.sumEntradasRecibidas));
                                                 }"
                                             />
                                         </td>

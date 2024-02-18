@@ -50,6 +50,8 @@ class Form extends Component
 
     public $totalEntrada = 0;
 
+    public $sumEntradasRecibidas = 0;
+
     public $totalSalidas = 0;
 
     public $totalSobrante = 0;
