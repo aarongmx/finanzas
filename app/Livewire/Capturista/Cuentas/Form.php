@@ -52,6 +52,8 @@ class Form extends Component
 
     public $totalSalidas = 0;
 
+    public $totalSobrante = 0;
+
     public $mayoreos = [];
 
     public $salidas = [];

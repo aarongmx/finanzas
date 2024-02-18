@@ -126,9 +126,11 @@
                                                     $wire.sumExistencia = isNaN(total) ? $wire.importeExistencia : total + $wire.importeExistencia;
 
                                                     $wire.entradasArray.map(i => {
-                                                        let precioProducto = parseFloat($wire.items.find(item => item.producto_id == i.producto_id).precio) || 0;
-                                                        let total = precioProducto * validNumber(i.cantidad);
-                                                        $wire.sumEntrada = total + parseFloat($wire.totalEntrada).toFixed(2)
+                                                        let precioProducto = validNumber($wire.items.find(item => item.producto_id == i.producto_id).precio);
+
+                                                        let total = precioProducto * validNumber(i.cantidad) + parseFloat(validNumber({{$totalEntrada}}));
+
+                                                        $wire.sumEntrada = total;
                                                     });
                                                 }"
                                             />
@@ -255,11 +257,13 @@
                                 </x-slot:header>
                                 @forelse($this->entradas as $entrada)
                                     <tr>
-                                       <td>{{$entrada->producto->nombre}}</td>
+                                        <td>{{$entrada->producto->nombre}}</td>
                                         <td>{{$entrada->sucursalOrigen->nombre}}</td>
-                                        <td style="text-align: right;" x-text="$wire.items.find(i => i.producto_id === {{$entrada->producto_id}}).precio"></td>
+                                        <td style="text-align: right;"
+                                            x-text="$wire.items.find(i => i.producto_id === {{$entrada->producto_id}}).precio"></td>
                                         <td style="text-align: right;">@amount($entrada->cantidad)</td>
-                                        <td style="text-align: right;" x-text="$wire.items.find(i => i.producto_id === {{$entrada->producto_id}}).precio * {{$entrada->cantidad}}"></td>
+                                        <td style="text-align: right;"
+                                            x-text="$wire.items.find(i => i.producto_id === {{$entrada->producto_id}}).precio * {{$entrada->cantidad}}"></td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -452,6 +456,9 @@
                                                     let precio = parseFloat($wire.items[{{$i}}].precio).toFixed(2);
                                                     let cantidad = parseFloat(e.target.value).toFixed(2);
                                                     $wire.items[{{$i}}].importe_sobrante = parseFloat(precio * cantidad).toFixed(2);
+
+                                                     let total = $wire.items.reduce((total, item) => total + parseFloat(item.importe_sobrante), 0).toFixed(2);
+                                                    $wire.sumSobrante = isNaN(total) ? {{$totalSobrante}} : parseFloat(parseFloat({{$totalSobrante}}) + parseFloat(total)).toFixed(2);
                                                 }"
                                             />
                                         </td>
@@ -535,38 +542,38 @@
                         </div>
                     </div>
                     <div class="row" x-show="$wire.step === 9">
-                       {{-- <div class="col-12">
-                            <div>
-                                <strong>Existencia anterior</strong>
-                                <p x-text="() => `$${parseFloat(totalExistencia).toLocaleString()}`"></p>
-                            </div>
-                            <div>
-                                <strong>Gastos</strong>
-                                <p x-text="() => `$${parseFloat(totalGastos).toLocaleString()}`"></p>
-                            </div>
-                            <div>
-                                <strong>Salidas</strong>
-                                <p x-text="() => `$${parseFloat(totalSalida).toLocaleString()}`"></p>
-                            </div>
-                            <div>
-                                <strong>Sobrante</strong>
-                                <p x-text="() => `$${parseFloat(totalSobrante).toLocaleString()}`"></p>
-                            </div>
-                            <div>
-                                <strong>Entrada</strong>
-                                <p x-text="() => `$${parseFloat(totalEntrada).toLocaleString()}`"></p>
-                            </div>
-                            <div>
-                                <strong>Total Entrada</strong>
-                                <p x-text="() => `$${(parseFloat(totalExistencia)+parseFloat(totalEntrada)).toLocaleString()}`"></p>
-                            </div>
-                            <div>
-                                <strong>Total</strong>
-                                <p x-text="() =>
-                        `$${(parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)).toLocaleString()}`"></p>
-                            </div>
+                        {{-- <div class="col-12">
+                             <div>
+                                 <strong>Existencia anterior</strong>
+                                 <p x-text="() => `$${parseFloat(totalExistencia).toLocaleString()}`"></p>
+                             </div>
+                             <div>
+                                 <strong>Gastos</strong>
+                                 <p x-text="() => `$${parseFloat(totalGastos).toLocaleString()}`"></p>
+                             </div>
+                             <div>
+                                 <strong>Salidas</strong>
+                                 <p x-text="() => `$${parseFloat(totalSalida).toLocaleString()}`"></p>
+                             </div>
+                             <div>
+                                 <strong>Sobrante</strong>
+                                 <p x-text="() => `$${parseFloat(totalSobrante).toLocaleString()}`"></p>
+                             </div>
+                             <div>
+                                 <strong>Entrada</strong>
+                                 <p x-text="() => `$${parseFloat(totalEntrada).toLocaleString()}`"></p>
+                             </div>
+                             <div>
+                                 <strong>Total Entrada</strong>
+                                 <p x-text="() => `$${(parseFloat(totalExistencia)+parseFloat(totalEntrada)).toLocaleString()}`"></p>
+                             </div>
+                             <div>
+                                 <strong>Total</strong>
+                                 <p x-text="() =>
+                         `$${(parseFloat(totalEntrada)+parseFloat(totalExistencia)-parseFloat(totalSalida)-parseFloat(totalSobrante)-parseFloat(totalGastos)).toLocaleString()}`"></p>
+                             </div>
 
-                        </div>--}}
+                         </div>--}}
                         <div class="col-12 col-md-6">
                             <x-form.input
                                 wire:model="efectivo"
@@ -586,20 +593,20 @@
                         <div class="col-12">
                             <div
                                 class="card"
-                                 {{--:class="{
-                                    'bg-success': calcularTotal() === 0,
-                                    'bg-danger': calcularTotal() < 0,
-                                    'bg-info': calcularTotal() > 0
-                                }"--}}
+                                {{--:class="{
+                                   'bg-success': calcularTotal() === 0,
+                                   'bg-danger': calcularTotal() < 0,
+                                   'bg-info': calcularTotal() > 0
+                               }"--}}
                             >
                                 <div class="card-body">
-                                   {{-- <p x-text="() => {
-                                        let total = calcularTotal().toFixed(2);
-                                        if(parseFloat(total) > 0) return `Saldo a favor: $${total}`
-                                        if(parseFloat(total) < 0) return `Adeuda: $${total}`
-                                        if(parseFloat(total) === 0) return `Cuenta correcta: $${total}`
-                                    }"
-                                       class="text-muted m-0"></p>--}}
+                                    {{-- <p x-text="() => {
+                                         let total = calcularTotal().toFixed(2);
+                                         if(parseFloat(total) > 0) return `Saldo a favor: $${total}`
+                                         if(parseFloat(total) < 0) return `Adeuda: $${total}`
+                                         if(parseFloat(total) === 0) return `Cuenta correcta: $${total}`
+                                     }"
+                                        class="text-muted m-0"></p>--}}
                                 </div>
                             </div>
                         </div>
