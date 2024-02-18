@@ -36,7 +36,7 @@ class Form extends Component
 
     public $items = [];
 
-    public $gasto = [
+    public $gastos = [
         ['concepto' => '', 'precio' => 0]
     ];
 
@@ -95,8 +95,8 @@ class Form extends Component
         $cantidadSobrante = 0.0;
         $importeSobrante = 0.0;
         if ($producto->categoria_id === 2) {
-            $cantidadSobrante = $item?->cantidad_sobrante;
-            $importeSobrante = $item?->importe_sobrante;
+            $cantidadSobrante = $item?->cantidad_sobrante ?? 0;
+            $importeSobrante = $item?->importe_sobrante ?? 0;
         }
         return [
             'producto_id' => $producto->id,
@@ -209,7 +209,7 @@ class Form extends Component
                     'efectivo_total' => $montoTotal,
                     'saldo' => 0
                 ]);
-
+                ray($this->items);
                 collect($this->items)->each(function ($item) use (&$cuenta) {
                     $attributes = (new ProcesarItemAction())($item);
                     ItemCuenta::query()->updateOrCreate([
@@ -218,7 +218,15 @@ class Form extends Component
                     ]);
                 });
 
-                collect($this->gasto)->each(function ($gasto) use (&$cuenta) {
+                collect($this->entradasArray)->each(function($e) {
+                    Entrada::updateOrCreate([
+                        'id' => $e['id'],
+                    ], [
+                        'precio' => $e['precio']
+                    ]);
+                });
+
+                collect($this->gastos)->each(function ($gasto) use (&$cuenta) {
                     if (!empty($gasto['precio']) && !empty($gasto['concepto'])) {
                         GastoFijo::updateOrCreate([
                             'concepto' => $gasto['concepto'],
@@ -237,17 +245,9 @@ class Form extends Component
         }
     }
 
-    #[Computed]
-    public function gastos()
-    {
-        return GastoFijo::query()
-            ->where('sucursal_id', auth()->user()->sucursal_id)
-            ->get();
-    }
-
     public function addGasto()
     {
-        $this->gasto[] = [
+        $this->gastos[] = [
             'concepto' => '',
             'precio' => 0
         ];
@@ -255,7 +255,7 @@ class Form extends Component
 
     public function removeGasto($index)
     {
-        unset($this->gasto[$index]);
+        unset($this->gastos[$index]);
     }
 
     public function render()

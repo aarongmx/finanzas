@@ -80,7 +80,7 @@ test('Se puede agregar un nuevo gasto', function () {
 
 test('Se puede retirar un gasto', function () {
     livewire(Form::class)
-        ->set('gasto', [
+        ->set('gastos', [
             ['concepto' => 'algo', 'precio' => 1],
             ['concepto' => 'algo', 'precio' => 1],
         ])
