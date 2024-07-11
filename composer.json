@@ -65,7 +65,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "test:lint": "pint --test",
+        "lint": "pint"
     },
     "extra": {
         "laravel": {
