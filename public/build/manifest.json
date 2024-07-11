@@ -1,24 +1,22 @@
 {
-  "resources/js/app.css": {
-    "file": "assets/app-f6cbb402.css",
-    "src": "resources/js/app.css"
-  },
   "resources/js/app.js": {
-    "css": [
-      "assets/app-f6cbb402.css"
-    ],
-    "file": "assets/app-4bc2052a.js",
+    "file": "assets/app-8e4T3oJi.js",
+    "name": "app",
+    "src": "resources/js/app.js",
     "isEntry": true,
-    "src": "resources/js/app.js"
+    "css": [
+      "assets/app-1QexvHzv.css"
+    ]
   },
   "resources/js/form.js": {
-    "file": "assets/form-4f1fddde.js",
-    "isEntry": true,
-    "src": "resources/js/form.js"
+    "file": "assets/form-D0Rg5qKD.js",
+    "name": "form",
+    "src": "resources/js/form.js",
+    "isEntry": true
   },
   "resources/scss/app.scss": {
-    "file": "assets/app-c9b35dd7.css",
-    "isEntry": true,
-    "src": "resources/scss/app.scss"
+    "file": "assets/app-T9ZAfimA.css",
+    "src": "resources/scss/app.scss",
+    "isEntry": true
   }
 }
