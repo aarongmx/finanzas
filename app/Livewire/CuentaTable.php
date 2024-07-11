@@ -4,8 +4,8 @@ namespace App\Livewire;
 
 use App\Models\Cuenta;
 use App\Models\Sucursal;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Detail;
@@ -14,7 +14,6 @@ use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
-use PowerComponents\LivewirePowerGrid\PowerGridColumns;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
@@ -37,7 +36,7 @@ final class CuentaTable extends PowerGridComponent
                 ->showRecordCount(),
             Detail::make()
                 ->view('components.detail-cuenta')
-                ->showCollapseIcon()
+                ->showCollapseIcon(),
         ];
     }
 
@@ -63,14 +62,14 @@ final class CuentaTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('efectivo_pollo_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_pollo, 2)))
-            ->add('efectivo_marinado_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_marinado, 2)))
-            ->add('efectivo_total_formated', fn(Cuenta $model) => "$" . e(number_format($model->efectivo_total, 2)))
-            ->add('saldo_formated', fn(Cuenta $model) => "$" . e(number_format($model->saldo, 2)))
-            ->add('sucursal_id', fn(Cuenta $model) => e($model->sucursal?->nombre))
-            ->add('fecha_venta_formatted', fn(Cuenta $model) => Carbon::parse($model->fecha_venta)->format('d/m/Y'))
-            ->add('created_at_formatted', fn(Cuenta $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
-            ->add('link', fn(Cuenta $model) => "<a class='link-underline-light' href='" . route('administracion.cuentas.show', ['cuenta' => $model]) . "'>Mostrar</a>");
+            ->add('efectivo_pollo_formated', fn (Cuenta $model) => '$'.e(number_format($model->efectivo_pollo, 2)))
+            ->add('efectivo_marinado_formated', fn (Cuenta $model) => '$'.e(number_format($model->efectivo_marinado, 2)))
+            ->add('efectivo_total_formated', fn (Cuenta $model) => '$'.e(number_format($model->efectivo_total, 2)))
+            ->add('saldo_formated', fn (Cuenta $model) => '$'.e(number_format($model->saldo, 2)))
+            ->add('sucursal_id', fn (Cuenta $model) => e($model->sucursal?->nombre))
+            ->add('fecha_venta_formatted', fn (Cuenta $model) => Carbon::parse($model->fecha_venta)->format('d/m/Y'))
+            ->add('created_at_formatted', fn (Cuenta $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'))
+            ->add('link', fn (Cuenta $model) => "<a class='link-underline-light' href='".route('administracion.cuentas.show', ['cuenta' => $model])."'>Mostrar</a>");
     }
 
     public function columns(): array
@@ -87,7 +86,7 @@ final class CuentaTable extends PowerGridComponent
                 ->sortable(),
             Column::make('Mostrar cuenta', 'link'),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -98,24 +97,24 @@ final class CuentaTable extends PowerGridComponent
             Filter::select('Sucursal', 'sucursal_id')
                 ->dataSource(Sucursal::get())
                 ->optionValue('id')
-                ->optionLabel('nombre')
+                ->optionLabel('nombre'),
         ];
     }
 
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert(' . $rowId . ')');
+        $this->js('alert('.$rowId.')');
     }
 
     public function actions(\App\Models\Cuenta $row): array
     {
         return [
             Button::add('edit')
-                ->slot("Actualizar")
+                ->slot('Actualizar')
                 ->id()
                 ->class('btn btn-outline-primary')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
         ];
     }
 

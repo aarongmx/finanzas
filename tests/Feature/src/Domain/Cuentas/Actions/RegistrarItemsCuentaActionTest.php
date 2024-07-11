@@ -5,7 +5,7 @@ use App\Models\Producto;
 use Domain\Cuentas\Actions\RegistrarItemsCuentaAction;
 use Domain\Cuentas\Data\ItemCuentaData;
 
-test('Se registran correctamente los items de la cuenta ', function() {
+test('Se registran correctamente los items de la cuenta ', function () {
     $cuenta = Cuenta::factory()->create();
     $producto1 = Producto::factory()->create();
     $producto2 = Producto::factory()->create();
@@ -39,10 +39,10 @@ test('Se registran correctamente los items de la cuenta ', function() {
         ]),
     ]);
 
-    (new RegistrarItemsCuentaAction())($items, $cuenta->id);
+    (new RegistrarItemsCuentaAction)($items, $cuenta->id);
 
     expect($items)->sequence(
-        fn($item) => expect($item->value->toArray())->toBeInDatabase('item_cuentas'),
-        fn($item) => expect($item->value->toArray())->toBeInDatabase('item_cuentas'),
+        fn ($item) => expect($item->value->toArray())->toBeInDatabase('item_cuentas'),
+        fn ($item) => expect($item->value->toArray())->toBeInDatabase('item_cuentas'),
     );
 });

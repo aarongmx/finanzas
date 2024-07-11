@@ -15,5 +15,4 @@ class StoreDireccionAction
             ...$direccionData->all(),
         ]);
     }
-
 }

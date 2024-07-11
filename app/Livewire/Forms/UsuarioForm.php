@@ -20,12 +20,12 @@ class UsuarioForm extends Form
 
     public function store()
     {
-        $password = "password";
+        $password = 'password';
         $user = User::create([
             'email' => $this->email,
             'name' => $this->name,
             'password' => $password,
-            'sucursal_id' => $this->sucursalId
+            'sucursal_id' => $this->sucursalId,
         ]);
 
         $user->assignRole(Role::CAPTURISTA);

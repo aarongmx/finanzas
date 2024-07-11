@@ -6,9 +6,9 @@ use Domain\Clientes\Actions\RegistrarClienteAction;
 use Domain\Clientes\Data\ClienteData;
 use Domain\Direcciones\Actions\StoreDireccionAction;
 use Domain\Direcciones\Data\DireccionData;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
-use Illuminate\Support\Facades\DB;
 
 class ClienteForm extends Form
 {
@@ -53,17 +53,17 @@ class ClienteForm extends Form
                 'estado',
                 'numeroInterior',
                 'numeroExterior',
-                'calle'
+                'calle',
             ]));
 
-            $direccion = (new StoreDireccionAction())($direccionData);
+            $direccion = (new StoreDireccionAction)($direccionData);
 
             $clienteData = ClienteData::from([
                 ...$this->only(['rfc', 'razonSocial', 'nombreComercial']),
                 'sucursalId' => auth()->user()->sucursal_id ?? $this->sucursalId,
                 'direccionId' => $direccion->id,
             ]);
-            (new RegistrarClienteAction())($clienteData);
+            (new RegistrarClienteAction)($clienteData);
         });
     }
 }

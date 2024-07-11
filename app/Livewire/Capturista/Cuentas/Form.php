@@ -13,7 +13,6 @@ use App\Models\Salida;
 use Domain\Cuentas\Actions\ProcesarItemAction;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Form extends Component
@@ -37,15 +36,17 @@ class Form extends Component
     public $items = [];
 
     public $gastos = [
-        ['concepto' => '', 'precio' => 0]
+        ['concepto' => '', 'precio' => 0],
     ];
 
     public $importeExistencia = 0;
 
     public $fechaVenta;
+
     public $fechaCaptura;
 
     public $efectivo;
+
     public $aCuenta;
 
     public $totalEntrada = 0;
@@ -61,12 +62,17 @@ class Form extends Component
     public $salidas = [];
 
     public $entradas = [];
+
     public $entradasArray = [];
 
     public $sumExistencia = 0;
+
     public $sumSobrante = 0;
+
     public $sumEntrada = 0;
+
     public $sumSalida = 0;
+
     public $sumGastos = 0;
 
     public $efectivoMarinado = 0;
@@ -83,7 +89,7 @@ class Form extends Component
             'items.*.cantidad_entrada' => ['required', 'numeric'],
             'items.*.cantidad_salida' => ['required', 'numeric'],
             'items.*.cantidad_sobrante' => ['required', 'numeric'],
-            #'entradas.*' => ['nullable', 'array'],
+            //'entradas.*' => ['nullable', 'array'],
             'efectivo' => ['required', 'numeric'],
             'efectivoMarinado' => ['required', 'numeric'],
         ];
@@ -98,6 +104,7 @@ class Form extends Component
             $cantidadSobrante = $item?->cantidad_sobrante ?? 0;
             $importeSobrante = $item?->importe_sobrante ?? 0;
         }
+
         return [
             'producto_id' => $producto->id,
             'producto' => $producto->nombre,
@@ -131,11 +138,11 @@ class Form extends Component
 
         $this->items = Producto::query()
             ->with([
-                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('sucursal_id', auth()->user()->sucursal_id)->where('fecha_venta', $fechaVentaAnterior))
+                'itemsCuenta' => fn ($q) => $q->whereHas('cuenta', fn ($q) => $q->where('sucursal_id', auth()->user()->sucursal_id)->where('fecha_venta', $fechaVentaAnterior)),
             ])
             ->orderBy('nombre')
             ->get()
-            ->map(fn($p) => $this->extractValues($p));
+            ->map(fn ($p) => $this->extractValues($p));
 
         $this->importeExistencia = $this->items->sum('importe_existencia');
         $this->totalSalidas = $this->salidas->sum('total') + $this->mayoreos->sum('total');
@@ -207,27 +214,27 @@ class Form extends Component
                     'efectivo_marinado' => $this->efectivoMarinado,
                     'efectivo_pollo' => $this->efectivo,
                     'efectivo_total' => $montoTotal,
-                    'saldo' => 0
+                    'saldo' => 0,
                 ]);
                 ray($this->items);
                 collect($this->items)->each(function ($item) use (&$cuenta) {
-                    $attributes = (new ProcesarItemAction())($item);
+                    $attributes = (new ProcesarItemAction)($item);
                     ItemCuenta::query()->updateOrCreate([
                         ...$attributes,
-                        'cuenta_id' => $cuenta->id
+                        'cuenta_id' => $cuenta->id,
                     ]);
                 });
 
-                collect($this->entradasArray)->each(function($e) {
+                collect($this->entradasArray)->each(function ($e) {
                     Entrada::updateOrCreate([
                         'id' => $e['id'],
                     ], [
-                        'precio' => $e['precio']
+                        'precio' => $e['precio'],
                     ]);
                 });
 
                 collect($this->gastos)->each(function ($gasto) use (&$cuenta) {
-                    if (!empty($gasto['precio']) && !empty($gasto['concepto'])) {
+                    if (! empty($gasto['precio']) && ! empty($gasto['concepto'])) {
                         GastoFijo::updateOrCreate([
                             'concepto' => $gasto['concepto'],
                             'sucursal_id' => auth()->user()->sucursal_id,
@@ -249,7 +256,7 @@ class Form extends Component
     {
         $this->gastos[] = [
             'concepto' => '',
-            'precio' => 0
+            'precio' => 0,
         ];
     }
 

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Direccion;
 use App\Models\Sucursal;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SucursalesSeeder extends Seeder

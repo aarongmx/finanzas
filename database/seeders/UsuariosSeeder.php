@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Enums\Role;
 use App\Models\Sucursal;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UsuariosSeeder extends Seeder
@@ -18,7 +17,7 @@ class UsuariosSeeder extends Seeder
         User::create([
             'name' => 'Ethan',
             'email' => 'ethan@mlgrupo.com.mx',
-            'password' => 'password'
+            'password' => 'password',
         ])->assignRole(Role::ADMINISTRACION);
 
         User::create([

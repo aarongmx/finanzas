@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Cliente;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -59,7 +59,7 @@ final class ClienteTable extends PowerGridComponent
         return Cliente::query()
             ->with([
                 'direccion:id,calle',
-                'sucursal:id,nombre'
+                'sucursal:id,nombre',
             ])
             ->when(false, fn ($q) => $q->where('sucursal_id', 1));
     }
@@ -105,7 +105,7 @@ final class ClienteTable extends PowerGridComponent
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -132,7 +132,7 @@ final class ClienteTable extends PowerGridComponent
                 ->slot('Actualizar')
                 ->id()
                 ->class('btn btn-outline-primary')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
         ];
     }
 

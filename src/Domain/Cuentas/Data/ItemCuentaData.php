@@ -9,7 +9,6 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 #[MapName(SnakeCaseMapper::class)]
 class ItemCuentaData extends Data
 {
-
     public function __construct(
         public readonly float $precio,
         public readonly float $cantidadExistencia,
@@ -20,9 +19,7 @@ class ItemCuentaData extends Data
         public readonly float $importeSalida,
         public readonly float $cantidadSobrante,
         public readonly float $importeSobrante,
-        public readonly int   $productoId,
-        public readonly ?int  $cuentaId,
-    )
-    {
-    }
+        public readonly int $productoId,
+        public readonly ?int $cuentaId,
+    ) {}
 }

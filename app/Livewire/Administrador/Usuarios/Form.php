@@ -6,7 +6,6 @@ use App\Livewire\Forms\UsuarioForm;
 use App\Models\Sucursal;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
-use Spatie\Permission\Models\Role;
 
 class Form extends Component
 {

@@ -56,10 +56,10 @@ final class EntradaTable extends PowerGridComponent
             ->add('id')
             ->add('precio')
             ->add('cantidad')
-            ->add('sucursal_origen_id', fn(Entrada $model) => $model->sucursalOrigen->nombre)
-            ->add('producto_id', fn(Entrada $model) => $model->producto->nombre)
+            ->add('sucursal_origen_id', fn (Entrada $model) => $model->sucursalOrigen->nombre)
+            ->add('producto_id', fn (Entrada $model) => $model->producto->nombre)
             ->add('salida_id')
-            ->add('created_at_formatted', fn(Entrada $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->add('created_at_formatted', fn (Entrada $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     public function columns(): array
@@ -79,7 +79,7 @@ final class EntradaTable extends PowerGridComponent
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -93,17 +93,17 @@ final class EntradaTable extends PowerGridComponent
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert(' . $rowId . ')');
+        $this->js('alert('.$rowId.')');
     }
 
     public function actions(\App\Models\Entrada $row): array
     {
         return [
             Button::add('edit')
-                ->slot('Edit: ' . $row->id)
+                ->slot('Edit: '.$row->id)
                 ->id()
                 ->class('btn btn-outline-primary')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
         ];
     }
 

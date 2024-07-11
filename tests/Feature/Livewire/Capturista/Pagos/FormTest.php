@@ -2,6 +2,7 @@
 
 use App\Livewire\Capturista\Pagos\Form;
 use App\Models\Credito;
+
 use function Pest\Livewire\livewire;
 
 it('renders successfully', function () {
@@ -30,7 +31,7 @@ test('Se registra pago correctamente', function () {
 
     expect([
         'id' => $credito->id,
-        'saldo' => 0
+        'saldo' => 0,
     ])->toBeInDatabase('creditos')
         ->and([
             'pagable_id' => $credito->id,

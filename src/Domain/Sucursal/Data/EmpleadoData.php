@@ -16,7 +16,5 @@ class EmpleadoData extends Data
         public readonly ?string $apellidoMaterno,
         public readonly int $sucursalId,
         public readonly int $userId,
-    )
-    {
-    }
+    ) {}
 }

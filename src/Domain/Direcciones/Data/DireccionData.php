@@ -10,14 +10,12 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 class DireccionData extends Data
 {
     public function __construct(
-        public readonly ?int    $id,
-        public readonly string  $codigoPostal,
+        public readonly ?int $id,
+        public readonly string $codigoPostal,
         public readonly ?string $colonia,
         public readonly ?string $estado,
         public readonly ?string $numeroInterior,
         public readonly ?string $numeroExterior,
         public readonly ?string $calle,
-    )
-    {
-    }
+    ) {}
 }

@@ -4,7 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Models\Mayoreo;
 use Livewire\Attributes\Rule;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class MayoreoForm extends Form

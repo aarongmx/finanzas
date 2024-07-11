@@ -22,7 +22,7 @@ class Entrada extends Model
         'sucursal_destino_id',
         'salida_id',
         'cuenta_id',
-        'total'
+        'total',
     ];
 
     public function sucursalDestino(): BelongsTo

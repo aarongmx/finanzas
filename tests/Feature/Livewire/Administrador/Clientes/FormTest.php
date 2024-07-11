@@ -5,6 +5,7 @@ use App\Livewire\Administrador\Clientes\Form;
 use App\Models\Sucursal;
 use App\Models\User;
 use Database\Seeders\PermissionsSeeder;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\seed;
 use function Pest\Livewire\livewire;
@@ -43,6 +44,6 @@ test('Se puede registrar un cliente', function () {
 
     expect([
         'rfc' => 'GOMA971007BD8',
-        'razon_social' => 'Aaron Gómez'
+        'razon_social' => 'Aaron Gómez',
     ])->toBeInDatabase('clientes');
 });

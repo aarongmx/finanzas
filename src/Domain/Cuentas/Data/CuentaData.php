@@ -14,10 +14,8 @@ class CuentaData extends Data
     public function __construct(
         public readonly float $efectivo,
         public readonly float $aCuenta,
-        public readonly int   $sucursalId,
+        public readonly int $sucursalId,
         #[DataCollectionOf(ItemCuentaData::class)]
         public readonly DataCollection $items,
-    )
-    {
-    }
+    ) {}
 }

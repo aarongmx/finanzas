@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Producto;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProductosSeeder extends Seeder
@@ -77,6 +76,6 @@ class ProductosSeeder extends Seeder
             ['nombre' => 'NUGGET DINO', 'categoria_id' => 2],
             ['nombre' => 'NACHO', 'categoria_id' => 2],
             ['nombre' => 'PAPAEMOTICON', 'categoria_id' => 2],
-        ])->each(fn($producto) => Producto::create($producto));
+        ])->each(fn ($producto) => Producto::create($producto));
     }
 }

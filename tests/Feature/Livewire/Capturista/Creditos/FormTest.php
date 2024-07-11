@@ -4,6 +4,7 @@ use App\Livewire\Capturista\Creditos\Form;
 use App\Models\Cliente;
 use App\Models\User;
 use Database\Seeders\EstatusSeeder;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\seed;
 use function Pest\Livewire\livewire;
@@ -55,6 +56,6 @@ test('Se registra correctamente un crédito', function () {
         'fecha_vencimiento' => $fecha->addDays(7),
         'monto' => 11600,
         'saldo' => 11600,
-        'estatus_id' => 1
+        'estatus_id' => 1,
     ])->toBeInDatabase('creditos');
 });

@@ -4,7 +4,6 @@ namespace App\Livewire\Administrador\Cuentas;
 
 use App\Livewire\Forms\CuentaForm;
 use App\Models\Categoria;
-use App\Models\ItemCuenta;
 use App\Models\Producto;
 use App\Models\Sucursal;
 use Carbon\Carbon;
@@ -13,7 +12,7 @@ use Livewire\Component;
 
 class Form extends Component
 {
-    #public CuentaForm $form;
+    //public CuentaForm $form;
 
     public $fechaVenta;
 
@@ -47,11 +46,12 @@ class Form extends Component
         if ($value) {
             $this->items = Producto::query()
                 ->with([
-                    'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('fecha_venta', Carbon::parse($this->fechaVenta)->subDay()))->limit(1)
+                    'itemsCuenta' => fn ($q) => $q->whereHas('cuenta', fn ($q) => $q->where('fecha_venta', Carbon::parse($this->fechaVenta)->subDay()))->limit(1),
                 ])
                 ->get()
                 ->map(function ($producto) {
                     $item = $producto?->itemsCuenta?->first();
+
                     return [
                         'producto_name' => $producto->nombre,
                         'producto_id' => $producto->id,

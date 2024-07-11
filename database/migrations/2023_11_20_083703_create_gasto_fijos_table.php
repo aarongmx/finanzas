@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Cuenta;
 use App\Models\Sucursal;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

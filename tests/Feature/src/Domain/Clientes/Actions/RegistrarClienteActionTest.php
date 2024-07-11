@@ -16,7 +16,7 @@ test('Se valida que se pueda crear un cliente', function () {
         'direccionId' => $direccion->id,
         'sucursalId' => $sucursal->id,
     ]);
-    $cliente = (new RegistrarClienteAction())($data);
+    $cliente = (new RegistrarClienteAction)($data);
 
     expect($cliente)->toExist();
 });

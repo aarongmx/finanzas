@@ -26,7 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'sucursal_id'
+        'sucursal_id',
     ];
 
     /**
@@ -52,7 +52,7 @@ class User extends Authenticatable
     public function password(): Attribute
     {
         return Attribute::make(
-            set: fn($value) => Hash::make($value),
+            set: fn ($value) => Hash::make($value),
         );
     }
 

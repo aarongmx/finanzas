@@ -28,7 +28,7 @@ class PrestamoFactory extends Factory
             'fecha_vencimiento' => today()->addDays(7),
             'cuenta_id' => Cuenta::factory()->create()->id,
             'empleado_id' => Empleado::factory()->create()->id,
-            'estatus_id' => Estatus::factory()->create()->id
+            'estatus_id' => Estatus::factory()->create()->id,
         ];
     }
 }

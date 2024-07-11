@@ -27,7 +27,7 @@ class MayoreoFactory extends Factory
             'precio' => $precio,
             'cantidad' => $cantidad,
             'total' => $precio * $cantidad,
-            'fecha_venta' => today()
+            'fecha_venta' => today(),
         ];
     }
 }

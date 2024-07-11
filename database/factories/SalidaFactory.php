@@ -22,6 +22,7 @@ class SalidaFactory extends Factory
         $precio = fake()->randomFloat(2, 1);
         $cantidad = fake()->randomFloat(2, 1);
         $total = $precio * $cantidad;
+
         return [
             'cantidad' => $cantidad,
             'precio' => $precio,

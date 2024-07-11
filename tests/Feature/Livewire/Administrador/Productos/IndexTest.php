@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Productos\Index;
+
 use function Pest\Livewire\livewire;
 
 it('renders successfully', function () {

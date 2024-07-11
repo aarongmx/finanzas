@@ -11,7 +11,7 @@ test('Se guarda un producto', function () {
         'categoriaId' => $categoria->id,
     ]);
 
-    $producto = (new RegistrarProductoAction())($productoData);
+    $producto = (new RegistrarProductoAction)($productoData);
 
     expect($producto)->toExist();
 });

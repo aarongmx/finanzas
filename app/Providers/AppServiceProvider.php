@@ -37,10 +37,10 @@ class AppServiceProvider extends ServiceProvider
             $this->dispatch('askConfirm', dispatch: $dispatch, id: $id, title: $title, text: $text, icon: $icon);
         });
 
-        Blade::directive('amount', fn(string|int|float $value) => "<?php echo number_format(floatval($value), 2); ?>");
+        Blade::directive('amount', fn (string|int|float $value) => "<?php echo number_format(floatval($value), 2); ?>");
 
-        Blade::directive('money', fn(string|int|float $value) => "<?php echo '$' . number_format(floatval($value), 2); ?>");
+        Blade::directive('money', fn (string|int|float $value) => "<?php echo '$' . number_format(floatval($value), 2); ?>");
 
-        Blade::directive('weight', fn(string|int|float $value) => "<?php echo number_format(floatval($value), 2) . ' kg.'; ?>");
+        Blade::directive('weight', fn (string|int|float $value) => "<?php echo number_format(floatval($value), 2) . ' kg.'; ?>");
     }
 }

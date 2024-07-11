@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\User;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
@@ -44,7 +44,7 @@ final class UsersTable extends PowerGridComponent
     public function relationSearch(): array
     {
         return [
-            'sucursal:id,nombre'
+            'sucursal:id,nombre',
         ];
     }
 
@@ -54,10 +54,10 @@ final class UsersTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('name')
             /** Example of custom column using a closure **/
-            ->addColumn('name_lower', fn(User $model) => strtolower(e($model->name)))
+            ->addColumn('name_lower', fn (User $model) => strtolower(e($model->name)))
             ->addColumn('email')
-            ->addColumn('sucursal', fn(User $model) => $model->sucursal?->nombre ?? '')
-            ->addColumn('created_at_formatted', fn(User $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('sucursal', fn (User $model) => $model->sucursal?->nombre ?? '')
+            ->addColumn('created_at_formatted', fn (User $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     public function columns(): array
@@ -76,7 +76,7 @@ final class UsersTable extends PowerGridComponent
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -92,17 +92,17 @@ final class UsersTable extends PowerGridComponent
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert(' . $rowId . ')');
+        $this->js('alert('.$rowId.')');
     }
 
     public function actions(\App\Models\User $row): array
     {
         return [
             Button::add('edit')
-                ->slot('Edit: ' . $row->id)
+                ->slot('Edit: '.$row->id)
                 ->id()
                 ->class('btn btn-outline-primary')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
         ];
     }
 

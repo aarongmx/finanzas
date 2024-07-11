@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Sucursal;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -39,7 +39,7 @@ final class SucursalTable extends PowerGridComponent
     {
         return Sucursal::query()
             ->with([
-                'direccion'
+                'direccion',
             ]);
     }
 
@@ -54,10 +54,10 @@ final class SucursalTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('nombre')
 
-           /** Example of custom column using a closure **/
+            /** Example of custom column using a closure **/
             ->addColumn('nombre_lower', fn (Sucursal $model) => strtolower(e($model->nombre)))
 
-            ->addColumn('direccion_id', fn(Sucursal $model) => e($model->direccion?->calle))
+            ->addColumn('direccion_id', fn (Sucursal $model) => e($model->direccion?->calle))
             ->addColumn('created_at_formatted', fn (Sucursal $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -73,7 +73,7 @@ final class SucursalTable extends PowerGridComponent
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -98,7 +98,7 @@ final class SucursalTable extends PowerGridComponent
                 ->slot('Actualizar')
                 ->id()
                 ->class('btn btn-outline-primary')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
         ];
     }
 

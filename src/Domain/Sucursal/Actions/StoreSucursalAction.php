@@ -11,5 +11,4 @@ class StoreSucursalAction
     {
         return Sucursal::query()->create($sucursalData->toArray());
     }
-
 }

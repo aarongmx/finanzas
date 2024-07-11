@@ -4,11 +4,10 @@ namespace App\Livewire\Forms;
 
 use App\Models\Cuenta;
 use App\Models\Entrada;
-use App\Models\ItemCuenta;
 use App\Models\Salida;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
-use Illuminate\Support\Facades\DB;
 
 class SalidaForm extends Form
 {
@@ -37,7 +36,7 @@ class SalidaForm extends Form
                 'efectivo_pollo' => 0,
                 'efectivo_marinado' => 0,
                 'efectivo_total' => 0,
-                'saldo' => 0
+                'saldo' => 0,
             ]);
 
             $salida = Salida::create([
@@ -58,7 +57,7 @@ class SalidaForm extends Form
                 'efectivo_pollo' => 0,
                 'efectivo_marinado' => 0,
                 'efectivo_total' => 0,
-                'saldo' => 0
+                'saldo' => 0,
             ]);
 
             Entrada::create([

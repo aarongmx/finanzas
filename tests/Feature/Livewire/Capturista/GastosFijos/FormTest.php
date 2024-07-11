@@ -1,8 +1,8 @@
 <?php
 
 use App\Livewire\Capturista\GastosFijos\Form;
-use App\Models\Sucursal;
 use App\Models\User;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Livewire\livewire;
 
@@ -17,7 +17,6 @@ test('Se muestran los campos para registrar el gasto', function () {
         ->assertPropertyWired('form.precio')
         ->assertPropertyWired('form.concepto');
 });
-
 
 test('Se puede registrar un nuevo gasto para la sucursal', function () {
     $user = User::factory()->create();

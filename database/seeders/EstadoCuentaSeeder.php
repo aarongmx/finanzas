@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\EstadoCuenta;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EstadoCuentaSeeder extends Seeder
@@ -17,6 +16,6 @@ class EstadoCuentaSeeder extends Seeder
             ['nombre' => 'PENDIENTE'],
             ['nombre' => 'PAGO PARCIAL'],
             ['nombre' => 'PAGADO'],
-        ])->each(fn($estado) => EstadoCuenta::create($estado));
+        ])->each(fn ($estado) => EstadoCuenta::create($estado));
     }
 }

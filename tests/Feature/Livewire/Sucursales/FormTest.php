@@ -1,7 +1,7 @@
 <?php
 
 use App\Livewire\Sucursales\Form;
-use Livewire\Livewire;
+
 use function Pest\Livewire\livewire;
 
 it('renders successfully', function () {
@@ -33,9 +33,9 @@ test('Se puede registrar una sucursal correctamente', function () {
     expect([
         'nombre' => 'AZTECAS',
     ])->toBeInDatabase('sucursales')
-    ->and([
-        'codigo_postal' => '09550'
-    ])->toBeInDatabase('direcciones');
+        ->and([
+            'codigo_postal' => '09550',
+        ])->toBeInDatabase('direcciones');
 });
 
 test('Se puede capturar una nueva sucursal', function () {
@@ -53,14 +53,14 @@ test('Se puede capturar una nueva sucursal', function () {
         ->assertDispatched('notify');
 
     expect([
-        'nombre' => 'Aztecas'
+        'nombre' => 'Aztecas',
     ])->toBeInDatabase('sucursales')
-    ->and([
-        'codigo_postal' => '09660',
-        'colonia' => 'colonia',
-        'estado' => 'estado',
-        'numero_interior' => '12-A',
-        'numero_exterior' => '12',
-        'calle' => 'Av. de las torres',
-    ])->toBeInDatabase('direcciones');
+        ->and([
+            'codigo_postal' => '09660',
+            'colonia' => 'colonia',
+            'estado' => 'estado',
+            'numero_interior' => '12-A',
+            'numero_exterior' => '12',
+            'calle' => 'Av. de las torres',
+        ])->toBeInDatabase('direcciones');
 });

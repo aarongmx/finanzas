@@ -29,7 +29,7 @@ class CreditoForm extends Form
 
             $cuenta = Cuenta::firstOrCreate([
                 'fecha_venta' => today(),
-                'sucursal_id' => auth()->user()->sucursal_id
+                'sucursal_id' => auth()->user()->sucursal_id,
             ]);
 
             Credito::create([
@@ -39,7 +39,7 @@ class CreditoForm extends Form
                 'saldo' => $this->monto,
                 'fecha_credito' => $fecha,
                 'fecha_vencimiento' => $fechaVencimiento,
-                'cuenta_id' => $cuenta->id
+                'cuenta_id' => $cuenta->id,
             ]);
         });
     }

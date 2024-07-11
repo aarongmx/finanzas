@@ -12,7 +12,7 @@ class RegistrarClienteAction
         return Cliente::query()->updateOrCreate([
             'id' => $clienteData->id ?? null,
         ], [
-            ...$clienteData->all()
+            ...$clienteData->all(),
         ]);
     }
 }

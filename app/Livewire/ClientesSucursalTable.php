@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Cliente;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -53,12 +53,12 @@ final class ClientesSucursalTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('rfc')
 
-           /** Example of custom column using a closure **/
+            /** Example of custom column using a closure **/
             ->addColumn('rfc_lower', fn (Cliente $model) => strtolower(e($model->rfc)))
 
             ->addColumn('razon_social')
             ->addColumn('nombre_comercial')
-            ->addColumn('direccion', fn(Cliente $model) => $model->direccion?->direccion_completa)
+            ->addColumn('direccion', fn (Cliente $model) => $model->direccion?->direccion_completa)
             ->addColumn('created_at_formatted', fn (Cliente $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
@@ -82,7 +82,7 @@ final class ClientesSucursalTable extends PowerGridComponent
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -109,7 +109,7 @@ final class ClientesSucursalTable extends PowerGridComponent
                 ->slot('Edit: '.$row->id)
                 ->id()
                 ->class('btn btn-outline-primary')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
         ];
     }
 

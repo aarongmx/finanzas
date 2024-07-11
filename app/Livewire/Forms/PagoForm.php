@@ -22,7 +22,7 @@ class PagoForm extends Form
 
     public function store(): void
     {
-        throw_if($this->monto > $this->credito->saldo, new \Exception("El monto pagado excede el saldo del crédito!"));
+        throw_if($this->monto > $this->credito->saldo, new \Exception('El monto pagado excede el saldo del crédito!'));
 
         DB::transaction(function () {
             Pago::create([

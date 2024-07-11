@@ -9,8 +9,8 @@ use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class ItemCuenta extends Model
 {
-    use HasFactory;
     use HasEagerLimit;
+    use HasFactory;
 
     protected $table = 'item_cuentas';
 

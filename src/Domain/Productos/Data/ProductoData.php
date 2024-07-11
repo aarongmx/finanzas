@@ -11,10 +11,7 @@ class ProductoData extends Data
 {
     public function __construct(
         public readonly string $nombre,
-        public readonly ?int   $categoriaId,
-        public readonly ?int   $id,
-    )
-    {
-
-    }
+        public readonly ?int $categoriaId,
+        public readonly ?int $id,
+    ) {}
 }

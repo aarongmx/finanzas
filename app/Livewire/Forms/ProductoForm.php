@@ -29,7 +29,7 @@ class ProductoForm extends Form
             Producto::create($this->all());
         }
 
-        if (!is_null($this->producto)) {
+        if (! is_null($this->producto)) {
             $this->producto->update([
                 'nombre' => $this->nombre,
                 'categoria_id' => $this->categoria_id,

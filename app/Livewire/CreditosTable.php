@@ -4,8 +4,8 @@ namespace App\Livewire;
 
 use App\Livewire\Capturista\Pagos\Form;
 use App\Models\Credito;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
@@ -40,7 +40,7 @@ final class CreditosTable extends PowerGridComponent
     public function datasource(): Builder
     {
         return Credito::query()
-            ->whereHas('cuenta', fn($q) => $q->where('sucursal_id', auth()->user()->sucursal_id));
+            ->whereHas('cuenta', fn ($q) => $q->where('sucursal_id', auth()->user()->sucursal_id));
     }
 
     public function relationSearch(): array
@@ -57,11 +57,11 @@ final class CreditosTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('monto')
             ->addColumn('saldo')
-            ->addColumn('fecha_credito_formatted', fn(Credito $model) => Carbon::parse($model->fecha_credito)->format('d/m/Y'))
-            ->addColumn('fecha_vencimiento_formatted', fn(Credito $model) => Carbon::parse($model->fecha_vencimiento)->format('d/m/Y'))
-            ->addColumn('cliente_id', fn(Credito $model) => $model->cliente?->razon_social)
-            ->addColumn('estatus_id', fn(Credito $model) => $model->estatus?->nombre)
-            ->addColumn('created_at_formatted', fn(Credito $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('fecha_credito_formatted', fn (Credito $model) => Carbon::parse($model->fecha_credito)->format('d/m/Y'))
+            ->addColumn('fecha_vencimiento_formatted', fn (Credito $model) => Carbon::parse($model->fecha_vencimiento)->format('d/m/Y'))
+            ->addColumn('cliente_id', fn (Credito $model) => $model->cliente?->razon_social)
+            ->addColumn('estatus_id', fn (Credito $model) => $model->estatus?->nombre)
+            ->addColumn('created_at_formatted', fn (Credito $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     public function columns(): array
@@ -87,7 +87,7 @@ final class CreditosTable extends PowerGridComponent
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -114,7 +114,7 @@ final class CreditosTable extends PowerGridComponent
                 ->slot('Abonar')
                 ->id()
                 ->class('btn btn-outline-primary')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
         ];
     }
 

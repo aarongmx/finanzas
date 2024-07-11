@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Mayoreo;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
@@ -40,7 +40,7 @@ final class MayoreosTable extends PowerGridComponent
     {
         return Mayoreo::query()
             ->with([
-                'producto'
+                'producto',
             ])
             ->where('sucursal_id', auth()->user()->sucursal_id);
     }
@@ -54,12 +54,12 @@ final class MayoreosTable extends PowerGridComponent
     {
         return PowerGrid::columns()
             ->addColumn('id')
-            ->addColumn('fecha_venta_formatted', fn(Mayoreo $model) => Carbon::parse($model->fecha_venta)->format('d/m/Y'))
-            ->addColumn('precio', fn(Mayoreo $mayoreo) => '$' . number_format($mayoreo->precio, 2))
-            ->addColumn('cantidad', fn(Mayoreo $mayoreo) => number_format($mayoreo->cantidad, 2). ' kg')
-            ->addColumn('total', fn(Mayoreo $mayoreo) => '$'.number_format($mayoreo->total,2))
-            ->addColumn('producto_name', fn(Mayoreo $model) => $model->producto->nombre)
-            ->addColumn('created_at_formatted', fn(Mayoreo $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('fecha_venta_formatted', fn (Mayoreo $model) => Carbon::parse($model->fecha_venta)->format('d/m/Y'))
+            ->addColumn('precio', fn (Mayoreo $mayoreo) => '$'.number_format($mayoreo->precio, 2))
+            ->addColumn('cantidad', fn (Mayoreo $mayoreo) => number_format($mayoreo->cantidad, 2).' kg')
+            ->addColumn('total', fn (Mayoreo $mayoreo) => '$'.number_format($mayoreo->total, 2))
+            ->addColumn('producto_name', fn (Mayoreo $model) => $model->producto->nombre)
+            ->addColumn('created_at_formatted', fn (Mayoreo $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     public function columns(): array
@@ -101,7 +101,7 @@ final class MayoreosTable extends PowerGridComponent
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert(' . $rowId . ')');
+        $this->js('alert('.$rowId.')');
     }
 
     /*public function actions(\App\Models\Mayoreo $row): array

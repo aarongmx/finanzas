@@ -4,8 +4,8 @@ namespace App\Livewire;
 
 use App\Livewire\Administrador\Productos\Form;
 use App\Models\Producto;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
@@ -15,7 +15,6 @@ use PowerComponents\LivewirePowerGrid\Facades\Rule;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
-use PowerComponents\LivewirePowerGrid\PowerGridColumns;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
@@ -58,9 +57,9 @@ final class ProductosTable extends PowerGridComponent
             ->add('id')
             ->add('nombre')
             /** Example of custom column using a closure **/
-            ->add('nombre_lower', fn(Producto $model) => strtolower(e($model->nombre)))
-            ->add('categoria', fn(Producto $model) => $model->categoria->nombre)
-            ->add('created_at_formatted', fn(Producto $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->add('nombre_lower', fn (Producto $model) => strtolower(e($model->nombre)))
+            ->add('categoria', fn (Producto $model) => $model->categoria->nombre)
+            ->add('created_at_formatted', fn (Producto $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     public function columns(): array
@@ -75,7 +74,7 @@ final class ProductosTable extends PowerGridComponent
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -143,20 +142,18 @@ final class ProductosTable extends PowerGridComponent
         $this->fillData();
     }
 
-
     public function actionRules(Producto $row): array
     {
         return [
             Rule::button('delete')
-                ->when(fn($row) => $row->trashed())
+                ->when(fn ($row) => $row->trashed())
                 ->hide(),
             Rule::button('edit')
-                ->when(fn($row) => $row->trashed())
+                ->when(fn ($row) => $row->trashed())
                 ->hide(),
             Rule::button('restore')
-                ->when(fn($row) => !$row->trashed())
+                ->when(fn ($row) => ! $row->trashed())
                 ->hide(),
         ];
     }
-
 }

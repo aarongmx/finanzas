@@ -10,7 +10,7 @@ class RegistrarItemsCuentaAction
 {
     public function __invoke(
         DataCollection $dataCollection,
-        int            $cuentaId,
+        int $cuentaId,
     ): void {
         $dataCollection->each(function (ItemCuentaData $item) use (&$cuentaId) {
             ItemCuenta::query()->create([

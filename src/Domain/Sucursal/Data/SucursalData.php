@@ -13,7 +13,5 @@ class SucursalData extends Data
         public readonly ?int $id,
         public readonly string $nombre,
         public readonly int $direccionId
-    )
-    {
-    }
+    ) {}
 }

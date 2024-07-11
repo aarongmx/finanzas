@@ -3,7 +3,6 @@
 namespace App\Livewire\Administrador\Cuentas;
 
 use App\Models\Cuenta;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 
 class Show extends Component
@@ -14,7 +13,7 @@ class Show extends Component
     {
         $this->cuenta = $cuenta->load([
             'itemsCuenta' => [
-                'producto'
+                'producto',
             ],
             'gastosFijos',
             'salidas' => [

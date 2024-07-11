@@ -19,7 +19,7 @@ class SucursalFactory extends Factory
     {
         return [
             'nombre' => fake()->company(),
-            'direccion_id' => Direccion::factory()->create()->id
+            'direccion_id' => Direccion::factory()->create()->id,
         ];
     }
 }

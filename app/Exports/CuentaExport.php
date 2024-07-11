@@ -3,23 +3,20 @@
 namespace App\Exports;
 
 use App\Models\Cuenta;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class CuentaExport implements FromQuery, WithMapping, WithHeadings
+class CuentaExport implements FromQuery, WithHeadings, WithMapping
 {
-    public function __construct(public int $cuentaId)
-    {
-    }
+    public function __construct(public int $cuentaId) {}
 
     public function map($cuenta): array
     {
         $cuenta->load(
             [
                 'itemsCuenta' => [
-                    'producto'
+                    'producto',
                 ],
                 'gastosFijos',
                 'salidas' => [
@@ -55,7 +52,7 @@ class CuentaExport implements FromQuery, WithMapping, WithHeadings
         return Cuenta::query()
             ->with([
                 'itemsCuenta' => [
-                    'producto'
+                    'producto',
                 ],
                 'gastosFijos',
                 'salidas' => [
@@ -74,7 +71,7 @@ class CuentaExport implements FromQuery, WithMapping, WithHeadings
     public function headings(): array
     {
         return [
-            ['Sucursal',],
+            ['Sucursal'],
             ['Precio', 'Cantidad', 'Importe', 'Cantidad', 'Importe', 'Cantidad', 'Importe'],
             ['Precio', 'Cantidad', 'Sucursal origen'],
         ];

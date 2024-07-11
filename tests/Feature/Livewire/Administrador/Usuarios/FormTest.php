@@ -2,9 +2,7 @@
 
 use App\Livewire\Administrador\Usuarios\Form;
 use App\Models\Sucursal;
-use Database\Seeders\PermissionsSeeder;
-use Spatie\Permission\Models\Role;
-use function Pest\Laravel\seed;
+
 use function Pest\Livewire\livewire;
 
 it('renders successfully', function () {
@@ -37,13 +35,13 @@ test('Se puede guardar un nuevo usuario', function () {
         ->call('store')
         ->assertHasNoErrors();
     /* TODO: Revisar el erro que da, pero si se hace en el sitio*/
-    #->assertDispatched('closeModal')
-    #->assertDispatched('notify')
-    #->assertDispatched('refresh');
+    //->assertDispatched('closeModal')
+    //->assertDispatched('notify')
+    //->assertDispatched('refresh');
 
     expect([
         'name' => 'Juan',
         'email' => 'juan@ml-grupo.com.mx',
-        'sucursal_id' => $sucursal->id
+        'sucursal_id' => $sucursal->id,
     ])->toBeInDatabase('users');
 });

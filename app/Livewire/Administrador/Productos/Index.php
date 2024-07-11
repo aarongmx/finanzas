@@ -8,9 +8,7 @@ use Livewire\Component;
 class Index extends Component
 {
     #[On('refresh')]
-    public function mount()
-    {
-    }
+    public function mount() {}
 
     public function render()
     {

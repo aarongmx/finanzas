@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\GastoFijo;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
@@ -54,7 +54,7 @@ final class GastosFijosTable extends PowerGridComponent
             ->addColumn('precio')
             ->addColumn('concepto')
 
-           /** Example of custom column using a closure **/
+            /** Example of custom column using a closure **/
             ->addColumn('concepto_lower', fn (GastoFijo $model) => strtolower(e($model->concepto)))
 
             ->addColumn('created_at_formatted', fn (GastoFijo $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
@@ -76,7 +76,7 @@ final class GastosFijosTable extends PowerGridComponent
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -101,7 +101,7 @@ final class GastosFijosTable extends PowerGridComponent
                 ->slot('Edit: '.$row->id)
                 ->id()
                 ->class('btn btn-outline-primary')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
         ];
     }
 

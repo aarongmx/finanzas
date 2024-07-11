@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Sucursales\Index;
+
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 

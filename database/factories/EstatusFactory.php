@@ -17,7 +17,7 @@ class EstatusFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => fake()->randomElement(['PENDIENTE', 'PAGO PARCIAL', 'PAGADO'])
+            'nombre' => fake()->randomElement(['PENDIENTE', 'PAGO PARCIAL', 'PAGADO']),
         ];
     }
 }

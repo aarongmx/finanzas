@@ -3,7 +3,6 @@
 namespace App\Livewire\Administrador\Productos;
 
 use App\Livewire\Forms\ProductoForm;
-use App\Livewire\ProductosTable;
 use App\Models\Categoria;
 use App\Models\Producto;
 use Illuminate\Database\Eloquent\Collection;

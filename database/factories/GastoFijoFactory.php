@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Cuenta;
 use App\Models\Sucursal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

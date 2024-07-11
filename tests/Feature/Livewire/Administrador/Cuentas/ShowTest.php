@@ -2,10 +2,11 @@
 
 use App\Livewire\Administrador\Cuentas\Show;
 use App\Models\Cuenta;
+
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
-beforeEach(function(){
+beforeEach(function () {
     $this->cuenta = Cuenta::factory()->create();
 });
 

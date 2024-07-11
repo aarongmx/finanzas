@@ -20,6 +20,7 @@ class CreditoFactory extends Factory
     public function definition(): array
     {
         $monto = fake()->randomFloat(2, 1, 10000);
+
         return [
             'monto' => $monto,
             'saldo' => $monto,
@@ -27,7 +28,7 @@ class CreditoFactory extends Factory
             'fecha_vencimiento' => today()->addDays(7),
             'cuenta_id' => Cuenta::factory()->create()->id,
             'cliente_id' => Cliente::factory()->create()->id,
-            'estatus_id' => Estatus::factory()->create()->id
+            'estatus_id' => Estatus::factory()->create()->id,
         ];
     }
 }

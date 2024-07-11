@@ -9,7 +9,7 @@ class DireccionForm extends Form
 {
     #[Rule(['required', 'string', 'max:5'])]
     public string $codigoPostal = '';
-    
+
     #[Rule(['nullable'])]
     public string $colonia = '';
 

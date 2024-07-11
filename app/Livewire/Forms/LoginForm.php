@@ -6,7 +6,6 @@ use App\Enums\Role;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class LoginForm extends Form
 {
@@ -22,16 +21,16 @@ class LoginForm extends Form
     public function login()
     {
         $this->validate();
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password, ], $this->remember)) {
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             session()->regenerate();
 
             $user = Auth::user();
 
-            if ($user->hasRole(Role::CAPTURISTA)){
+            if ($user->hasRole(Role::CAPTURISTA)) {
                 return redirect()->intended()->route('capturista.cuenta.sucursal');
             }
 
-            if ($user->hasRole(Role::ADMINISTRACION)){
+            if ($user->hasRole(Role::ADMINISTRACION)) {
                 return redirect()->intended()->route('administracion.home');
             }
         }

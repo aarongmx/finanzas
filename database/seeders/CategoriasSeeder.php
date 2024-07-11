@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Categoria;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CategoriasSeeder extends Seeder
@@ -16,6 +15,6 @@ class CategoriasSeeder extends Seeder
         collect([
             ['nombre' => 'POLLO'],
             ['nombre' => 'MARINADO'],
-        ])->each(fn($categoria) => Categoria::create($categoria));
+        ])->each(fn ($categoria) => Categoria::create($categoria));
     }
 }

@@ -16,8 +16,5 @@ class ClienteData extends Data
         public readonly ?string $nombreComercial,
         public readonly int $direccionId,
         public readonly int $sucursalId
-    )
-    {
-
-    }
+    ) {}
 }

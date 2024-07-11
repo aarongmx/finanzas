@@ -27,7 +27,7 @@ test('Se registra correctamente la cuenta', function () {
                 'importeSalida' => 0,
                 'cantidadSobrante' => 0,
                 'importeSobrante' => 0,
-                'productoId' => $producto1->id
+                'productoId' => $producto1->id,
             ]),
             ItemCuentaData::from([
                 'precio' => 50.5,
@@ -39,13 +39,12 @@ test('Se registra correctamente la cuenta', function () {
                 'importeSalida' => 0,
                 'cantidadSobrante' => 0,
                 'importeSobrante' => 0,
-                'productoId' => $producto2->id
+                'productoId' => $producto2->id,
             ]),
         ])
     );
 
-    $cuenta = (new RegistrarCuentaAction((new RegistrarItemsCuentaAction())))($cuentaData);
-
+    $cuenta = (new RegistrarCuentaAction((new RegistrarItemsCuentaAction)))($cuentaData);
 
     logger($cuenta->load(['itemsCuenta']));
 

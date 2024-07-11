@@ -2,9 +2,9 @@
 
 use App\Livewire\Capturista\Cuentas\Form;
 use App\Models\GastoFijo;
-use App\Models\ItemCuenta;
 use App\Models\Producto;
 use App\Models\User;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Livewire\livewire;
 
@@ -88,4 +88,3 @@ test('Se puede retirar un gasto', function () {
         ->call('removeGasto', 1)
         ->assertCount('gasto', 1);
 });
-

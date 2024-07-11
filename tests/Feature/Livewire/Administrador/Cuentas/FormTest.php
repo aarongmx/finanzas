@@ -8,6 +8,7 @@ use App\Models\Producto;
 use App\Models\Sucursal;
 use Database\Seeders\CategoriasSeeder;
 use Database\Seeders\ProductosSeeder;
+
 use function Pest\Laravel\seed;
 use function Pest\Livewire\livewire;
 
@@ -59,12 +60,13 @@ describe('Se muestra tabla de captura', function () {
         // Arrange
         $items = Producto::query()
             ->with([
-                'itemsCuenta' => fn($q) => $q->whereHas('cuenta', fn($q) => $q->where('fecha_venta', today()->subDay()))->limit(1)
+                'itemsCuenta' => fn ($q) => $q->whereHas('cuenta', fn ($q) => $q->where('fecha_venta', today()->subDay()))->limit(1),
             ])
             ->get();
         ray($items->first());
         $items = $items->map(function ($producto) {
             $item = $producto->itemsCuenta?->first();
+
             return [
                 'producto_name' => $producto->nombre,
                 'producto_id' => $producto->id,
@@ -76,7 +78,6 @@ describe('Se muestra tabla de captura', function () {
                 'categoria_id' => $producto->categoria_id,
             ];
         })->toArray();
-
 
         ray($items);
 

@@ -8,11 +8,11 @@ test('Se guarda correctamente la suscursal', function () {
     $direccion = Direccion::factory()->create();
 
     $sucursalData = SucursalData::from([
-       'nombre' => 'Sucursal 1',
-       'direccionId' => $direccion->id,
+        'nombre' => 'Sucursal 1',
+        'direccionId' => $direccion->id,
     ]);
 
-    $sucursal = (new StoreSucursalAction())($sucursalData);
+    $sucursal = (new StoreSucursalAction)($sucursalData);
 
     expect($sucursal)->toExist();
 });

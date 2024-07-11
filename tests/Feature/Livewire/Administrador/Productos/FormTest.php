@@ -1,9 +1,8 @@
 <?php
 
 use App\Livewire\Administrador\Productos\Form;
-use App\Livewire\Administrador\Productos\Index;
-use App\Livewire\ProductosTable;
 use App\Models\Categoria;
+
 use function Pest\Livewire\livewire;
 
 it('renders successfully', function () {
