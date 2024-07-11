@@ -67,7 +67,8 @@
             "@php artisan key:generate --ansi"
         ],
         "test:lint": "pint --test",
-        "lint": "pint"
+        "lint": "pint",
+        "test:unit": "pest"
     },
     "extra": {
         "laravel": {
