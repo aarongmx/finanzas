@@ -12,16 +12,16 @@
         "barryvdh/laravel-dompdf": "^2.2.0",
         "christophrumpel/missing-livewire-assertions": "^2.8.0",
         "doctrine/dbal": "^3.8.6",
-        "guzzlehttp/guzzle": "^7.8.1",
-        "laravel/framework": "^10.48.16",
+        "guzzlehttp/guzzle": "^7.9.2",
+        "laravel/framework": "^10.48.17",
         "laravel/pulse": "^1.2.4@beta",
         "laravel/sanctum": "^3.3.3",
         "laravel/tinker": "^2.9.0",
-        "livewire/livewire": "^3.5.2",
+        "livewire/livewire": "^3.5.4",
         "maatwebsite/excel": "^3.1.55",
-        "openspout/openspout": "^4.24.3",
+        "openspout/openspout": "^4.24.5",
         "postare/blade-mdi": "^1.1",
-        "power-components/livewire-powergrid": "^5.9.0",
+        "power-components/livewire-powergrid": "^5.10.0",
         "spatie/laravel-data": "^3.12.0",
         "spatie/laravel-permission": "^6.9",
         "staudenmeir/eloquent-eager-limit": "^1.8.3"
@@ -29,15 +29,15 @@
     "require-dev": {
         "defstudio/pest-plugin-laravel-expectations": "^2.2.5",
         "fakerphp/faker": "^1.23.1",
-        "laravel/pint": "^1.16.2",
-        "laravel/sail": "^1.30.2",
+        "laravel/pint": "^1.17.0",
+        "laravel/sail": "^1.31.0",
         "mockery/mockery": "^1.6.12",
         "nunomaduro/collision": "^v7.10.0",
         "pestphp/pest": "^2.34.9",
         "pestphp/pest-plugin-livewire": "^v2.1.0",
         "phpunit/phpunit": "^10.5.17",
         "spatie/laravel-ignition": "^2.8.0",
-        "spatie/laravel-ray": "^1.37.0"
+        "spatie/laravel-ray": "^1.37.1"
     },
     "autoload": {
         "psr-4": {
