@@ -29,6 +29,7 @@
     "require-dev": {
         "defstudio/pest-plugin-laravel-expectations": "^2.2.5",
         "fakerphp/faker": "^1.23.1",
+        "larastan/larastan": "^2.9.8",
         "laravel/pint": "^1.17.0",
         "laravel/sail": "^1.31.0",
         "mockery/mockery": "^1.6.12",
@@ -68,7 +69,8 @@
         ],
         "test:lint": "pint --test",
         "lint": "pint",
-        "test:unit": "pest"
+        "test:unit": "pest",
+        "test:types": "phpstan analyse"
     },
     "extra": {
         "laravel": {
